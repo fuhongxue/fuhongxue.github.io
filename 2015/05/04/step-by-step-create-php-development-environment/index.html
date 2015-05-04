@@ -4,22 +4,36 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>这个博客是如何构建的 | 王志刚</title>
+    <title>一步步教你搭建PHP开发环境-Windows篇 | 王志刚</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wzg">
     
 
     
-    <meta name="description" content="关于个人博客如果能够坚持写博客，并且坚持写不记流水账的博客，对于个人的裨益显而易见。之前用 github pages + jekyll 的方式去构建了一个博客，文章坚持写了一阵子，最终没坚持下来，很是懊恼。今天，发现了一种新的方式 github pages + hexo，于是就把原来的博客整个都删掉了，用新的方案折腾一遍，一切重新开始。主题用的是Jacman。希望这次能够将写博客的习惯坚持下来。">
+    <meta name="description" content="前言用一些集成的开发环境，如 PHPstudy，appserve，wamp，xamp等，不需要单独安装和配置软件，即可当做一个动态web服务器使用。但是集成开发环境是第三方提供，存在安全隐患。所以，在真实项目开发中，服务器端的部署都是使用单独安装后配置的。该教程所有软件下载地址：百度云
+安装Apache1 下载Apache软件2 双击安装文件，选择next3 选择 I accept the ite">
 <meta property="og:type" content="article">
-<meta property="og:title" content="这个博客是如何构建的">
-<meta property="og:url" content="http://yoursite.com/2015/05/04/how-this-blog-build/index.html">
+<meta property="og:title" content="一步步教你搭建PHP开发环境-Windows篇">
+<meta property="og:url" content="http://yoursite.com/2015/05/04/step-by-step-create-php-development-environment/index.html">
 <meta property="og:site_name" content="王志刚">
-<meta property="og:description" content="关于个人博客如果能够坚持写博客，并且坚持写不记流水账的博客，对于个人的裨益显而易见。之前用 github pages + jekyll 的方式去构建了一个博客，文章坚持写了一阵子，最终没坚持下来，很是懊恼。今天，发现了一种新的方式 github pages + hexo，于是就把原来的博客整个都删掉了，用新的方案折腾一遍，一切重新开始。主题用的是Jacman。希望这次能够将写博客的习惯坚持下来。">
+<meta property="og:description" content="前言用一些集成的开发环境，如 PHPstudy，appserve，wamp，xamp等，不需要单独安装和配置软件，即可当做一个动态web服务器使用。但是集成开发环境是第三方提供，存在安全隐患。所以，在真实项目开发中，服务器端的部署都是使用单独安装后配置的。该教程所有软件下载地址：百度云
+安装Apache1 下载Apache软件2 双击安装文件，选择next3 选择 I accept the ite">
+<meta property="og:image" content="../image/php_environment/download_apache.png">
+<meta property="og:image" content="../image/php_environment/apache1.jpg">
+<meta property="og:image" content="../image/php_environment/apache2.jpg">
+<meta property="og:image" content="../image/php_environment/apache3.jpg">
+<meta property="og:image" content="../image/php_environment/apache4.jpg">
+<meta property="og:image" content="../image/php_environment/apache5.jpg">
+<meta property="og:image" content="../image/php_environment/apache5_1.jpg">
+<meta property="og:image" content="../image/php_environment/apache5_2.jpg">
+<meta property="og:image" content="../image/php_environment/apache8.jpg">
+<meta property="og:image" content="../image/php_environment/apache9.jpg">
+<meta property="og:image" content="../image/php_environment/apache10.jpg">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="这个博客是如何构建的">
-<meta name="twitter:description" content="关于个人博客如果能够坚持写博客，并且坚持写不记流水账的博客，对于个人的裨益显而易见。之前用 github pages + jekyll 的方式去构建了一个博客，文章坚持写了一阵子，最终没坚持下来，很是懊恼。今天，发现了一种新的方式 github pages + hexo，于是就把原来的博客整个都删掉了，用新的方案折腾一遍，一切重新开始。主题用的是Jacman。希望这次能够将写博客的习惯坚持下来。">
+<meta name="twitter:title" content="一步步教你搭建PHP开发环境-Windows篇">
+<meta name="twitter:description" content="前言用一些集成的开发环境，如 PHPstudy，appserve，wamp，xamp等，不需要单独安装和配置软件，即可当做一个动态web服务器使用。但是集成开发环境是第三方提供，存在安全隐患。所以，在真实项目开发中，服务器端的部署都是使用单独安装后配置的。该教程所有软件下载地址：百度云
+安装Apache1 下载Apache软件2 双击安装文件，选择next3 选择 I accept the ite">
 
     
     <link rel="alternative" href="/atom.xml" title="王志刚" type="application/atom+xml">
@@ -79,14 +93,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/04/how-this-blog-build/" title="这个博客是如何构建的" itemprop="url">这个博客是如何构建的</a>
+      <a href="/2015/05/04/step-by-step-create-php-development-environment/" title="一步步教你搭建PHP开发环境-Windows篇" itemprop="url">一步步教你搭建PHP开发环境-Windows篇</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
 		
   <p class="article-time">
-    <time datetime="2015-05-03T16:09:47.000Z" itemprop="datePublished"> 发表于 2015-05-04</time>
+    <time datetime="2015-05-04T08:45:10.000Z" itemprop="datePublished"> 发表于 2015-05-04</time>
     
   </p>
 </header>
@@ -95,12 +109,12 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于个人博客"><span class="toc-number">1.</span> <span class="toc-text">关于个人博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">2.</span> <span class="toc-text">参考资料</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Apache"><span class="toc-number">2.</span> <span class="toc-text">安装Apache</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="关于个人博客">关于个人博客</h2><p>如果能够坚持写博客，并且坚持写不记流水账的博客，对于个人的裨益显而易见。<br>之前用 github pages + jekyll 的方式去构建了一个博客，文章坚持写了一阵子，最终没坚持下来，<br>很是懊恼。<br>今天，发现了一种新的方式 github pages + hexo，于是就把原来的博客整个都删掉了，用新的方案<br>折腾一遍，一切重新开始。主题用的是Jacman。<br>希望这次能够将写博客的习惯坚持下来。   </p>
-<h2 id="参考资料">参考资料</h2><p>通过以下两篇博客内容，完全能够自己动手构建一个博客。<br>先看cnfeet，几乎是一步步手把手教学了。<br>再看WuChong，详细讲解了一些有用的属性功能。<br>cnfeat：<a href="http://cnfeat.com/2014/05/10/2014-05-11-how-to-build-a-blog/#参考资料：" target="_blank" rel="external">http://cnfeat.com/2014/05/10/2014-05-11-how-to-build-a-blog/#参考资料：</a><br>WuChong：<a href="http://wuchong.me/jacman/2014/11/20/how-to-use-jacman/#" target="_blank" rel="external">http://wuchong.me/jacman/2014/11/20/how-to-use-jacman/#</a>   </p>
+		<h2 id="前言">前言</h2><p>用一些集成的开发环境，如 PHPstudy，appserve，wamp，xamp等，不需要单独安装和配置软件，即可当做一个动态web服务器使用。<br>但是集成开发环境是第三方提供，存在安全隐患。所以，在真实项目开发中，服务器端的部署都是使用单独安装后配置的。<br>该教程所有软件下载地址：<a href="http://pan.baidu.com/s/1o6zHn78" target="_blank" rel="external">百度云</a></p>
+<h2 id="安装Apache">安装Apache</h2><p>1 下载Apache软件<br><img src="../image/php_environment/download_apache.png" alt=""><br>2 双击安装文件，选择next<br><img src="../image/php_environment/apache1.jpg" alt=""><br>3 选择 I accept the items in the licence agreement,然后点击next<br><img src="../image/php_environment/apache2.jpg" alt=""><br>4 点击next，进入到服务器信息配置界面<br><img src="../image/php_environment/apache3.jpg" alt=""><br>5 填写服务器配置信息，点击next<br><img src="../image/php_environment/apache4.jpg" alt=""><br>6 在配置模式选择 自定义 模式，点击next<br><img src="../image/php_environment/apache5.jpg" alt=""><br>7 进入路径配置界面<br>a) 创建一个server目录（不能中文目录，名字自己定）<br><img src="../image/php_environment/apache5_1.jpg" alt=""><br>b) 在server下创建apache目录，将安装目录选择到apache目录下<br><img src="../image/php_environment/apache5_2.jpg" alt=""><br>8 点击next，进入准备安装界面，点击Install。<br><img src="../image/php_environment/apache8.jpg" alt=""><br>9 点击finish完成<br><img src="../image/php_environment/apache9.jpg" alt=""><br>10 验证apache是否安装成功，在浏览器输入localhost,出现It work即安装成功<br><img src="../image/php_environment/apache10.jpg" alt=""> </p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -108,13 +122,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/个人博客/">个人博客</a>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/github-pages/">github pages</a><a href="/tags/hexo/">hexo</a><a href="/tags/个人博客/">个人博客</a>
+  <span></span> <a href="/tags/PHP/">PHP</a>
   </div>
 
 </div>
@@ -123,7 +137,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/05/04/how-this-blog-build/" data-title="这个博客是如何构建的 | 王志刚" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/05/04/step-by-step-create-php-development-environment/" data-title="一步步教你搭建PHP开发环境-Windows篇 | 王志刚" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -136,20 +150,20 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/05/04/what-is-complied-language-and-interpreted-language/" title="编译和解释的区别是什么？">
-  <strong>上一篇：</strong><br/>
-  <span>
-  编译和解释的区别是什么？</span>
+
+<div class="next">
+<a href="/2015/05/04/what-is-complied-language-and-interpreted-language/"  title="编译和解释的区别是什么？">
+ <strong>下一篇：</strong><br/> 
+ <span>编译和解释的区别是什么？
+</span>
 </a>
 </div>
-
 
 </nav>
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/05/04/how-this-blog-build/" data-title="这个博客是如何构建的" data-url="http://yoursite.com/2015/05/04/how-this-blog-build/"></div>
+	<div class="ds-thread" data-thread-key="2015/05/04/step-by-step-create-php-development-environment/" data-title="一步步教你搭建PHP开发环境-Windows篇" data-url="http://yoursite.com/2015/05/04/step-by-step-create-php-development-environment/"></div>
 </section>
 
 
@@ -165,7 +179,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于个人博客"><span class="toc-number">1.</span> <span class="toc-text">关于个人博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">2.</span> <span class="toc-text">参考资料</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Apache"><span class="toc-number">2.</span> <span class="toc-text">安装Apache</span></a></li></ol>
  
   </div>
 
