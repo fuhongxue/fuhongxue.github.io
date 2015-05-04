@@ -4,7 +4,7 @@
   <subtitle><![CDATA[疑似码农]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-04T10:17:39.000Z</updated>
+  <updated>2015-05-04T10:34:55.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,9 +19,9 @@
     <link href="http://yoursite.com/2015/05/04/step-by-step-create-php-development-environment/"/>
     <id>http://yoursite.com/2015/05/04/step-by-step-create-php-development-environment/</id>
     <published>2015-05-04T08:45:10.000Z</published>
-    <updated>2015-05-04T10:17:39.000Z</updated>
+    <updated>2015-05-04T10:34:55.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>用一些集成的开发环境，如 PHPstudy，appserve，wamp，xamp等，不需要单独安装和配置软件，即可当做一个动态web服务器使用。<br>但是集成开发环境是第三方提供，存在安全隐患。所以，在真实项目开发中，服务器端的部署都是使用单独安装后配置的。<br>该教程所有软件下载地址：<a href="http://pan.baidu.com/s/1o6zHn78" target="_blank" rel="external">百度云</a></p>
-<h2 id="安装Apache">安装Apache</h2><p>1 下载Apache软件<br><img src="../image/php_environment/download_apache.png" alt=""><br>2 双击安装文件，选择next<br><img src="../image/php_environment/apache1.jpg" alt=""><br>3 选择 I accept the items in the licence agreement,然后点击next<br><img src="../image/php_environment/apache2.jpg" alt=""><br>4 点击next，进入到服务器信息配置界面<br><img src="../image/php_environment/apache3.jpg" alt=""><br>5 填写服务器配置信息，点击next<br><img src="../image/php_environment/apache4.jpg" alt=""><br>6 在配置模式选择 自定义 模式，点击next<br><img src="../image/php_environment/apache5.jpg" alt=""><br>7 进入路径配置界面<br>a) 创建一个server目录（不能中文目录，名字自己定）<br><img src="../image/php_environment/apache5_1.jpg" alt=""><br>b) 在server下创建apache目录，将安装目录选择到apache目录下<br><img src="../image/php_environment/apache5_2.jpg" alt=""><br>8 点击next，进入准备安装界面，点击Install。<br><img src="../image/php_environment/apache8.jpg" alt=""><br>9 点击finish完成<br><img src="../image/php_environment/apache9.jpg" alt=""><br>10 验证apache是否安装成功，在浏览器输入localhost,出现It work即安装成功<br><img src="../image/php_environment/apache10.jpg" alt=""> </p>
+<h2 id="安装Apache">安装Apache</h2><p>1 下载Apache软件<br><img src="/image/php_environment/download_apache.png" alt=""><br>2 双击安装文件，选择next<br><img src="/image/php_environment/apache1.jpg" alt=""><br>3 选择 I accept the items in the licence agreement,然后点击next<br><img src="/image/php_environment/apache2.jpg" alt=""><br>4 点击next，进入到服务器信息配置界面<br><img src="/image/php_environment/apache3.jpg" alt=""><br>5 填写服务器配置信息，点击next<br><img src="/image/php_environment/apache4.jpg" alt=""><br>6 在配置模式选择 自定义 模式，点击next<br><img src="/image/php_environment/apache5.jpg" alt=""><br>7 进入路径配置界面<br>a) 创建一个server目录（不能中文目录，名字自己定）<br><img src="/image/php_environment/apache5_1.jpg" alt=""><br>b) 在server下创建apache目录，将安装目录选择到apache目录下<br><img src="/image/php_environment/apache5_2.jpg" alt=""><br>8 点击next，进入准备安装界面，点击Install。<br><img src="/image/php_environment/apache8.jpg" alt=""><br>9 点击finish完成<br><img src="/image/php_environment/apache9.jpg" alt=""><br>10 验证apache是否安装成功，在浏览器输入localhost,出现It work即安装成功<br><img src="/image/php_environment/apache10.jpg" alt=""> </p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="前言">前言</h2><p>用一些集成的开发环境，如 PHPstudy，appserve，wamp，xamp等，不需要单独安装和配置软件，即可当做一个动态web服务器使用。<br>但是集成开发环境是第三方提供，存在安全隐患。所以，在真实项目开发中，服务器端的部署都]]>
