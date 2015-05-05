@@ -1,0 +1,543 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>一步步教你在Windows下搭建PHP开发环境(2)mysql安装 | 王志刚</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="wzg">
+    
+
+    
+    <meta name="description" content="前言本教程是一步步教你在Windows下搭建PHP开发环境系列的第2篇，假设你已经完成了前面的部分。该教程所有软件下载地址：百度云
+安装mysql数据库mysql是c/s结构的软件。当前是为web服务器增加可以访问数据库的能力，增加mysql服务器。
+下载mysql服务端软件注意：以上安装软件，不仅包含了服务端，还包含了客户端
+双击安装文件，进入安装界面，点击next 
+在协议界面，选择同意协议，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一步步教你在Windows下搭建PHP开发环境(2)mysql安装">
+<meta property="og:url" content="http://yoursite.com/2015/05/05/step-by-step-create-php-development-environment-2-mysql/index.html">
+<meta property="og:site_name" content="王志刚">
+<meta property="og:description" content="前言本教程是一步步教你在Windows下搭建PHP开发环境系列的第2篇，假设你已经完成了前面的部分。该教程所有软件下载地址：百度云
+安装mysql数据库mysql是c/s结构的软件。当前是为web服务器增加可以访问数据库的能力，增加mysql服务器。
+下载mysql服务端软件注意：以上安装软件，不仅包含了服务端，还包含了客户端
+双击安装文件，进入安装界面，点击next 
+在协议界面，选择同意协议，">
+<meta property="og:image" content="/image/php_environment/mysql1.jpg">
+<meta property="og:image" content="/image/php_environment/mysql2.jpg">
+<meta property="og:image" content="/image/php_environment/mysql3.jpg">
+<meta property="og:image" content="/image/php_environment/mysql4.jpg">
+<meta property="og:image" content="/image/php_environment/mysql5.jpg">
+<meta property="og:image" content="/image/php_environment/mysql6.jpg">
+<meta property="og:image" content="/image/php_environment/mysql7.jpg">
+<meta property="og:image" content="/image/php_environment/mysql8.jpg">
+<meta property="og:image" content="/image/php_environment/mysql9.jpg">
+<meta property="og:image" content="/image/php_environment/mysql10.jpg">
+<meta property="og:image" content="/image/php_environment/mysql11.jpg">
+<meta property="og:image" content="/image/php_environment/mysql12.jpg">
+<meta property="og:image" content="/image/php_environment/mysql13.jpg">
+<meta property="og:image" content="/image/php_environment/mysql14.jpg">
+<meta property="og:image" content="/image/php_environment/mysql15.jpg">
+<meta property="og:image" content="/image/php_environment/mysql16.jpg">
+<meta property="og:image" content="/image/php_environment/mysql17.jpg">
+<meta property="og:image" content="/image/php_environment/mysql18.jpg">
+<meta property="og:image" content="/image/php_environment/mysql19.jpg">
+<meta property="og:image" content="/image/php_environment/mysql20.jpg">
+<meta property="og:image" content="/image/php_environment/mysql_dirInfo.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一步步教你在Windows下搭建PHP开发环境(2)mysql安装">
+<meta name="twitter:description" content="前言本教程是一步步教你在Windows下搭建PHP开发环境系列的第2篇，假设你已经完成了前面的部分。该教程所有软件下载地址：百度云
+安装mysql数据库mysql是c/s结构的软件。当前是为web服务器增加可以访问数据库的能力，增加mysql服务器。
+下载mysql服务端软件注意：以上安装软件，不仅包含了服务端，还包含了客户端
+双击安装文件，进入安装界面，点击next 
+在协议界面，选择同意协议，">
+
+    
+    <link rel="alternative" href="/atom.xml" title="王志刚" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="王志刚" title="王志刚"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="王志刚">王志刚</a></h1>
+				<h2 class="blog-motto">疑似码农</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/05/05/step-by-step-create-php-development-environment-2-mysql/" title="一步步教你在Windows下搭建PHP开发环境(2)mysql安装" itemprop="url">一步步教你在Windows下搭建PHP开发环境(2)mysql安装</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-05T10:56:52.000Z" itemprop="datePublished"> 发表于 2015-05-05</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装mysql数据库"><span class="toc-number">2.</span> <span class="toc-text">安装mysql数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载mysql服务端软件"><span class="toc-number">2.1.</span> <span class="toc-text">下载mysql服务端软件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#双击安装文件，进入安装界面，点击next"><span class="toc-number">2.2.</span> <span class="toc-text">双击安装文件，进入安装界面，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在协议界面，选择同意协议，点击next"><span class="toc-number">2.3.</span> <span class="toc-text">在协议界面，选择同意协议，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在模式配置界面，点击自定义安装"><span class="toc-number">2.4.</span> <span class="toc-text">在模式配置界面，点击自定义安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在路径配置界面"><span class="toc-number">2.5.</span> <span class="toc-text">在路径配置界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#点击next，进入准备安装界面，点击install进行安装，进入安装完成界面"><span class="toc-number">2.6.</span> <span class="toc-text">点击next，进入准备安装界面，点击install进行安装，进入安装完成界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#点击next，点击finish，进入配置界面"><span class="toc-number">2.7.</span> <span class="toc-text">点击next，点击finish，进入配置界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#点击next，选择详细配置，点击next"><span class="toc-number">2.8.</span> <span class="toc-text">点击next，选择详细配置，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在服务器类型界面，选择Develop_Machine，点击next"><span class="toc-number">2.9.</span> <span class="toc-text">在服务器类型界面，选择Develop Machine，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在数据库用途配置界面，选择多功能数据库，点击next"><span class="toc-number">2.10.</span> <span class="toc-text">在数据库用途配置界面，选择多功能数据库，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InnoDB驱动选择界面，直接点击next"><span class="toc-number">2.11.</span> <span class="toc-text">InnoDB驱动选择界面，直接点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在并发选择界面，选择手动选择模式，使用默认15，点击next"><span class="toc-number">2.12.</span> <span class="toc-text">在并发选择界面，选择手动选择模式，使用默认15，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在网络配置界面，勾选防火墙放行选项，点击next"><span class="toc-number">2.13.</span> <span class="toc-text">在网络配置界面，勾选防火墙放行选项，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进入字符集配置界面，选择手动设置字符集，设置为utf8，点击next"><span class="toc-number">2.14.</span> <span class="toc-text">进入字符集配置界面，选择手动设置字符集，设置为utf8，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#勾选环境变量选项，点击next"><span class="toc-number">2.15.</span> <span class="toc-text">勾选环境变量选项，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在安全配置界面，设置root密码"><span class="toc-number">2.16.</span> <span class="toc-text">在安全配置界面，设置root密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#点击execute执行配置项，点击finish完成安装"><span class="toc-number">2.17.</span> <span class="toc-text">点击execute执行配置项，点击finish完成安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#验证mysql是否安装成功，cmd控制台输入_mysql_-uroot_-proot"><span class="toc-number">2.18.</span> <span class="toc-text">验证mysql是否安装成功，cmd控制台输入 mysql -uroot -proot</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql目录分析"><span class="toc-number">3.</span> <span class="toc-text">mysql目录分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql_bin目录"><span class="toc-number">4.</span> <span class="toc-text">mysql bin目录</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="前言">前言</h2><p>本教程是<code>一步步教你在Windows下搭建PHP开发环境</code>系列的第2篇，假设你已经完成了前面的部分。<br>该教程所有软件下载地址：<a href="http://pan.baidu.com/s/1o6zHn78" target="_blank" rel="external">百度云</a></p>
+<h2 id="安装mysql数据库">安装mysql数据库</h2><p>mysql是c/s结构的软件。当前是为web服务器增加可以访问数据库的能力，增加mysql服务器。</p>
+<h3 id="下载mysql服务端软件">下载mysql服务端软件</h3><p><img src="/image/php_environment/mysql1.jpg" alt=""><br>注意：以上安装软件，不仅包含了服务端，还包含了客户端</p>
+<h3 id="双击安装文件，进入安装界面，点击next">双击安装文件，进入安装界面，点击next</h3><p><img src="/image/php_environment/mysql2.jpg" alt=""> </p>
+<h3 id="在协议界面，选择同意协议，点击next">在协议界面，选择同意协议，点击next</h3><p><img src="/image/php_environment/mysql3.jpg" alt=""> </p>
+<h3 id="在模式配置界面，点击自定义安装">在模式配置界面，点击自定义安装</h3><p><img src="/image/php_environment/mysql4.jpg" alt=""> </p>
+<h3 id="在路径配置界面">在路径配置界面</h3><p>a)在server目录下（跟apache同一路径下）创建mysql目录<br><img src="/image/php_environment/mysql5.jpg" alt=""><br>b)修改mysql的安装目录<br>i 安装文件所在路径<br><img src="/image/php_environment/mysql6.jpg" alt=""><br>ii 数据路径<br><img src="/image/php_environment/mysql7.jpg" alt=""> </p>
+<h3 id="点击next，进入准备安装界面，点击install进行安装，进入安装完成界面">点击next，进入准备安装界面，点击install进行安装，进入安装完成界面</h3><p><img src="/image/php_environment/mysql8.jpg" alt=""></p>
+<h3 id="点击next，点击finish，进入配置界面">点击next，点击finish，进入配置界面</h3><p><img src="/image/php_environment/mysql9.jpg" alt=""></p>
+<h3 id="点击next，选择详细配置，点击next">点击next，选择详细配置，点击next</h3><p><img src="/image/php_environment/mysql10.jpg" alt=""></p>
+<h3 id="在服务器类型界面，选择Develop_Machine，点击next">在服务器类型界面，选择Develop Machine，点击next</h3><p><img src="/image/php_environment/mysql11.jpg" alt=""></p>
+<h3 id="在数据库用途配置界面，选择多功能数据库，点击next">在数据库用途配置界面，选择多功能数据库，点击next</h3><p><img src="/image/php_environment/mysql12.jpg" alt=""></p>
+<h3 id="InnoDB驱动选择界面，直接点击next">InnoDB驱动选择界面，直接点击next</h3><p><img src="/image/php_environment/mysql13.jpg" alt=""></p>
+<h3 id="在并发选择界面，选择手动选择模式，使用默认15，点击next">在并发选择界面，选择手动选择模式，使用默认15，点击next</h3><p><img src="/image/php_environment/mysql14.jpg" alt=""></p>
+<h3 id="在网络配置界面，勾选防火墙放行选项，点击next">在网络配置界面，勾选防火墙放行选项，点击next</h3><p><img src="/image/php_environment/mysql15.jpg" alt=""></p>
+<h3 id="进入字符集配置界面，选择手动设置字符集，设置为utf8，点击next">进入字符集配置界面，选择手动设置字符集，设置为utf8，点击next</h3><p><img src="/image/php_environment/mysql16.jpg" alt=""></p>
+<h3 id="勾选环境变量选项，点击next">勾选环境变量选项，点击next</h3><p><img src="/image/php_environment/mysql17.jpg" alt=""></p>
+<h3 id="在安全配置界面，设置root密码">在安全配置界面，设置root密码</h3><p><img src="/image/php_environment/mysql18.jpg" alt=""></p>
+<h3 id="点击execute执行配置项，点击finish完成安装">点击execute执行配置项，点击finish完成安装</h3><p><img src="/image/php_environment/mysql19.jpg" alt=""></p>
+<h3 id="验证mysql是否安装成功，cmd控制台输入_mysql_-uroot_-proot">验证mysql是否安装成功，cmd控制台输入 mysql -uroot -proot</h3><p><img src="/image/php_environment/mysql20.jpg" alt=""></p>
+<h2 id="mysql目录分析">mysql目录分析</h2><p><img src="/image/php_environment/mysql_dirInfo.jpg" alt=""></p>
+<h2 id="mysql_bin目录">mysql bin目录</h2><p>mysql.exe: mysql的客户端软件<br>mysqld.exe: mysql的服务端软件</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/PHP/">PHP</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/05/05/step-by-step-create-php-development-environment-2-mysql/" data-title="一步步教你在Windows下搭建PHP开发环境(2)mysql安装 | 王志刚" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/05/05/step-by-step-create-php-development-environment-3-php/" title="一步步教你在Windows下搭建PHP开发环境(2)php安装">
+  <strong>上一篇：</strong><br/>
+  <span>
+  一步步教你在Windows下搭建PHP开发环境(2)php安装</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/05/04/step-by-step-create-php-development-environment-1-apache/"  title="一步步教你在Windows下搭建PHP开发环境(1)Apache安装">
+ <strong>下一篇：</strong><br/> 
+ <span>一步步教你在Windows下搭建PHP开发环境(1)Apache安装
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/05/05/step-by-step-create-php-development-environment-2-mysql/" data-title="一步步教你在Windows下搭建PHP开发环境(2)mysql安装" data-url="http://yoursite.com/2015/05/05/step-by-step-create-php-development-environment-2-mysql/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装mysql数据库"><span class="toc-number">2.</span> <span class="toc-text">安装mysql数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载mysql服务端软件"><span class="toc-number">2.1.</span> <span class="toc-text">下载mysql服务端软件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#双击安装文件，进入安装界面，点击next"><span class="toc-number">2.2.</span> <span class="toc-text">双击安装文件，进入安装界面，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在协议界面，选择同意协议，点击next"><span class="toc-number">2.3.</span> <span class="toc-text">在协议界面，选择同意协议，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在模式配置界面，点击自定义安装"><span class="toc-number">2.4.</span> <span class="toc-text">在模式配置界面，点击自定义安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在路径配置界面"><span class="toc-number">2.5.</span> <span class="toc-text">在路径配置界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#点击next，进入准备安装界面，点击install进行安装，进入安装完成界面"><span class="toc-number">2.6.</span> <span class="toc-text">点击next，进入准备安装界面，点击install进行安装，进入安装完成界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#点击next，点击finish，进入配置界面"><span class="toc-number">2.7.</span> <span class="toc-text">点击next，点击finish，进入配置界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#点击next，选择详细配置，点击next"><span class="toc-number">2.8.</span> <span class="toc-text">点击next，选择详细配置，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在服务器类型界面，选择Develop_Machine，点击next"><span class="toc-number">2.9.</span> <span class="toc-text">在服务器类型界面，选择Develop Machine，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在数据库用途配置界面，选择多功能数据库，点击next"><span class="toc-number">2.10.</span> <span class="toc-text">在数据库用途配置界面，选择多功能数据库，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InnoDB驱动选择界面，直接点击next"><span class="toc-number">2.11.</span> <span class="toc-text">InnoDB驱动选择界面，直接点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在并发选择界面，选择手动选择模式，使用默认15，点击next"><span class="toc-number">2.12.</span> <span class="toc-text">在并发选择界面，选择手动选择模式，使用默认15，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在网络配置界面，勾选防火墙放行选项，点击next"><span class="toc-number">2.13.</span> <span class="toc-text">在网络配置界面，勾选防火墙放行选项，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进入字符集配置界面，选择手动设置字符集，设置为utf8，点击next"><span class="toc-number">2.14.</span> <span class="toc-text">进入字符集配置界面，选择手动设置字符集，设置为utf8，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#勾选环境变量选项，点击next"><span class="toc-number">2.15.</span> <span class="toc-text">勾选环境变量选项，点击next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在安全配置界面，设置root密码"><span class="toc-number">2.16.</span> <span class="toc-text">在安全配置界面，设置root密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#点击execute执行配置项，点击finish完成安装"><span class="toc-number">2.17.</span> <span class="toc-text">点击execute执行配置项，点击finish完成安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#验证mysql是否安装成功，cmd控制台输入_mysql_-uroot_-proot"><span class="toc-number">2.18.</span> <span class="toc-text">验证mysql是否安装成功，cmd控制台输入 mysql -uroot -proot</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql目录分析"><span class="toc-number">3.</span> <span class="toc-text">mysql目录分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql_bin目录"><span class="toc-number">4.</span> <span class="toc-text">mysql bin目录</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/个人博客/" title="个人博客">个人博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/计算机科学/" title="计算机科学">计算机科学<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/PHP/" title="PHP">PHP<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/解释型语言/" title="解释型语言">解释型语言<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编译型语言/" title="编译型语言">编译型语言<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/github-pages/" title="github pages">github pages<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/个人博客/" title="个人博客">个人博客<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Wang ZhiGang in China. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="wzg">wzg</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"wzg"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'fuhongxue';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

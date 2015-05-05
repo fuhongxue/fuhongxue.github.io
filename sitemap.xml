@@ -2,8 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2015/05/04/step-by-step-create-php-development-environment/</loc>
-    <lastmod>2015-05-05T10:24:35.000Z</lastmod>
+    <loc>http://yoursite.com/2015/05/05/step-by-step-create-php-development-environment-3-php/</loc>
+    <lastmod>2015-05-05T11:05:33.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2015/05/05/step-by-step-create-php-development-environment-2-mysql/</loc>
+    <lastmod>2015-05-05T11:03:57.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2015/05/04/step-by-step-create-php-development-environment-1-apache/</loc>
+    <lastmod>2015-05-05T11:01:35.000Z</lastmod>
   </url>
   
   <url>
