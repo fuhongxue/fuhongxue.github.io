@@ -95,7 +95,38 @@
     <div class="article-content">
         
         <h2 id="前言">前言</h2><p>用一些集成的开发环境，如 PHPstudy，appserve，wamp，xamp等，不需要单独安装和配置软件，即可当做一个动态web服务器使用。<br>但是集成开发环境是第三方提供，存在安全隐患。所以，在真实项目开发中，服务器端的部署都是使用单独安装后配置的。<br>该教程所有软件下载地址：<a href="http://pan.baidu.com/s/1o6zHn78" target="_blank" rel="external">百度云</a></p>
-<h2 id="安装Apache">安装Apache</h2><p>1 下载Apache软件<br><img src="/image/php_environment/download_apache.png" alt=""><br>2 双击安装文件，选择next<br><img src="/image/php_environment/apache1.jpg" alt=""><br>3 选择 I accept the items in the licence agreement,然后点击next<br><img src="/image/php_environment/apache2.jpg" alt=""><br>4 点击next，进入到服务器信息配置界面<br><img src="/image/php_environment/apache3.jpg" alt=""><br>5 填写服务器配置信息，点击next<br><img src="/image/php_environment/apache4.jpg" alt=""><br>6 在配置模式选择 自定义 模式，点击next<br><img src="/image/php_environment/apache5.jpg" alt=""><br>7 进入路径配置界面<br>a) 创建一个server目录（不能中文目录，名字自己定）<br><img src="/image/php_environment/apache5_1.jpg" alt=""><br>b) 在server下创建apache目录，将安装目录选择到apache目录下<br><img src="/image/php_environment/apache5_2.jpg" alt=""><br>8 点击next，进入准备安装界面，点击Install。<br><img src="/image/php_environment/apache8.jpg" alt=""><br>9 点击finish完成<br><img src="/image/php_environment/apache9.jpg" alt=""><br>10 验证apache是否安装成功，在浏览器输入localhost,出现It work即安装成功<br><img src="/image/php_environment/apache10.jpg" alt=""> </p>
+<h2 id="安装Apache">安装Apache</h2><h3 id="下载Apache软件">下载Apache软件</h3><p><img src="/image/php_environment/download_apache.png" alt=""></p>
+<h3 id="双击安装文件，选择next">双击安装文件，选择next</h3><p><img src="/image/php_environment/apache1.jpg" alt="">  </p>
+<h3 id="选择_I_accept_the_items_in_the_licence_agreement,然后点击next">选择 I accept the items in the licence agreement,然后点击next</h3><p><img src="/image/php_environment/apache2.jpg" alt=""> </p>
+<h3 id="点击next，进入到服务器信息配置界面">点击next，进入到服务器信息配置界面</h3><p><img src="/image/php_environment/apache3.jpg" alt=""> </p>
+<h3 id="填写服务器配置信息，点击next">填写服务器配置信息，点击next</h3><p><img src="/image/php_environment/apache4.jpg" alt=""> </p>
+<h3 id="在配置模式选择_自定义_模式，点击next">在配置模式选择 自定义 模式，点击next</h3><p><img src="/image/php_environment/apache5.jpg" alt=""> </p>
+<h3 id="进入路径配置界面">进入路径配置界面</h3><p>a) 创建一个server目录（不能中文目录，名字自己定）<br><img src="/image/php_environment/apache5_1.jpg" alt=""><br>b) 在server下创建apache目录，将安装目录选择到apache目录下<br><img src="/image/php_environment/apache5_2.jpg" alt=""> </p>
+<h3 id="点击next，进入准备安装界面，点击Install。">点击next，进入准备安装界面，点击Install。</h3><p><img src="/image/php_environment/apache8.jpg" alt=""> </p>
+<h3 id="点击finish完成">点击finish完成</h3><p><img src="/image/php_environment/apache9.jpg" alt=""> </p>
+<h3 id="验证apache是否安装成功，在浏览器输入localhost,出现It_work即安装成功">验证apache是否安装成功，在浏览器输入localhost,出现It work即安装成功</h3><p><img src="/image/php_environment/apache10.jpg" alt=""> </p>
+<h2 id="Apache目录分析">Apache目录分析</h2><p><img src="/image/php_environment/apache_dirInfo.jpg" alt=""> </p>
+<h2 id="Apache的bin目录">Apache的bin目录</h2><p>httpd.exe:Apache的服务端，处理各种请求的软件</p>
+<p>几个简单的httpd命令：<br>-M : Apache可以加载的模块（功能）<br>-l : 已经加载的模块<br>-t : 验证配置文件的语法错误</p>
+<h2 id="安装mysql数据库">安装mysql数据库</h2><p>mysql是c/s结构的软件。当前是为web服务器增加可以访问数据库的能力，增加mysql服务器。</p>
+<h3 id="下载mysql服务端软件">下载mysql服务端软件</h3><p><img src="/image/php_environment/mysql1.jpg" alt=""><br>注意：以上安装软件，不仅包含了服务端，还包含了客户端</p>
+<h3 id="双击安装文件，进入安装界面，点击next">双击安装文件，进入安装界面，点击next</h3><p><img src="/image/php_environment/mysql2.jpg" alt=""> </p>
+<h3 id="在协议界面，选择同意协议，点击next">在协议界面，选择同意协议，点击next</h3><p><img src="/image/php_environment/mysql3.jpg" alt=""> </p>
+<h3 id="在模式配置界面，点击自定义安装">在模式配置界面，点击自定义安装</h3><p><img src="/image/php_environment/mysql4.jpg" alt=""> </p>
+<h3 id="在路径配置界面">在路径配置界面</h3><p>a)在server目录下（跟apache同一路径下）创建mysql目录<br><img src="/image/php_environment/mysql5.jpg" alt=""><br>b)修改mysql的安装目录<br>i 安装文件所在路径<br><img src="/image/php_environment/mysql6.jpg" alt=""><br>ii 数据路径<br><img src="/image/php_environment/mysql7.jpg" alt=""> </p>
+<h3 id="点击next，进入准备安装界面，点击install进行安装，进入安装完成界面">点击next，进入准备安装界面，点击install进行安装，进入安装完成界面</h3><p><img src="/image/php_environment/mysql8.jpg" alt=""></p>
+<h3 id="点击next，点击finish，进入配置界面">点击next，点击finish，进入配置界面</h3><p><img src="/image/php_environment/mysql9.jpg" alt=""></p>
+<h3 id="点击next，选择详细配置，点击next">点击next，选择详细配置，点击next</h3><p><img src="/image/php_environment/mysql10.jpg" alt=""></p>
+<h3 id="在服务器类型界面，选择Develop_Machine，点击next">在服务器类型界面，选择Develop Machine，点击next</h3><p><img src="/image/php_environment/mysql11.jpg" alt=""></p>
+<h3 id="在数据库用途配置界面，选择多功能数据库，点击next">在数据库用途配置界面，选择多功能数据库，点击next</h3><p><img src="/image/php_environment/mysql12.jpg" alt=""></p>
+<h3 id="InnoDB驱动选择界面，直接点击next">InnoDB驱动选择界面，直接点击next</h3><p><img src="/image/php_environment/mysql13.jpg" alt=""></p>
+<h3 id="在并发选择界面，选择手动选择模式，使用默认15，点击next">在并发选择界面，选择手动选择模式，使用默认15，点击next</h3><p><img src="/image/php_environment/mysql14.jpg" alt=""></p>
+<h3 id="在网络配置界面，勾选防火墙放行选项，点击next">在网络配置界面，勾选防火墙放行选项，点击next</h3><p><img src="/image/php_environment/mysql15.jpg" alt=""></p>
+<h3 id="进入字符集配置界面，选择手动设置字符集，设置为utf8，点击next">进入字符集配置界面，选择手动设置字符集，设置为utf8，点击next</h3><p><img src="/image/php_environment/mysql16.jpg" alt=""></p>
+<h3 id="勾选环境变量选项，点击next">勾选环境变量选项，点击next</h3><p><img src="/image/php_environment/mysql17.jpg" alt=""></p>
+<h3 id="在安全配置界面，设置root密码">在安全配置界面，设置root密码</h3><p><img src="/image/php_environment/mysql18.jpg" alt=""></p>
+<h3 id="点击execute执行配置项，点击finish完成安装">点击execute执行配置项，点击finish完成安装</h3><p><img src="/image/php_environment/mysql19.jpg" alt=""></p>
+<h3 id="验证mysql是否安装成功，cmd控制台输入_mysql_-uroot_-proot">验证mysql是否安装成功，cmd控制台输入 mysql -uroot -proot</h3><p><img src="/image/php_environment/mysql20.jpg" alt=""></p>
 
         
         
