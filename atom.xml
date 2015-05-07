@@ -4,7 +4,7 @@
   <subtitle><![CDATA[疑似码农]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-06T16:47:08.000Z</updated>
+  <updated>2015-05-07T05:57:33.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,12 +15,59 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[php学习笔记2-基础知识]]></title>
+    <link href="http://yoursite.com/2015/05/07/php-basic-knowledge/"/>
+    <id>http://yoursite.com/2015/05/07/php-basic-knowledge/</id>
+    <published>2015-05-07T02:22:04.000Z</published>
+    <updated>2015-05-07T05:57:33.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="php标签">php标签</h2><p>注意：标签可以没有结束符号，如果php代码之后没有任何的非php代码，结束符号可以省略。<br>如果结束标签之后还有额外的空格或者空行，在php解析之后，会被当做html的空格和空行输出，会浪费带宽。<br>如果php嵌入到html代码中，那么建议最好使用结束标签。<br>一般情况下，可以没有结束标签</p>
+<h3 id="常用标签">常用标签</h3><h4 id="最常见的标签：">最常见的标签：</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line">	<span class="comment">//php 代码</span></span><br><span class="line"><span class="preprocessor">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="脚本标签">脚本标签</h4><p>javascript 也有script标签，容易混淆，所以这种方式不常用。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script language=<span class="string">"php"</span>&gt;</span><br><span class="line">	<span class="comment">//php 代码</span></span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="短标签">短标签</h4><p>短标签是低版本的标记方法，所以也不常用，默认也是关闭的<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?</span></span><br><span class="line"><span class="comment">//php 代码</span></span><br><span class="line"><span class="preprocessor">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>默认，php不支持短标签语法，需要在配置文件中开启:<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//将 short_open_tag 改为<span class="command"><span class="keyword">on</span>，原来是<span class="title">off</span></span></span><br><span class="line">short_open_tag = <span class="command"><span class="keyword">on</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="aps标签">aps标签</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line"><span class="comment">//php 代码</span></span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+<p>asp标签不能直接使用，需要在php.ini配置文件中开启：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//将 asp_tags 改为<span class="command"><span class="keyword">on</span>，原来是<span class="title">off</span></span></span><br><span class="line">asp_tags = <span class="command"><span class="keyword">on</span></span></span><br></pre></td></tr></table></figure></p>
+<h2 id="php注释">php注释</h2><p>php注释有两类：单行注释和多行注释(块注释)<br>单行注释有两种：双斜杠和#号<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输出Hello World</span></span><br><span class="line"><span class="comment"># 输出Hello World</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"Hello World"</span>;</span><br></pre></td></tr></table></figure></p>
+<p>块注释：/* 注释内容 */<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span></span><br><span class="line">	这是块注释</span><br><span class="line">	只要不遇见 <span class="keyword">*</span>/ 都将被视为注释</span><br><span class="line"><span class="keyword">*</span>/</span><br><span class="line"></span><br><span class="line">echo <span class="string">"块注释"</span></span><br><span class="line"></span><br><span class="line">//块注释常用语函数说明</span><br><span class="line">/<span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> 函数功能</span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@param 参数解释</span></span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@return 返回值解释</span></span><br><span class="line"> <span class="keyword">*</span> </span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@author 作者</span></span><br><span class="line"> <span class="keyword">*</span> 2015-5-7 </span><br><span class="line"><span class="keyword">*</span>/</span><br></pre></td></tr></table></figure></p>
+<h2 id="变量">变量</h2><p>变量：可以变化的值</p>
+<h3 id="变量命名规则">变量命名规则</h3><p>1 必须以$开始<br>2 变量可以字母、数字、下划线自由组合<br>3 不能以字母开头<br>4 可以是中文<br>5 变量名通常需要见名思义<br>6 变量名有多个单词组成时，可以有两种方式：<br>    a) 驼峰法：schoolName<br>    b) 下划线发：school_name<br>7 php一般在定义的时候就赋值<br>8 php是一种弱类型的语言：变量可以为任意类型而不需要事先指定</p>
+<h2 id="数据类型">数据类型</h2><p>php有三大数据类型：标量，复合，特殊。</p>
+<h3 id="标量数据类型（简单数据类型）">标量数据类型（简单数据类型）</h3><h4 id="整型：int_或者_integer，包括正整数，负整数和0。在系统中占用4各个字节-">整型：int 或者 integer，包括正整数，负整数和0。在系统中占用4各个字节.</h4><p>php默认是十进制，还支持其他进制：</p>
+<p>八进制：以0开头，后面跟八进制序列<br>$num = 012; //十进制10</p>
+<p>十六进制：以0x开头，后面跟十六进制序列<br>$num = 0x12; //十进制18</p>
+<h4 id="浮点：float,double">浮点：float,double</h4><p>通常 float: 占用4个字节，表示7个精度。double：占用8个字节。表示15个精度。<br>实际上，float占用8个字节，</p>
+<h4 id="字符串：string">字符串：string</h4><p>字符串表示方法：单引号，双引号，定界符</p>
+<p>单引号和双引号的区别：<br>1 双引号中能够使用更多的转义字符 \r\t\t<br>单引号：\’<br>双引号：\” \r\t\t<br>2 双引号能够解析php变量</p>
+<p>定界符：使用特殊标识(&lt;&lt;&lt;),并增加一堆起始和结束标志来包裹字符串。<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$str</span> = <span class="variable">&lt;&lt;&lt; EOF</span><br><span class="line">	&lt;script&gt;</span></span><br><span class="line">		alert(<span class="string">"hello world"</span>);</span><br><span class="line">	<span class="variable">&lt;/script&gt;</span></span><br><span class="line">EOF;</span><br><span class="line"></span><br><span class="line">	echo <span class="variable">$str</span>;</span><br></pre></td></tr></table></figure></p>
+<p>定界符使用规则：<br>1 定界符的边界符号需要成对<br>2 右定界符必须顶格<br>3 两个定界符后面不能跟其他任何内容，包括注释</p>
+<p>定界符的意义：<br>1 为了让双引号对应的字符串在编写的时候方便查看<br>2 定界符能够在输出之后保证原来的数据格式</p>
+<h4 id="布尔：bool和boolean。布尔只有两个值_TRUE_和_FALSE">布尔：bool和boolean。布尔只有两个值 TRUE 和 FALSE</h4><p>复合数据类型：数组，对象</p>
+<h4 id="特俗数据类型：">特俗数据类型：</h4><p>NULL：变量定义为NULL或者变量被删除</p>
+<p>资源：所有外部数据的操作全部称为外部资源数据<br>如php操作数据库，my_connect连接成功返回的一个结果称为资源（连接资源）</p>
+<h2 id="系统预定义变量">系统预定义变量</h2><p>系统预定义变量有9个：<br>$_POST: 接收用户表单post方式提交的所有数据<br>$_GET: 接收用户表单get方式提交的所有数据<br>$_REGUEST: 接收用户表单post、get方式提交的所有数据，还有cookie数据<br>$_FILES: 接收用户上传的文件信息<br>$_SESSION: 存放session数据（存放在服务器）<br>$_COOKIE: 存放cookie数据（存在浏览器）<br>$_GLOBALS: 全局变量<br>$_SERVER: 保存服务器信息<br>$_ENV: 系统环境变量</p>
+<h2 id="系统预定义常量">系统预定义常量</h2><p>PHP_OS：操作系统内核<br>PHP_VERSION：当前PHP的版本<br>PHP_INT_SIZE：int类型所占的字节数<br>PHP_INT_MAX：int类型能表示的最大值</p>
+<p>魔术常量：可以自动变化的常量<br>__FILE__：当前脚本的文件路径（绝对路径）<br>__LINE__：当前所在的行数<br>__DIR__：当前脚本所在的目录（PHP4以后才有）<br>__FUNCTION__：当前函数的名字<br>__METHOD__：当前方法的名字（类中的函数）</p>
+<h2 id="可变变量">可变变量</h2><p>通过一个得到一个变量的值，将该值再次当做一个变量名从而得到另外一个变量的值。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$name</span> = <span class="string">"wzg"</span>;</span><br><span class="line"><span class="variable">$myname</span> = <span class="string">'name'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> $<span class="variable">$myname</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="常量">常量</h2><p>常量：一但被定义，就不能修改的’量’<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//语法：define(常量名,常量值)</span></span><br><span class="line"><span class="class"><span class="keyword">define</span></span>(PI, <span class="number">3.14</span>);</span><br><span class="line">echo PI;</span><br><span class="line"></span><br><span class="line"><span class="comment">//常量比变量更松散</span></span><br><span class="line"><span class="class"><span class="keyword">define</span></span>(<span class="string">'-_-'</span>,<span class="string">'笑脸'</span>);</span><br><span class="line">echo constant(<span class="string">'-_-'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>常量命名规则：<br>1 常量不适用$<br>2 其他命名规则与变量一致<br>3 常量通常全部使用大写字母，多单词常量使用下划线<br>4 常量与变量一样，都区分大小写</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="php标签">php标签</h2><p>注意：标签可以没有结束符号，如果php代码之后没有任何的非php代码，结束符号可以省略。<br>如果结束标签之后还有额外的空格或者空行，在php解析之后，会被当做html的空格和空行输出，会浪费带宽。<br>如果php嵌入到]]>
+    </summary>
+    
+      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
+    
+      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[php学习笔记1-虚拟主机配置]]></title>
     <link href="http://yoursite.com/2015/05/06/php-virtualhost-configure/"/>
     <id>http://yoursite.com/2015/05/06/php-virtualhost-configure/</id>
     <published>2015-05-06T07:29:15.000Z</published>
-    <updated>2015-05-06T16:47:08.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>通过<code>一步步搭建php环境</code>三篇教程，我们搭建好了php环境。<br>在实际开发过程中，一个服务器端不可能只是放置一个网站，可能是多个网站。也就是说apache/htdocs文件夹下有多个目录，每个目录可能就代表了一个网站。这就需要对apache做相应的配置</p>
+    <updated>2015-05-06T16:52:37.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>通过<code>一步步搭建php环境</code>三篇教程，我们搭建好了php环境。<br>在实际开发过程中，一个服务器端不可能只是放置一个网站，可能是多个网站。也就是说可能存在有多个目录，每个目录可能就代表了一个网站。这就需要对apache做相应的配置</p>
 <h2 id="虚拟主机配置">虚拟主机配置</h2><p>apache的虚拟主机配置分为三种：基于ip的虚拟主机，基于域名的虚拟主机，基于端口号的虚拟主机<br>本教程讲基于域名的虚拟主机配置。<br>apache提供了多个位置来配置虚拟主机，httpd.conf和extra/httpd_vhosts.conf<br>httpd.conf配置后，只需重启apache即可生效<br>extra/httpd_vhosts.conf配置后，需要在 httpd.conf加载对应的配置文件<br>本教程用extra/httpd_vhosts.conf配置，符合模块化编程思想。</p>
 <h3 id="加载虚拟主机配置文件">加载虚拟主机配置文件</h3><p>在 apache/conf/httpd.conf 文件添加：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#加载虚拟主机</span></span><br><span class="line"><span class="keyword">Include</span> conf/extra/httpd-vhosts.conf</span><br></pre></td></tr></table></figure>
@@ -35,7 +82,7 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:<span class="number">80</span>&gt;</span><br><span class="line">	<span class="comment">#域名</span></span><br><span class="line">	ServerName localhost</span><br><span class="line">	<span class="comment">#网站根目录</span></span><br><span class="line">	DocumentRoot <span class="string">"F:/server/apache/htdocs"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">#设置目录访问权限</span></span><br><span class="line">	&lt;Directory <span class="string">"F:/server/apache/htdocs"</span>&gt;</span><br><span class="line">		<span class="comment">#设置顺序</span></span><br><span class="line">		Order Deny,Allow</span><br><span class="line">		Deny from all</span><br><span class="line">		Allow from all</span><br><span class="line"></span><br><span class="line">		<span class="comment"># 如果不存在访问文件，则列出所有文件列表</span></span><br><span class="line">		options Indexes</span><br><span class="line">	&lt;/Directory&gt;</span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="前言">前言</h2><p>通过<code>一步步搭建php环境</code>三篇教程，我们搭建好了php环境。<br>在实际开发过程中，一个服务器端不可能只是放置一个网站，可能是多个网站。也就是说apache/htdocs文件夹下有多个目录，每个目录可能就代表了]]>
+    <![CDATA[<h2 id="前言">前言</h2><p>通过<code>一步步搭建php环境</code>三篇教程，我们搭建好了php环境。<br>在实际开发过程中，一个服务器端不可能只是放置一个网站，可能是多个网站。也就是说可能存在有多个目录，每个目录可能就代表了一个网站。这就需要对apa]]>
     </summary>
     
       <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>

@@ -1,0 +1,516 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>php学习笔记2-基础知识 | 王志刚</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="wzg">
+    
+
+    
+    <meta name="description" content="php标签注意：标签可以没有结束符号，如果php代码之后没有任何的非php代码，结束符号可以省略。如果结束标签之后还有额外的空格或者空行，在php解析之后，会被当做html的空格和空行输出，会浪费带宽。如果php嵌入到html代码中，那么建议最好使用结束标签。一般情况下，可以没有结束标签
+常用标签最常见的标签：123&amp;lt;?php	//php 代码?&amp;gt;
+脚本标签javascript 也有s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php学习笔记2-基础知识">
+<meta property="og:url" content="http://yoursite.com/2015/05/07/php-basic-knowledge/index.html">
+<meta property="og:site_name" content="王志刚">
+<meta property="og:description" content="php标签注意：标签可以没有结束符号，如果php代码之后没有任何的非php代码，结束符号可以省略。如果结束标签之后还有额外的空格或者空行，在php解析之后，会被当做html的空格和空行输出，会浪费带宽。如果php嵌入到html代码中，那么建议最好使用结束标签。一般情况下，可以没有结束标签
+常用标签最常见的标签：123&amp;lt;?php	//php 代码?&amp;gt;
+脚本标签javascript 也有s">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php学习笔记2-基础知识">
+<meta name="twitter:description" content="php标签注意：标签可以没有结束符号，如果php代码之后没有任何的非php代码，结束符号可以省略。如果结束标签之后还有额外的空格或者空行，在php解析之后，会被当做html的空格和空行输出，会浪费带宽。如果php嵌入到html代码中，那么建议最好使用结束标签。一般情况下，可以没有结束标签
+常用标签最常见的标签：123&amp;lt;?php	//php 代码?&amp;gt;
+脚本标签javascript 也有s">
+
+    
+    <link rel="alternative" href="/atom.xml" title="王志刚" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="王志刚" title="王志刚"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="王志刚">王志刚</a></h1>
+				<h2 class="blog-motto">疑似码农</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/05/07/php-basic-knowledge/" title="php学习笔记2-基础知识" itemprop="url">php学习笔记2-基础知识</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-07T02:22:04.000Z" itemprop="datePublished"> 发表于 2015-05-07</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#php标签"><span class="toc-number">1.</span> <span class="toc-text">php标签</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用标签"><span class="toc-number">1.1.</span> <span class="toc-text">常用标签</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最常见的标签："><span class="toc-number">1.1.1.</span> <span class="toc-text">最常见的标签：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#脚本标签"><span class="toc-number">1.1.2.</span> <span class="toc-text">脚本标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#短标签"><span class="toc-number">1.1.3.</span> <span class="toc-text">短标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#aps标签"><span class="toc-number">1.1.4.</span> <span class="toc-text">aps标签</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php注释"><span class="toc-number">2.</span> <span class="toc-text">php注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量"><span class="toc-number">3.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量命名规则"><span class="toc-number">3.1.</span> <span class="toc-text">变量命名规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型"><span class="toc-number">4.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标量数据类型（简单数据类型）"><span class="toc-number">4.1.</span> <span class="toc-text">标量数据类型（简单数据类型）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#整型：int_或者_integer，包括正整数，负整数和0。在系统中占用4各个字节-"><span class="toc-number">4.1.1.</span> <span class="toc-text">整型：int 或者 integer，包括正整数，负整数和0。在系统中占用4各个字节.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浮点：float,double"><span class="toc-number">4.1.2.</span> <span class="toc-text">浮点：float,double</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字符串：string"><span class="toc-number">4.1.3.</span> <span class="toc-text">字符串：string</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#布尔：bool和boolean。布尔只有两个值_TRUE_和_FALSE"><span class="toc-number">4.1.4.</span> <span class="toc-text">布尔：bool和boolean。布尔只有两个值 TRUE 和 FALSE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特俗数据类型："><span class="toc-number">4.1.5.</span> <span class="toc-text">特俗数据类型：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统预定义变量"><span class="toc-number">5.</span> <span class="toc-text">系统预定义变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统预定义常量"><span class="toc-number">6.</span> <span class="toc-text">系统预定义常量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可变变量"><span class="toc-number">7.</span> <span class="toc-text">可变变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常量"><span class="toc-number">8.</span> <span class="toc-text">常量</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="php标签">php标签</h2><p>注意：标签可以没有结束符号，如果php代码之后没有任何的非php代码，结束符号可以省略。<br>如果结束标签之后还有额外的空格或者空行，在php解析之后，会被当做html的空格和空行输出，会浪费带宽。<br>如果php嵌入到html代码中，那么建议最好使用结束标签。<br>一般情况下，可以没有结束标签</p>
+<h3 id="常用标签">常用标签</h3><h4 id="最常见的标签：">最常见的标签：</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line">	<span class="comment">//php 代码</span></span><br><span class="line"><span class="preprocessor">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="脚本标签">脚本标签</h4><p>javascript 也有script标签，容易混淆，所以这种方式不常用。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script language=<span class="string">"php"</span>&gt;</span><br><span class="line">	<span class="comment">//php 代码</span></span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="短标签">短标签</h4><p>短标签是低版本的标记方法，所以也不常用，默认也是关闭的<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?</span></span><br><span class="line"><span class="comment">//php 代码</span></span><br><span class="line"><span class="preprocessor">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>默认，php不支持短标签语法，需要在配置文件中开启:<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//将 short_open_tag 改为<span class="command"><span class="keyword">on</span>，原来是<span class="title">off</span></span></span><br><span class="line">short_open_tag = <span class="command"><span class="keyword">on</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="aps标签">aps标签</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line"><span class="comment">//php 代码</span></span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+<p>asp标签不能直接使用，需要在php.ini配置文件中开启：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//将 asp_tags 改为<span class="command"><span class="keyword">on</span>，原来是<span class="title">off</span></span></span><br><span class="line">asp_tags = <span class="command"><span class="keyword">on</span></span></span><br></pre></td></tr></table></figure></p>
+<h2 id="php注释">php注释</h2><p>php注释有两类：单行注释和多行注释(块注释)<br>单行注释有两种：双斜杠和#号<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输出Hello World</span></span><br><span class="line"><span class="comment"># 输出Hello World</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"Hello World"</span>;</span><br></pre></td></tr></table></figure></p>
+<p>块注释：/* 注释内容 */<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span></span><br><span class="line">	这是块注释</span><br><span class="line">	只要不遇见 <span class="keyword">*</span>/ 都将被视为注释</span><br><span class="line"><span class="keyword">*</span>/</span><br><span class="line"></span><br><span class="line">echo <span class="string">"块注释"</span></span><br><span class="line"></span><br><span class="line">//块注释常用语函数说明</span><br><span class="line">/<span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> 函数功能</span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@param 参数解释</span></span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@return 返回值解释</span></span><br><span class="line"> <span class="keyword">*</span> </span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@author 作者</span></span><br><span class="line"> <span class="keyword">*</span> 2015-5-7 </span><br><span class="line"><span class="keyword">*</span>/</span><br></pre></td></tr></table></figure></p>
+<h2 id="变量">变量</h2><p>变量：可以变化的值</p>
+<h3 id="变量命名规则">变量命名规则</h3><p>1 必须以$开始<br>2 变量可以字母、数字、下划线自由组合<br>3 不能以字母开头<br>4 可以是中文<br>5 变量名通常需要见名思义<br>6 变量名有多个单词组成时，可以有两种方式：<br>    a) 驼峰法：schoolName<br>    b) 下划线发：school_name<br>7 php一般在定义的时候就赋值<br>8 php是一种弱类型的语言：变量可以为任意类型而不需要事先指定</p>
+<h2 id="数据类型">数据类型</h2><p>php有三大数据类型：标量，复合，特殊。</p>
+<h3 id="标量数据类型（简单数据类型）">标量数据类型（简单数据类型）</h3><h4 id="整型：int_或者_integer，包括正整数，负整数和0。在系统中占用4各个字节-">整型：int 或者 integer，包括正整数，负整数和0。在系统中占用4各个字节.</h4><p>php默认是十进制，还支持其他进制：</p>
+<p>八进制：以0开头，后面跟八进制序列<br>$num = 012; //十进制10</p>
+<p>十六进制：以0x开头，后面跟十六进制序列<br>$num = 0x12; //十进制18</p>
+<h4 id="浮点：float,double">浮点：float,double</h4><p>通常 float: 占用4个字节，表示7个精度。double：占用8个字节。表示15个精度。<br>实际上，float占用8个字节，</p>
+<h4 id="字符串：string">字符串：string</h4><p>字符串表示方法：单引号，双引号，定界符</p>
+<p>单引号和双引号的区别：<br>1 双引号中能够使用更多的转义字符 \r\t\t<br>单引号：\’<br>双引号：\” \r\t\t<br>2 双引号能够解析php变量</p>
+<p>定界符：使用特殊标识(&lt;&lt;&lt;),并增加一堆起始和结束标志来包裹字符串。<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$str</span> = <span class="variable">&lt;&lt;&lt; EOF</span><br><span class="line">	&lt;script&gt;</span></span><br><span class="line">		alert(<span class="string">"hello world"</span>);</span><br><span class="line">	<span class="variable">&lt;/script&gt;</span></span><br><span class="line">EOF;</span><br><span class="line"></span><br><span class="line">	echo <span class="variable">$str</span>;</span><br></pre></td></tr></table></figure></p>
+<p>定界符使用规则：<br>1 定界符的边界符号需要成对<br>2 右定界符必须顶格<br>3 两个定界符后面不能跟其他任何内容，包括注释</p>
+<p>定界符的意义：<br>1 为了让双引号对应的字符串在编写的时候方便查看<br>2 定界符能够在输出之后保证原来的数据格式</p>
+<h4 id="布尔：bool和boolean。布尔只有两个值_TRUE_和_FALSE">布尔：bool和boolean。布尔只有两个值 TRUE 和 FALSE</h4><p>复合数据类型：数组，对象</p>
+<h4 id="特俗数据类型：">特俗数据类型：</h4><p>NULL：变量定义为NULL或者变量被删除</p>
+<p>资源：所有外部数据的操作全部称为外部资源数据<br>如php操作数据库，my_connect连接成功返回的一个结果称为资源（连接资源）</p>
+<h2 id="系统预定义变量">系统预定义变量</h2><p>系统预定义变量有9个：<br>$_POST: 接收用户表单post方式提交的所有数据<br>$_GET: 接收用户表单get方式提交的所有数据<br>$_REGUEST: 接收用户表单post、get方式提交的所有数据，还有cookie数据<br>$_FILES: 接收用户上传的文件信息<br>$_SESSION: 存放session数据（存放在服务器）<br>$_COOKIE: 存放cookie数据（存在浏览器）<br>$_GLOBALS: 全局变量<br>$_SERVER: 保存服务器信息<br>$_ENV: 系统环境变量</p>
+<h2 id="系统预定义常量">系统预定义常量</h2><p>PHP_OS：操作系统内核<br>PHP_VERSION：当前PHP的版本<br>PHP_INT_SIZE：int类型所占的字节数<br>PHP_INT_MAX：int类型能表示的最大值</p>
+<p>魔术常量：可以自动变化的常量<br>__FILE__：当前脚本的文件路径（绝对路径）<br>__LINE__：当前所在的行数<br>__DIR__：当前脚本所在的目录（PHP4以后才有）<br>__FUNCTION__：当前函数的名字<br>__METHOD__：当前方法的名字（类中的函数）</p>
+<h2 id="可变变量">可变变量</h2><p>通过一个得到一个变量的值，将该值再次当做一个变量名从而得到另外一个变量的值。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$name</span> = <span class="string">"wzg"</span>;</span><br><span class="line"><span class="variable">$myname</span> = <span class="string">'name'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> $<span class="variable">$myname</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="常量">常量</h2><p>常量：一但被定义，就不能修改的’量’<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//语法：define(常量名,常量值)</span></span><br><span class="line"><span class="class"><span class="keyword">define</span></span>(PI, <span class="number">3.14</span>);</span><br><span class="line">echo PI;</span><br><span class="line"></span><br><span class="line"><span class="comment">//常量比变量更松散</span></span><br><span class="line"><span class="class"><span class="keyword">define</span></span>(<span class="string">'-_-'</span>,<span class="string">'笑脸'</span>);</span><br><span class="line">echo constant(<span class="string">'-_-'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>常量命名规则：<br>1 常量不适用$<br>2 其他命名规则与变量一致<br>3 常量通常全部使用大写字母，多单词常量使用下划线<br>4 常量与变量一样，都区分大小写</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/PHP/">PHP</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/05/07/php-basic-knowledge/" data-title="php学习笔记2-基础知识 | 王志刚" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/05/06/php-virtualhost-configure/"  title="php学习笔记1-虚拟主机配置">
+ <strong>下一篇：</strong><br/> 
+ <span>php学习笔记1-虚拟主机配置
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/05/07/php-basic-knowledge/" data-title="php学习笔记2-基础知识" data-url="http://yoursite.com/2015/05/07/php-basic-knowledge/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#php标签"><span class="toc-number">1.</span> <span class="toc-text">php标签</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用标签"><span class="toc-number">1.1.</span> <span class="toc-text">常用标签</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最常见的标签："><span class="toc-number">1.1.1.</span> <span class="toc-text">最常见的标签：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#脚本标签"><span class="toc-number">1.1.2.</span> <span class="toc-text">脚本标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#短标签"><span class="toc-number">1.1.3.</span> <span class="toc-text">短标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#aps标签"><span class="toc-number">1.1.4.</span> <span class="toc-text">aps标签</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php注释"><span class="toc-number">2.</span> <span class="toc-text">php注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量"><span class="toc-number">3.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量命名规则"><span class="toc-number">3.1.</span> <span class="toc-text">变量命名规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型"><span class="toc-number">4.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标量数据类型（简单数据类型）"><span class="toc-number">4.1.</span> <span class="toc-text">标量数据类型（简单数据类型）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#整型：int_或者_integer，包括正整数，负整数和0。在系统中占用4各个字节-"><span class="toc-number">4.1.1.</span> <span class="toc-text">整型：int 或者 integer，包括正整数，负整数和0。在系统中占用4各个字节.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浮点：float,double"><span class="toc-number">4.1.2.</span> <span class="toc-text">浮点：float,double</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字符串：string"><span class="toc-number">4.1.3.</span> <span class="toc-text">字符串：string</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#布尔：bool和boolean。布尔只有两个值_TRUE_和_FALSE"><span class="toc-number">4.1.4.</span> <span class="toc-text">布尔：bool和boolean。布尔只有两个值 TRUE 和 FALSE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特俗数据类型："><span class="toc-number">4.1.5.</span> <span class="toc-text">特俗数据类型：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统预定义变量"><span class="toc-number">5.</span> <span class="toc-text">系统预定义变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统预定义常量"><span class="toc-number">6.</span> <span class="toc-text">系统预定义常量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可变变量"><span class="toc-number">7.</span> <span class="toc-text">可变变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常量"><span class="toc-number">8.</span> <span class="toc-text">常量</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/个人博客/" title="个人博客">个人博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/计算机科学/" title="计算机科学">计算机科学<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/PHP/" title="PHP">PHP<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/解释型语言/" title="解释型语言">解释型语言<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编译型语言/" title="编译型语言">编译型语言<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/github-pages/" title="github pages">github pages<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/个人博客/" title="个人博客">个人博客<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Wang ZhiGang in China. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="wzg">wzg</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"wzg"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'fuhongxue';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

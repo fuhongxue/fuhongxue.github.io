@@ -11,19 +11,19 @@
     
 
     
-    <meta name="description" content="前言通过一步步搭建php环境三篇教程，我们搭建好了php环境。在实际开发过程中，一个服务器端不可能只是放置一个网站，可能是多个网站。也就是说apache/htdocs文件夹下有多个目录，每个目录可能就代表了一个网站。这就需要对apache做相应的配置
-虚拟主机配置apache的虚拟主机配置分为三种：基于ip的虚拟主机，基于域名的虚拟主机，基于端口号的虚拟主机本教程讲基于域名的虚拟主机配置。apac">
+    <meta name="description" content="前言通过一步步搭建php环境三篇教程，我们搭建好了php环境。在实际开发过程中，一个服务器端不可能只是放置一个网站，可能是多个网站。也就是说可能存在有多个目录，每个目录可能就代表了一个网站。这就需要对apache做相应的配置
+虚拟主机配置apache的虚拟主机配置分为三种：基于ip的虚拟主机，基于域名的虚拟主机，基于端口号的虚拟主机本教程讲基于域名的虚拟主机配置。apache提供了多个位置来配置虚">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php学习笔记1-虚拟主机配置">
 <meta property="og:url" content="http://yoursite.com/2015/05/06/php-virtualhost-configure/index.html">
 <meta property="og:site_name" content="王志刚">
-<meta property="og:description" content="前言通过一步步搭建php环境三篇教程，我们搭建好了php环境。在实际开发过程中，一个服务器端不可能只是放置一个网站，可能是多个网站。也就是说apache/htdocs文件夹下有多个目录，每个目录可能就代表了一个网站。这就需要对apache做相应的配置
-虚拟主机配置apache的虚拟主机配置分为三种：基于ip的虚拟主机，基于域名的虚拟主机，基于端口号的虚拟主机本教程讲基于域名的虚拟主机配置。apac">
+<meta property="og:description" content="前言通过一步步搭建php环境三篇教程，我们搭建好了php环境。在实际开发过程中，一个服务器端不可能只是放置一个网站，可能是多个网站。也就是说可能存在有多个目录，每个目录可能就代表了一个网站。这就需要对apache做相应的配置
+虚拟主机配置apache的虚拟主机配置分为三种：基于ip的虚拟主机，基于域名的虚拟主机，基于端口号的虚拟主机本教程讲基于域名的虚拟主机配置。apache提供了多个位置来配置虚">
 <meta property="og:image" content="/image/php_environment/v1.jpg">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php学习笔记1-虚拟主机配置">
-<meta name="twitter:description" content="前言通过一步步搭建php环境三篇教程，我们搭建好了php环境。在实际开发过程中，一个服务器端不可能只是放置一个网站，可能是多个网站。也就是说apache/htdocs文件夹下有多个目录，每个目录可能就代表了一个网站。这就需要对apache做相应的配置
-虚拟主机配置apache的虚拟主机配置分为三种：基于ip的虚拟主机，基于域名的虚拟主机，基于端口号的虚拟主机本教程讲基于域名的虚拟主机配置。apac">
+<meta name="twitter:description" content="前言通过一步步搭建php环境三篇教程，我们搭建好了php环境。在实际开发过程中，一个服务器端不可能只是放置一个网站，可能是多个网站。也就是说可能存在有多个目录，每个目录可能就代表了一个网站。这就需要对apache做相应的配置
+虚拟主机配置apache的虚拟主机配置分为三种：基于ip的虚拟主机，基于域名的虚拟主机，基于端口号的虚拟主机本教程讲基于域名的虚拟主机配置。apache提供了多个位置来配置虚">
 
     
     <link rel="alternative" href="/atom.xml" title="王志刚" type="application/atom+xml">
@@ -103,7 +103,7 @@
 		
 		</div>
 		
-		<h2 id="前言">前言</h2><p>通过<code>一步步搭建php环境</code>三篇教程，我们搭建好了php环境。<br>在实际开发过程中，一个服务器端不可能只是放置一个网站，可能是多个网站。也就是说apache/htdocs文件夹下有多个目录，每个目录可能就代表了一个网站。这就需要对apache做相应的配置</p>
+		<h2 id="前言">前言</h2><p>通过<code>一步步搭建php环境</code>三篇教程，我们搭建好了php环境。<br>在实际开发过程中，一个服务器端不可能只是放置一个网站，可能是多个网站。也就是说可能存在有多个目录，每个目录可能就代表了一个网站。这就需要对apache做相应的配置</p>
 <h2 id="虚拟主机配置">虚拟主机配置</h2><p>apache的虚拟主机配置分为三种：基于ip的虚拟主机，基于域名的虚拟主机，基于端口号的虚拟主机<br>本教程讲基于域名的虚拟主机配置。<br>apache提供了多个位置来配置虚拟主机，httpd.conf和extra/httpd_vhosts.conf<br>httpd.conf配置后，只需重启apache即可生效<br>extra/httpd_vhosts.conf配置后，需要在 httpd.conf加载对应的配置文件<br>本教程用extra/httpd_vhosts.conf配置，符合模块化编程思想。</p>
 <h3 id="加载虚拟主机配置文件">加载虚拟主机配置文件</h3><p>在 apache/conf/httpd.conf 文件添加：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#加载虚拟主机</span></span><br><span class="line"><span class="keyword">Include</span> conf/extra/httpd-vhosts.conf</span><br></pre></td></tr></table></figure>
@@ -151,6 +151,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2015/05/07/php-basic-knowledge/" title="php学习笔记2-基础知识">
+  <strong>上一篇：</strong><br/>
+  <span>
+  php学习笔记2-基础知识</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2015/05/05/step-by-step-create-php-development-environment-3-php/"  title="一步步教你在Windows下搭建PHP开发环境(3)php安装">
@@ -194,7 +202,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/PHP/" title="PHP">PHP<sup>4</sup></a></li>
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>5</sup></a></li>
 		  
 		
 		  
@@ -215,7 +223,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/PHP/" title="PHP">PHP<sup>4</sup></a></li>
+				<li><a href="/tags/PHP/" title="PHP">PHP<sup>5</sup></a></li>
 			
 		
 			
