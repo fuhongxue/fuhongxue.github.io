@@ -1,0 +1,516 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>php学习笔记3-系统函数 | 王志刚</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="wzg">
+    
+
+    
+    <meta name="description" content="字符串函数strlen：获取字符串长度。字符：一个完整的符号，英文字母，中文等。字节：由8位组成一个字符最小占用一个字节：ASCII码，英文字母通常占用一个字符。中文gbk或者gb2312编码里，占用两个字节。中文utf-8最少占用3个字节，有可能是4个。
+substr：截取字符串12345$str = &apos;Hello World&apos;;$str1 = &apos;中国&apos;;//字符串的起始位置从0开始。第一个字符">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php学习笔记3-系统函数">
+<meta property="og:url" content="http://yoursite.com/2015/05/09/php-3-system-func/index.html">
+<meta property="og:site_name" content="王志刚">
+<meta property="og:description" content="字符串函数strlen：获取字符串长度。字符：一个完整的符号，英文字母，中文等。字节：由8位组成一个字符最小占用一个字节：ASCII码，英文字母通常占用一个字符。中文gbk或者gb2312编码里，占用两个字节。中文utf-8最少占用3个字节，有可能是4个。
+substr：截取字符串12345$str = &apos;Hello World&apos;;$str1 = &apos;中国&apos;;//字符串的起始位置从0开始。第一个字符">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php学习笔记3-系统函数">
+<meta name="twitter:description" content="字符串函数strlen：获取字符串长度。字符：一个完整的符号，英文字母，中文等。字节：由8位组成一个字符最小占用一个字节：ASCII码，英文字母通常占用一个字符。中文gbk或者gb2312编码里，占用两个字节。中文utf-8最少占用3个字节，有可能是4个。
+substr：截取字符串12345$str = &apos;Hello World&apos;;$str1 = &apos;中国&apos;;//字符串的起始位置从0开始。第一个字符">
+
+    
+    <link rel="alternative" href="/atom.xml" title="王志刚" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="王志刚" title="王志刚"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="王志刚">王志刚</a></h1>
+				<h2 class="blog-motto">疑似码农</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/05/09/php-3-system-func/" title="php学习笔记3-系统函数" itemprop="url">php学习笔记3-系统函数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-09T11:11:20.000Z" itemprop="datePublished"> 发表于 2015-05-09</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串函数"><span class="toc-number">1.</span> <span class="toc-text">字符串函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#strlen：获取字符串长度。"><span class="toc-number">1.1.</span> <span class="toc-text">strlen：获取字符串长度。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#substr：截取字符串"><span class="toc-number">1.2.</span> <span class="toc-text">substr：截取字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strtolower：将字符串变成小写"><span class="toc-number">1.3.</span> <span class="toc-text">strtolower：将字符串变成小写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strtoupper：将字符串变成大写"><span class="toc-number">1.4.</span> <span class="toc-text">strtoupper：将字符串变成大写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ucfirst：将字符串首字母大写"><span class="toc-number">1.5.</span> <span class="toc-text">ucfirst：将字符串首字母大写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strrev：_字符反转"><span class="toc-number">1.6.</span> <span class="toc-text">strrev： 字符反转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strpos:_获取字符串中某个字符首次出现的位置"><span class="toc-number">1.7.</span> <span class="toc-text">strpos: 获取字符串中某个字符首次出现的位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strrpos:_获取字符串中某个字符最后一次出现的位置"><span class="toc-number">1.8.</span> <span class="toc-text">strrpos: 获取字符串中某个字符最后一次出现的位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strchr:_是strstr函数别名，查找某个字符在字符串中首次出现的位置，并返回该到字符串最后的整个字符串。"><span class="toc-number">1.9.</span> <span class="toc-text">strchr: 是strstr函数别名，查找某个字符在字符串中首次出现的位置，并返回该到字符串最后的整个字符串。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strrchr:_获取字符串中某个字符最后一次出现的位置，并返回该到字符串最后的整个字符串。"><span class="toc-number">1.10.</span> <span class="toc-text">strrchr: 获取字符串中某个字符最后一次出现的位置，并返回该到字符串最后的整个字符串。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#trim:去除一个字符串两边的（最外边）的空格（或者其他字符）"><span class="toc-number">1.11.</span> <span class="toc-text">trim:去除一个字符串两边的（最外边）的空格（或者其他字符）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间函数"><span class="toc-number">2.</span> <span class="toc-text">时间函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#time：得到当前时间的时间戳，整型"><span class="toc-number">2.1.</span> <span class="toc-text">time：得到当前时间的时间戳，整型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#date:_将指定的时间戳，按照指定的字符串格式进行输出，输出的格式化有固定的参数"><span class="toc-number">2.2.</span> <span class="toc-text">date: 将指定的时间戳，按照指定的字符串格式进行输出，输出的格式化有固定的参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strtotime:_将一个字符串格式时间（美国可以识别的英文字符串）转化成时间戳"><span class="toc-number">2.3.</span> <span class="toc-text">strtotime: 将一个字符串格式时间（美国可以识别的英文字符串）转化成时间戳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#microtime:_微秒，返回一个微秒字符串，或者返回一个带两个值（秒，微秒）的数组"><span class="toc-number">2.4.</span> <span class="toc-text">microtime: 微秒，返回一个微秒字符串，或者返回一个带两个值（秒，微秒）的数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数学相关函数"><span class="toc-number">3.</span> <span class="toc-text">数学相关函数</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="字符串函数">字符串函数</h2><h3 id="strlen：获取字符串长度。">strlen：获取字符串长度。</h3><p>字符：一个完整的符号，英文字母，中文等。<br>字节：由8位组成<br>一个字符最小占用一个字节：ASCII码，英文字母通常占用一个字符。<br>中文gbk或者gb2312编码里，占用两个字节。<br>中文utf-8最少占用3个字节，有可能是4个。</p>
+<h3 id="substr：截取字符串">substr：截取字符串</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$str</span> = <span class="string">'Hello World'</span>;</span><br><span class="line"><span class="variable">$str1</span> = <span class="string">'中国'</span>;</span><br><span class="line"><span class="regexp">//</span>字符串的起始位置从<span class="number">0</span>开始。第一个字符位置是<span class="number">0</span>.</span><br><span class="line">var_dump(substr(<span class="variable">$str</span>, <span class="number">1</span>,<span class="number">3</span>));   <span class="regexp">//ell</span> </span><br><span class="line">var_dump(substr(<span class="variable">$str1</span>, <span class="number">3</span>));  <span class="regexp">//</span>国</span><br></pre></td></tr></table></figure>
+<h3 id="strtolower：将字符串变成小写">strtolower：将字符串变成小写</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strtolower</span><span class="list">(<span class="string">"HELLO"</span>)</span>)</span><span class="comment">; //hello</span></span><br></pre></td></tr></table></figure>
+<h3 id="strtoupper：将字符串变成大写">strtoupper：将字符串变成大写</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strtoupper</span><span class="list">(<span class="string">"Hello"</span>)</span>)</span><span class="comment">; //HELLO</span></span><br></pre></td></tr></table></figure>
+<h3 id="ucfirst：将字符串首字母大写">ucfirst：将字符串首字母大写</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">ucfirst</span><span class="list">(<span class="string">"hello"</span>)</span>)</span><span class="comment">;  //Hello</span></span><br></pre></td></tr></table></figure>
+<h3 id="strrev：_字符反转">strrev： 字符反转</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strrev</span><span class="list">(<span class="quoted">'hello</span>')</span>)</span> <span class="comment">; //olleh</span></span><br></pre></td></tr></table></figure>
+<h3 id="strpos:_获取字符串中某个字符首次出现的位置">strpos: 获取字符串中某个字符首次出现的位置</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strpos</span><span class="list">(<span class="quoted">'hello</span> world', <span class="quoted">'l</span>')</span>)</span><span class="comment">; //2</span></span><br></pre></td></tr></table></figure>
+<h3 id="strrpos:_获取字符串中某个字符最后一次出现的位置">strrpos: 获取字符串中某个字符最后一次出现的位置</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strrpos</span><span class="list">(<span class="quoted">'hello</span> world', <span class="quoted">'l</span>')</span>)</span><span class="comment">; //9</span></span><br></pre></td></tr></table></figure>
+<h3 id="strchr:_是strstr函数别名，查找某个字符在字符串中首次出现的位置，并返回该到字符串最后的整个字符串。">strchr: 是strstr函数别名，查找某个字符在字符串中首次出现的位置，并返回该到字符串最后的整个字符串。</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strstr</span><span class="list">(<span class="quoted">'hello</span> world', <span class="quoted">'l</span>')</span>)</span><span class="comment">; //llo world</span></span><br></pre></td></tr></table></figure>
+<h3 id="strrchr:_获取字符串中某个字符最后一次出现的位置，并返回该到字符串最后的整个字符串。">strrchr: 获取字符串中某个字符最后一次出现的位置，并返回该到字符串最后的整个字符串。</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var_dump(strrchr(<span class="string">'hello world'</span>, <span class="string">'l'</span>)); <span class="comment">//ld</span></span><br><span class="line"><span class="variable">$str</span> = <span class="string">'http://www.baidu.com/index.php'</span>;</span><br><span class="line"><span class="keyword">echo</span> substr(<span class="variable">$str</span>, strrpos(<span class="variable">$str</span>,<span class="string">'.'</span>));   <span class="comment">//.php</span></span><br><span class="line"><span class="keyword">echo</span> strrchr(<span class="variable">$str</span>, <span class="string">'.'</span>);                <span class="comment">//.php</span></span><br></pre></td></tr></table></figure>
+<h3 id="trim:去除一个字符串两边的（最外边）的空格（或者其他字符）">trim:去除一个字符串两边的（最外边）的空格（或者其他字符）</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">trim</span><span class="list">(<span class="quoted">'hello</span> world',<span class="quoted">'d</span>')</span>)</span><span class="comment">;   //hello worl</span></span><br><span class="line">var_dump<span class="list">(<span class="keyword">trim</span><span class="list">(<span class="quoted">'hello</span> world',<span class="quoted">'h</span>')</span>)</span><span class="comment">;   //ello world</span></span><br></pre></td></tr></table></figure>
+<h2 id="时间函数">时间函数</h2><p>PHP中时间通常用整型存储</p>
+<h3 id="time：得到当前时间的时间戳，整型">time：得到当前时间的时间戳，整型</h3><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">echo <span class="title">time</span><span class="params">()</span></span>; <span class="comment">//1431173888 1970年到当前多少秒</span></span><br></pre></td></tr></table></figure>
+<h3 id="date:_将指定的时间戳，按照指定的字符串格式进行输出，输出的格式化有固定的参数">date: 将指定的时间戳，按照指定的字符串格式进行输出，输出的格式化有固定的参数</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">date</span><span class="list">(<span class="quoted">'Y-m-d</span> H<span class="keyword">:i</span><span class="keyword">:s</span>')</span>)</span><span class="comment">; //"2015-05-09 20:23:46"</span></span><br><span class="line">var_dump<span class="list">(<span class="keyword">date</span><span class="list">(<span class="quoted">'Y</span>年m月d日')</span>)</span><span class="comment">; //"2015年05月09日"</span></span><br></pre></td></tr></table></figure>
+<h3 id="strtotime:_将一个字符串格式时间（美国可以识别的英文字符串）转化成时间戳">strtotime: 将一个字符串格式时间（美国可以识别的英文字符串）转化成时间戳</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strtotime</span><span class="list">('<span class="number">2015</span><span class="number">-05</span><span class="number">-09</span>')</span>)</span><span class="comment">; //int(1431100800)</span></span><br></pre></td></tr></table></figure>
+<h3 id="microtime:_微秒，返回一个微秒字符串，或者返回一个带两个值（秒，微秒）的数组">microtime: 微秒，返回一个微秒字符串，或者返回一个带两个值（秒，微秒）的数组</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">microtime</span><span class="list">()</span>)</span><span class="comment">; //string(21) "0.28718000 1431175080"</span></span><br><span class="line">var_dump<span class="list">(<span class="keyword">microtime</span><span class="list">(<span class="keyword">true</span>)</span>)</span><span class="comment">; //float(1431175080.2872)</span></span><br></pre></td></tr></table></figure>
+<h2 id="数学相关函数">数学相关函数</h2><p>abs：获取数值的绝对值<br>floor：向下取整<br>ceil：向上取整<br>round：四舍五入<br>rand：随机取得指定范围或者0到整数最大值之间的数<br>mt_rand: 随机取得指定范围或者0到整型最大值之间的数，比rand效率高<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">mt_rand</span><span class="list">(<span class="number">0</span>,PHP_INT_MAX)</span>)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/PHP/">PHP</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/05/09/php-3-system-func/" data-title="php学习笔记3-系统函数 | 王志刚" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/05/09/php-4-basic-knowledge/" title="php学习笔记4-基础知识：数据类型转换、文件包含、终止脚本执行">
+  <strong>上一篇：</strong><br/>
+  <span>
+  php学习笔记4-基础知识：数据类型转换、文件包含、终止脚本执行</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/05/07/php-2-basic-knowledge/"  title="php学习笔记2-基础知识:标签、注释、变量、数据类型、预定义常量">
+ <strong>下一篇：</strong><br/> 
+ <span>php学习笔记2-基础知识:标签、注释、变量、数据类型、预定义常量
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/05/09/php-3-system-func/" data-title="php学习笔记3-系统函数" data-url="http://yoursite.com/2015/05/09/php-3-system-func/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串函数"><span class="toc-number">1.</span> <span class="toc-text">字符串函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#strlen：获取字符串长度。"><span class="toc-number">1.1.</span> <span class="toc-text">strlen：获取字符串长度。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#substr：截取字符串"><span class="toc-number">1.2.</span> <span class="toc-text">substr：截取字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strtolower：将字符串变成小写"><span class="toc-number">1.3.</span> <span class="toc-text">strtolower：将字符串变成小写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strtoupper：将字符串变成大写"><span class="toc-number">1.4.</span> <span class="toc-text">strtoupper：将字符串变成大写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ucfirst：将字符串首字母大写"><span class="toc-number">1.5.</span> <span class="toc-text">ucfirst：将字符串首字母大写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strrev：_字符反转"><span class="toc-number">1.6.</span> <span class="toc-text">strrev： 字符反转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strpos:_获取字符串中某个字符首次出现的位置"><span class="toc-number">1.7.</span> <span class="toc-text">strpos: 获取字符串中某个字符首次出现的位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strrpos:_获取字符串中某个字符最后一次出现的位置"><span class="toc-number">1.8.</span> <span class="toc-text">strrpos: 获取字符串中某个字符最后一次出现的位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strchr:_是strstr函数别名，查找某个字符在字符串中首次出现的位置，并返回该到字符串最后的整个字符串。"><span class="toc-number">1.9.</span> <span class="toc-text">strchr: 是strstr函数别名，查找某个字符在字符串中首次出现的位置，并返回该到字符串最后的整个字符串。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strrchr:_获取字符串中某个字符最后一次出现的位置，并返回该到字符串最后的整个字符串。"><span class="toc-number">1.10.</span> <span class="toc-text">strrchr: 获取字符串中某个字符最后一次出现的位置，并返回该到字符串最后的整个字符串。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#trim:去除一个字符串两边的（最外边）的空格（或者其他字符）"><span class="toc-number">1.11.</span> <span class="toc-text">trim:去除一个字符串两边的（最外边）的空格（或者其他字符）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间函数"><span class="toc-number">2.</span> <span class="toc-text">时间函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#time：得到当前时间的时间戳，整型"><span class="toc-number">2.1.</span> <span class="toc-text">time：得到当前时间的时间戳，整型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#date:_将指定的时间戳，按照指定的字符串格式进行输出，输出的格式化有固定的参数"><span class="toc-number">2.2.</span> <span class="toc-text">date: 将指定的时间戳，按照指定的字符串格式进行输出，输出的格式化有固定的参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strtotime:_将一个字符串格式时间（美国可以识别的英文字符串）转化成时间戳"><span class="toc-number">2.3.</span> <span class="toc-text">strtotime: 将一个字符串格式时间（美国可以识别的英文字符串）转化成时间戳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#microtime:_微秒，返回一个微秒字符串，或者返回一个带两个值（秒，微秒）的数组"><span class="toc-number">2.4.</span> <span class="toc-text">microtime: 微秒，返回一个微秒字符串，或者返回一个带两个值（秒，微秒）的数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数学相关函数"><span class="toc-number">3.</span> <span class="toc-text">数学相关函数</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/个人博客/" title="个人博客">个人博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/计算机科学/" title="计算机科学">计算机科学<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/PHP/" title="PHP">PHP<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/解释型语言/" title="解释型语言">解释型语言<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编译型语言/" title="编译型语言">编译型语言<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/github-pages/" title="github pages">github pages<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/个人博客/" title="个人博客">个人博客<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Wang ZhiGang in China. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="wzg">wzg</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"wzg"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'fuhongxue';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

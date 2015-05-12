@@ -4,22 +4,40 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>这个博客是如何构建的 | 王志刚</title>
+    <title>php学习笔记4-基础知识：数据类型转换、文件包含、终止脚本执行 | 王志刚</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wzg">
     
 
     
-    <meta name="description" content="关于个人博客如果能够坚持写博客，并且坚持写不记流水账的博客，对于个人的裨益显而易见。之前用 github pages + jekyll 的方式去构建了一个博客，文章坚持写了一阵子，最终没坚持下来，很是懊恼。今天，发现了一种新的方式 github pages + hexo，于是就把原来的博客整个都删掉了，用新的方案折腾一遍，一切重新开始。主题用的是Jacman。希望这次能够将写博客的习惯坚持下来。">
+    <meta name="description" content="数据类型转换指的是将数据（变量）的值转换成目标数据类型。PHP中有两种数据类型转换方式：自动转换，强制转换
+自动转换：系统根据操作所需要的类型将变量的值进行对应类型的转换自动转换都是系统本身所做的事情，不需要用户去干预。
+强制转换：我们根据具体的需求，将变量的值事先转换成所需的数据类型
+查看数据类型的方式
+
+var_dump把变量的类型及长度还有数据值都输出
+通过函数gettype函数，获得数据的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="这个博客是如何构建的">
-<meta property="og:url" content="http://yoursite.com/2015/05/04/how-this-blog-build/index.html">
+<meta property="og:title" content="php学习笔记4-基础知识：数据类型转换、文件包含、终止脚本执行">
+<meta property="og:url" content="http://yoursite.com/2015/05/09/php-4-basic-knowledge/index.html">
 <meta property="og:site_name" content="王志刚">
-<meta property="og:description" content="关于个人博客如果能够坚持写博客，并且坚持写不记流水账的博客，对于个人的裨益显而易见。之前用 github pages + jekyll 的方式去构建了一个博客，文章坚持写了一阵子，最终没坚持下来，很是懊恼。今天，发现了一种新的方式 github pages + hexo，于是就把原来的博客整个都删掉了，用新的方案折腾一遍，一切重新开始。主题用的是Jacman。希望这次能够将写博客的习惯坚持下来。">
+<meta property="og:description" content="数据类型转换指的是将数据（变量）的值转换成目标数据类型。PHP中有两种数据类型转换方式：自动转换，强制转换
+自动转换：系统根据操作所需要的类型将变量的值进行对应类型的转换自动转换都是系统本身所做的事情，不需要用户去干预。
+强制转换：我们根据具体的需求，将变量的值事先转换成所需的数据类型
+查看数据类型的方式
+
+var_dump把变量的类型及长度还有数据值都输出
+通过函数gettype函数，获得数据的">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="这个博客是如何构建的">
-<meta name="twitter:description" content="关于个人博客如果能够坚持写博客，并且坚持写不记流水账的博客，对于个人的裨益显而易见。之前用 github pages + jekyll 的方式去构建了一个博客，文章坚持写了一阵子，最终没坚持下来，很是懊恼。今天，发现了一种新的方式 github pages + hexo，于是就把原来的博客整个都删掉了，用新的方案折腾一遍，一切重新开始。主题用的是Jacman。希望这次能够将写博客的习惯坚持下来。">
+<meta name="twitter:title" content="php学习笔记4-基础知识：数据类型转换、文件包含、终止脚本执行">
+<meta name="twitter:description" content="数据类型转换指的是将数据（变量）的值转换成目标数据类型。PHP中有两种数据类型转换方式：自动转换，强制转换
+自动转换：系统根据操作所需要的类型将变量的值进行对应类型的转换自动转换都是系统本身所做的事情，不需要用户去干预。
+强制转换：我们根据具体的需求，将变量的值事先转换成所需的数据类型
+查看数据类型的方式
+
+var_dump把变量的类型及长度还有数据值都输出
+通过函数gettype函数，获得数据的">
 
     
     <link rel="alternative" href="/atom.xml" title="王志刚" type="application/atom+xml">
@@ -79,14 +97,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/04/how-this-blog-build/" title="这个博客是如何构建的" itemprop="url">这个博客是如何构建的</a>
+      <a href="/2015/05/09/php-4-basic-knowledge/" title="php学习笔记4-基础知识：数据类型转换、文件包含、终止脚本执行" itemprop="url">php学习笔记4-基础知识：数据类型转换、文件包含、终止脚本执行</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
 		
   <p class="article-time">
-    <time datetime="2015-05-03T16:09:47.000Z" itemprop="datePublished"> 发表于 2015-05-04</time>
+    <time datetime="2015-05-09T12:51:07.000Z" itemprop="datePublished"> 发表于 2015-05-09</time>
     
   </p>
 </header>
@@ -95,12 +113,25 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于个人博客"><span class="toc-number">1.</span> <span class="toc-text">关于个人博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">2.</span> <span class="toc-text">参考资料</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型转换"><span class="toc-number">1.</span> <span class="toc-text">数据类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#判断数据类型"><span class="toc-number">2.</span> <span class="toc-text">判断数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件包含"><span class="toc-number">3.</span> <span class="toc-text">文件包含</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件的包含路径"><span class="toc-number">4.</span> <span class="toc-text">文件的包含路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#终止脚本执行"><span class="toc-number">5.</span> <span class="toc-text">终止脚本执行</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="关于个人博客">关于个人博客</h2><p>如果能够坚持写博客，并且坚持写不记流水账的博客，对于个人的裨益显而易见。<br>之前用 github pages + jekyll 的方式去构建了一个博客，文章坚持写了一阵子，最终没坚持下来，<br>很是懊恼。<br>今天，发现了一种新的方式 github pages + hexo，于是就把原来的博客整个都删掉了，用新的方案<br>折腾一遍，一切重新开始。主题用的是Jacman。<br>希望这次能够将写博客的习惯坚持下来。   </p>
-<h2 id="参考资料">参考资料</h2><p>通过以下两篇博客内容，完全能够自己动手构建一个博客。<br>先看cnfeet，几乎是一步步手把手教学了。<br>再看WuChong，详细讲解了一些有用的属性功能。<br>cnfeat：<a href="http://cnfeat.com/2014/05/10/2014-05-11-how-to-build-a-blog/#参考资料：" target="_blank" rel="external">http://cnfeat.com/2014/05/10/2014-05-11-how-to-build-a-blog/#参考资料：</a><br>WuChong：<a href="http://wuchong.me/jacman/2014/11/20/how-to-use-jacman/#" target="_blank" rel="external">http://wuchong.me/jacman/2014/11/20/how-to-use-jacman/#</a>   </p>
+		<h2 id="数据类型转换">数据类型转换</h2><p>指的是将数据（变量）的值转换成目标数据类型。<br>PHP中有两种数据类型转换方式：自动转换，强制转换</p>
+<p>自动转换：系统根据操作所需要的类型将变量的值进行对应类型的转换<br>自动转换都是系统本身所做的事情，不需要用户去干预。</p>
+<p>强制转换：我们根据具体的需求，将变量的值事先转换成所需的数据类型</p>
+<p>查看数据类型的方式</p>
+<ol>
+<li>var_dump把变量的类型及长度还有数据值都输出</li>
+<li>通过函数gettype函数，获得数据的类型，返回一个字符串</li>
+</ol>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//字符串转整型</span></span><br><span class="line"><span class="variable">$s1</span> <span class="subst">=</span> <span class="string">'1str'</span>;							<span class="comment">//1</span></span><br><span class="line"><span class="variable">$s2</span> <span class="subst">=</span> <span class="string">'s2tr'</span>;							<span class="comment">//0</span></span><br><span class="line"><span class="variable">$s3</span> <span class="subst">=</span> <span class="string">'1.str'</span>;							<span class="comment">//1</span></span><br><span class="line"><span class="variable">$s4</span> <span class="subst">=</span> <span class="string">'1.2.str'</span>;						<span class="comment">//1</span></span><br><span class="line"><span class="variable">$s5</span> <span class="subst">=</span> <span class="string">'1.2.3.str'</span>;						<span class="comment">//1</span></span><br><span class="line"><span class="variable">$s6</span> <span class="subst">=</span> <span class="string">'.2.3.str'</span>;						<span class="comment">//1</span></span><br><span class="line"></span><br><span class="line">var_dump((<span class="built_in">integer</span>)<span class="variable">$s1</span>);</span><br><span class="line">var_dump((<span class="built_in">integer</span>)<span class="variable">$s2</span>);</span><br><span class="line">var_dump((<span class="built_in">integer</span>)<span class="variable">$s3</span>);</span><br><span class="line">var_dump((<span class="built_in">integer</span>)<span class="variable">$s4</span>);</span><br><span class="line">var_dump((<span class="built_in">integer</span>)<span class="variable">$s5</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//自动转换</span></span><br><span class="line"><span class="variable">$res</span> <span class="subst">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$res</span> <span class="subst">=</span> <span class="variable">$s1</span> <span class="subst">+</span> <span class="variable">$s2</span> <span class="subst">+</span> <span class="variable">$s3</span> <span class="subst">+</span> <span class="variable">$s4</span> <span class="subst">+</span> <span class="variable">$s5</span> <span class="subst">+</span> <span class="variable">$s6</span>;		<span class="comment">//4.6</span></span><br><span class="line">var_dump(<span class="variable">$res</span>);</span><br><span class="line"></span><br><span class="line">var_dump(<span class="variable">$s1</span> <span class="subst">+</span> <span class="variable">$s2</span>); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<h2 id="判断数据类型">判断数据类型</h2><p>PHP提供了一些列函数来判断数据的类型。函数都是以is_开头，后面跟数据类型。<br>如果是目标类型则返回TRUE，否则返回FALSE<br>is_bool<br>is_float<br>is_integer<br>is_object<br>is_array<br>is_string<br>is_resource<br>is_scalar：判断一个变量的值是否是标量类型<br>is_null<br>is_numeric：检测变量是否为数字或数字字符串</p>
+<h2 id="文件包含">文件包含</h2><p>文件包含：include，include_once，require，require_once，将一个文件的内容包含进另外一个文件。<br>include和require：使用一次包含一次文件<br>include_once和require_once：不管在一个脚本中包含另外一个脚本多次，都只加载一次</p>
+<h2 id="文件的包含路径">文件的包含路径</h2><p>文件路径有两种：绝对路径和相对路径<br>绝对路径：从磁盘根目录到文件所在的目录<br>相对路径：文件相对当前文件所在的位置，都一个参照物（一般就是文件）</p>
+<p>相对路径表示方式<br>    ./：表示当前目录<br>    ../：上级目录<br>    /：网站根目录</p>
+<p>如果每次包含使用绝对路径，那么即便是出现文件嵌套包含（a包含b，b包含c）也不会出现问题，但是如果使用相对路径进行嵌套包含，就会出现路径的错误。</p>
+<h2 id="终止脚本执行">终止脚本执行</h2><p>终止脚本执行，指的是通过一条语句告诉PHP引擎，此语句之后的其他语句不需要执行。<br>PHP提供了三种方式来终止脚本执行：return，die，exit<br>return：执行到该处退出，如果是在函数中，表示退出函数，如果是在脚本中，表示脚本停止执行</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -108,13 +139,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/个人博客/">个人博客</a>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/github-pages/">github pages</a><a href="/tags/hexo/">hexo</a><a href="/tags/个人博客/">个人博客</a>
+  <span></span> <a href="/tags/PHP/">PHP</a>
   </div>
 
 </div>
@@ -123,7 +154,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/05/04/how-this-blog-build/" data-title="这个博客是如何构建的 | 王志刚" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/05/09/php-4-basic-knowledge/" data-title="php学习笔记4-基础知识：数据类型转换、文件包含、终止脚本执行 | 王志刚" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -137,19 +168,27 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/05/04/what-is-complied-language-and-interpreted-language/" title="编译和解释的区别是什么？">
+ <a href="/2015/05/09/php-5-basic-knowledge/" title="php学习笔记5-基础知识：数组">
   <strong>上一篇：</strong><br/>
   <span>
-  编译和解释的区别是什么？</span>
+  php学习笔记5-基础知识：数组</span>
 </a>
 </div>
 
+
+<div class="next">
+<a href="/2015/05/09/php-3-system-func/"  title="php学习笔记3-系统函数">
+ <strong>下一篇：</strong><br/> 
+ <span>php学习笔记3-系统函数
+</span>
+</a>
+</div>
 
 </nav>
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/05/04/how-this-blog-build/" data-title="这个博客是如何构建的" data-url="http://yoursite.com/2015/05/04/how-this-blog-build/"></div>
+	<div class="ds-thread" data-thread-key="2015/05/09/php-4-basic-knowledge/" data-title="php学习笔记4-基础知识：数据类型转换、文件包含、终止脚本执行" data-url="http://yoursite.com/2015/05/09/php-4-basic-knowledge/"></div>
 </section>
 
 
@@ -165,7 +204,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于个人博客"><span class="toc-number">1.</span> <span class="toc-text">关于个人博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">2.</span> <span class="toc-text">参考资料</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型转换"><span class="toc-number">1.</span> <span class="toc-text">数据类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#判断数据类型"><span class="toc-number">2.</span> <span class="toc-text">判断数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件包含"><span class="toc-number">3.</span> <span class="toc-text">文件包含</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件的包含路径"><span class="toc-number">4.</span> <span class="toc-text">文件的包含路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#终止脚本执行"><span class="toc-number">5.</span> <span class="toc-text">终止脚本执行</span></a></li></ol>
  
   </div>
 

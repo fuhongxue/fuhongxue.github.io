@@ -1,0 +1,575 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>php学习笔记5-基础知识：数组 | 王志刚</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="wzg">
+    
+
+    
+    <meta name="description" content="数组1 数组就是在内存里有一块连续的内存空间（堆空间），里面可以保持多个数据，数据没有数据类型的限制。
+2 php数组与其他语言的数组区别？a) php数组没有长度限制，其他语言如c必须先指定数组长度。b) php数组没有数据类型限制，其他语言如c必须事先声明数组要存储的数组c) 数组的下标可以是数组也可以是字符串
+123456789101112131415// 定义数组// 显示定义数组arra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php学习笔记5-基础知识：数组">
+<meta property="og:url" content="http://yoursite.com/2015/05/09/php-5-basic-knowledge/index.html">
+<meta property="og:site_name" content="王志刚">
+<meta property="og:description" content="数组1 数组就是在内存里有一块连续的内存空间（堆空间），里面可以保持多个数据，数据没有数据类型的限制。
+2 php数组与其他语言的数组区别？a) php数组没有长度限制，其他语言如c必须先指定数组长度。b) php数组没有数据类型限制，其他语言如c必须事先声明数组要存储的数组c) 数组的下标可以是数组也可以是字符串
+123456789101112131415// 定义数组// 显示定义数组arra">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php学习笔记5-基础知识：数组">
+<meta name="twitter:description" content="数组1 数组就是在内存里有一块连续的内存空间（堆空间），里面可以保持多个数据，数据没有数据类型的限制。
+2 php数组与其他语言的数组区别？a) php数组没有长度限制，其他语言如c必须先指定数组长度。b) php数组没有数据类型限制，其他语言如c必须事先声明数组要存储的数组c) 数组的下标可以是数组也可以是字符串
+123456789101112131415// 定义数组// 显示定义数组arra">
+
+    
+    <link rel="alternative" href="/atom.xml" title="王志刚" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="王志刚" title="王志刚"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="王志刚">王志刚</a></h1>
+				<h2 class="blog-motto">疑似码农</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/05/09/php-5-basic-knowledge/" title="php学习笔记5-基础知识：数组" itemprop="url">php学习笔记5-基础知识：数组</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-09T13:11:48.000Z" itemprop="datePublished"> 发表于 2015-05-09</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数组"><span class="toc-number">1.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组分类"><span class="toc-number">2.</span> <span class="toc-text">数组分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#索引数组"><span class="toc-number">2.1.</span> <span class="toc-text">索引数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关联数组"><span class="toc-number">2.2.</span> <span class="toc-text">关联数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组遍历"><span class="toc-number">3.</span> <span class="toc-text">数组遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#for循环遍历索引数组"><span class="toc-number">3.1.</span> <span class="toc-text">for循环遍历索引数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#foreach遍历"><span class="toc-number">3.2.</span> <span class="toc-text">foreach遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数each()遍历数组"><span class="toc-number">3.3.</span> <span class="toc-text">函数each()遍历数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list使用"><span class="toc-number">4.</span> <span class="toc-text">list使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二维数组"><span class="toc-number">5.</span> <span class="toc-text">二维数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组相关函数"><span class="toc-number">6.</span> <span class="toc-text">数组相关函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组合并：+和array_merge()"><span class="toc-number">7.</span> <span class="toc-text">数组合并：+和array_merge()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组的比较"><span class="toc-number">8.</span> <span class="toc-text">数组的比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#排序算法"><span class="toc-number">9.</span> <span class="toc-text">排序算法</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="数组">数组</h2><p>1 数组就是在内存里有一块连续的内存空间（堆空间），里面可以保持多个数据，数据没有数据类型的限制。</p>
+<p>2 php数组与其他语言的数组区别？<br>a) php数组没有长度限制，其他语言如c必须先指定数组长度。<br>b) php数组没有数据类型限制，其他语言如c必须事先声明数组要存储的数组<br>c) 数组的下标可以是数组也可以是字符串</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义数组</span></span><br><span class="line"><span class="comment">// 显示定义数组array</span></span><br><span class="line"><span class="variable">$arr1</span> = <span class="keyword">array</span>(<span class="string">'路飞'</span>,<span class="string">'男'</span>,<span class="number">200</span>,<span class="number">2000</span>,<span class="number">1223</span>);</span><br><span class="line">var_dump(<span class="variable">$arr1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 隐士定义数组</span></span><br><span class="line"><span class="variable">$arr2</span>[] = <span class="string">'桔梗'</span>;</span><br><span class="line"><span class="variable">$arr2</span>[] = <span class="string">'女'</span>;</span><br><span class="line"><span class="variable">$arr2</span>[] = <span class="number">18</span>;</span><br><span class="line"><span class="variable">$arr2</span>[] = <span class="number">165</span>;</span><br><span class="line"><span class="variable">$arr2</span>[] = <span class="number">90</span>;</span><br><span class="line">var_dump(<span class="variable">$arr2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//访问数组</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$arr2</span>[<span class="number">1</span>]; <span class="comment">// 女，数组下标默认从0开始</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组分类">数组分类</h2><p>根据数组的下标的不同进行分类<br>索引数组：当前数组的下标（键名）全是数字（整型）<br>关联数组：当前数组的下标全是字符串（使用最多）<br>混合数组：数组的下标既有数字又有字符串</p>
+<h3 id="索引数组">索引数组</h3><p>定义方式：系统自动分配下标<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//显示</span></span><br><span class="line"><span class="variable">$arr1</span> = <span class="keyword">array</span>(<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>);</span><br><span class="line"><span class="comment">//$arr1 = array(0 =&gt; 'a',1 =&gt; 'b',2 =&gt; 'c'); </span></span><br><span class="line">var_dump(<span class="variable">$arr1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//隐式</span></span><br><span class="line"><span class="variable">$arr2</span>[] = <span class="string">'a'</span>;		<span class="comment">//$arr2[0] = 'a';</span></span><br><span class="line"><span class="variable">$arr2</span>[] = <span class="string">'b'</span>;		<span class="comment">//$arr2[1] = 'b';</span></span><br><span class="line"><span class="variable">$arr2</span>[] = <span class="string">'c'</span>;		<span class="comment">//$arr2[2] = 'c';</span></span><br><span class="line">var_dump(<span class="variable">$arr2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//手动分配下标</span></span><br><span class="line"><span class="comment">//显示</span></span><br><span class="line"><span class="variable">$arr3</span> = <span class="keyword">array</span>( <span class="number">3</span> =&gt; <span class="string">'a'</span>,<span class="number">2</span> =&gt; <span class="string">'b'</span>,<span class="number">1</span> =&gt; <span class="string">'c'</span>);</span><br><span class="line">var_dump(<span class="variable">$arr3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//隐式</span></span><br><span class="line"><span class="variable">$arr4</span>[<span class="number">5</span>] = <span class="string">'a'</span>;</span><br><span class="line"><span class="variable">$arr4</span>[<span class="number">3</span>] = <span class="string">'b'</span>;</span><br><span class="line"><span class="variable">$arr4</span>[<span class="number">1</span>] = <span class="string">'c'</span>;</span><br><span class="line">var_dump(<span class="variable">$arr4</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//显示</span></span><br><span class="line"><span class="variable">$arr5</span> = <span class="keyword">array</span>(<span class="string">'a'</span>,<span class="number">5</span> =&gt; <span class="string">'b'</span>,<span class="string">'c'</span>);</span><br><span class="line">var_dump(<span class="variable">$arr5</span>);</span><br></pre></td></tr></table></figure></p>
+<p>系统分配索引方式</p>
+<ol>
+<li>系统是0开始分配下标，依次递增1</li>
+<li>用户可以手动分配下标（下标不能重复：重复的效果就是覆盖）</li>
+<li>如果用户在某一处指定了下标，那么后续元素自动分配的下标从前面的最大值（索引）开始</li>
+</ol>
+<h3 id="关联数组">关联数组</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//关联数组</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;pre&gt;'</span>;</span><br><span class="line"><span class="comment">//显示创建</span></span><br><span class="line"><span class="variable">$arr1</span> = <span class="keyword">array</span>(<span class="string">'a'</span> =&gt; <span class="string">'a'</span>, <span class="string">'b'</span> =&gt; <span class="string">'b'</span>,<span class="string">'c'</span> =&gt; <span class="string">'c'</span>);</span><br><span class="line">var_dump(<span class="variable">$arr1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//隐式创建</span></span><br><span class="line"><span class="variable">$arr2</span>[<span class="string">'a'</span>] = <span class="string">'apple'</span>;</span><br><span class="line"><span class="variable">$arr2</span>[<span class="string">'b'</span>] = <span class="string">'banana'</span>;</span><br><span class="line"><span class="variable">$arr2</span>[<span class="string">'c'</span>] = <span class="string">'cake'</span>;</span><br><span class="line"><span class="variable">$arr2</span>[<span class="string">'d'</span>] = <span class="string">'duck'</span>;</span><br><span class="line"></span><br><span class="line">var_dump(<span class="variable">$arr2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//访问关联数组</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$arr2</span>[<span class="string">'a'</span>];			<span class="comment">//apple</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$arr2</span>[<span class="string">'d'</span>];			<span class="comment">//duck</span></span><br></pre></td></tr></table></figure>
+<p>关联数组</p>
+<ol>
+<li>下标必须使用引号包含</li>
+<li>下标不允许重复，重复会覆盖</li>
+</ol>
+<h2 id="数组遍历">数组遍历</h2><p>将数组里面的所有元素都取出来。</p>
+<h3 id="for循环遍历索引数组">for循环遍历索引数组</h3><p>count()：对数组长度进行计算，返回数组元素的个数（长度）<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组遍历</span></span><br><span class="line"><span class="variable">$arr</span> = <span class="keyword">array</span>(<span class="string">'邹荣华'</span>,<span class="string">'王默'</span>,<span class="string">'李伟豪'</span>,<span class="string">'张日晖'</span>,<span class="string">'陶丹凤'</span>,<span class="string">'周娃女'</span>,<span class="string">'邓桂敏'</span>);</span><br><span class="line"><span class="comment">//				0		1		2		3			4		5		6</span></span><br><span class="line"><span class="comment">//索引数组：下标连续</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//获得数组长度</span></span><br><span class="line"><span class="variable">$length</span> = count(<span class="variable">$arr</span>);</span><br><span class="line"><span class="comment">//echo $length;					//7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//for循环遍历数组</span></span><br><span class="line"><span class="keyword">for</span>(<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="variable">$length</span>;<span class="variable">$i</span>++)&#123;</span><br><span class="line">	<span class="comment">//输出当前数组元素</span></span><br><span class="line">	<span class="keyword">echo</span> <span class="variable">$arr</span>[<span class="variable">$i</span>],<span class="string">"\t"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>要求：</p>
+<ol>
+<li>数组必须是索引数组</li>
+<li>所以必须是连续的索引</li>
+<li>索引必须从0开始</li>
+</ol>
+<h3 id="foreach遍历">foreach遍历</h3><p>如果数组是一个关联数组，那么就完全不能使用for循环来进行遍历。PHP提供了一个foreach来实现对数组元素的遍历</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组遍历</span></span><br><span class="line"><span class="variable">$arr</span> = <span class="keyword">array</span>(<span class="string">'邹荣华'</span>,<span class="string">'王默'</span>,<span class="string">'李伟豪'</span>,<span class="string">'张日晖'</span>,<span class="string">'陶丹凤'</span>,<span class="string">'周娃女'</span>,<span class="string">'邓桂敏'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//foreach遍历数组</span></span><br><span class="line"><span class="keyword">foreach</span>(<span class="variable">$arr</span> <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$value</span>)&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">'key = '</span> . <span class="variable">$key</span> . <span class="string">' value = '</span> . <span class="variable">$value</span> . <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个关联数组</span></span><br><span class="line"><span class="variable">$array</span>[<span class="string">'name'</span>] = <span class="string">'张三丰'</span>;</span><br><span class="line"><span class="variable">$array</span>[<span class="string">'age'</span>]  = <span class="number">103</span>;</span><br><span class="line"><span class="variable">$array</span>[<span class="string">'jineng'</span>] = <span class="string">'太极'</span>;</span><br><span class="line"><span class="variable">$array</span>[<span class="string">'department'</span>] = <span class="string">'武当'</span>;</span><br><span class="line"></span><br><span class="line">var_dump(<span class="variable">$array</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//foreach遍历</span></span><br><span class="line"><span class="keyword">foreach</span>(<span class="variable">$array</span> <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$value</span>)&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">'key = '</span> . <span class="variable">$key</span> . <span class="string">' value = '</span> . <span class="variable">$value</span> . <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="函数each()遍历数组">函数each()遍历数组</h3><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">//定义数组</span><br><span class="line"><span class="variable">$arr</span>[<span class="string">'name'</span>] = <span class="string">'张无忌'</span>;</span><br><span class="line"><span class="variable">$arr</span>[<span class="string">'age'</span>] = <span class="string">'20'</span>;</span><br><span class="line"><span class="variable">$arr</span>[<span class="string">'power'</span>] = <span class="string">'乾坤大挪移'</span>;</span><br><span class="line"><span class="variable">$arr</span>[<span class="string">'company'</span>] = <span class="string">'明教'</span>;</span><br><span class="line"></span><br><span class="line"><span class="regexp">//var</span>_dump(<span class="variable">$arr</span>);</span><br><span class="line"></span><br><span class="line"><span class="regexp">//each</span></span><br><span class="line">//var_dump(<span class="keyword">each</span>(<span class="variable">$arr</span>));		<span class="regexp">//name</span></span><br><span class="line">//var_dump(<span class="keyword">each</span>(<span class="variable">$arr</span>));		<span class="regexp">//age</span></span><br><span class="line">//var_dump(<span class="keyword">each</span>(<span class="variable">$arr</span>));		<span class="regexp">//power</span></span><br><span class="line">//var_dump(<span class="keyword">each</span>(<span class="variable">$arr</span>));		<span class="regexp">//company</span></span><br><span class="line">//var_dump(<span class="keyword">each</span>(<span class="variable">$arr</span>));		<span class="regexp">//false</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//<span class="keyword">foreach</span>进行遍历</span><br><span class="line">//<span class="keyword">foreach</span>(<span class="variable">$arr</span> as <span class="variable">$key</span> =&gt; <span class="variable">$value</span>)&#123;</span><br><span class="line"><span class="regexp">//</span>	echo <span class="variable">$key</span>. <span class="string">':'</span>.<span class="variable">$value</span>.<span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line"><span class="regexp">//</span>&#125;</span><br><span class="line">//<span class="keyword">foreach</span>指针遍历完了之后数组指针指向数组末端</span><br><span class="line"></span><br><span class="line">//var_dump(<span class="keyword">each</span>(<span class="variable">$arr</span>));		<span class="regexp">//false</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//<span class="keyword">each</span>配合循环<span class="keyword">while</span>遍历数组</span><br><span class="line"><span class="keyword">while</span>(<span class="variable">$each</span> = <span class="keyword">each</span>(<span class="variable">$arr</span>))&#123;</span><br><span class="line">	<span class="regexp">//while</span>内部条件顺序</span><br><span class="line">	//<span class="number">1</span>.先计算表达式结果</span><br><span class="line">	//<span class="number">1.1</span>先计算右边<span class="keyword">each</span>(<span class="variable">$arr</span>)，得到数组或者FALSE</span><br><span class="line">	//<span class="number">1.2</span>进行赋值，将结果赋值给<span class="variable">$each</span>变量</span><br><span class="line">	//<span class="number">2</span>.判断条件：对<span class="variable">$each</span>进行自动转换，如果是数组变成true，如果是FALSE就不需要转变</span><br><span class="line"></span><br><span class="line">	//如果<span class="keyword">each</span>得到数组元素，就为真，进入循环体</span><br><span class="line">	//如果<span class="keyword">each</span>得不到元素，返回FALSE，就不再进入循环体</span><br><span class="line"></span><br><span class="line">	//输出元素信息</span><br><span class="line">	echo <span class="string">'key = '</span>,<span class="variable">$each</span>[<span class="number">0</span>] ,<span class="string">' value = '</span>,<span class="variable">$each</span>[<span class="string">'value'</span>],<span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="list使用">list使用</h2><p>list是一个语法结构，将得到的数组里的元素，必须是以0开始的索引元素，对应的赋值给list所指定的变量里。<br>因为each返回的结果里有两个索引元素0和1，所以一般使用list与each进行配对使用<br>list+each+while循环遍历数组<br><figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//定义数组</span><br><span class="line"><span class="variable">$arr</span>[<span class="string">'name'</span>] = <span class="string">'张无忌'</span>;</span><br><span class="line"><span class="variable">$arr</span>[<span class="string">'age'</span>] = <span class="string">'20'</span>;</span><br><span class="line"><span class="variable">$arr</span>[<span class="string">'power'</span>] = <span class="string">'乾坤大挪移'</span>;</span><br><span class="line"><span class="variable">$arr</span>[<span class="string">'company'</span>] = <span class="string">'明教'</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//<span class="keyword">list</span>(<span class="variable">$first</span>,<span class="variable">$second</span>) = each(<span class="variable">$arr</span>);</span><br><span class="line">//each(<span class="variable">$arr</span>)</span><br><span class="line">//<span class="keyword">array</span>(<span class="number">0</span> =&gt; <span class="string">'name'</span>,<span class="string">'key'</span> =&gt; <span class="string">'name'</span>,<span class="number">1</span> =&gt; <span class="string">'张无忌'</span>,<span class="string">'value'</span> =&gt; <span class="string">'张无忌'</span>);</span><br><span class="line">//echo <span class="variable">$first</span>,<span class="variable">$second</span>;</span><br><span class="line"></span><br><span class="line">//<span class="keyword">list</span>(<span class="variable">$third</span>,<span class="variable">$fourth</span>) = <span class="keyword">array</span>(<span class="number">1</span> =&gt; <span class="string">'third'</span>,<span class="string">'fourth'</span> =&gt; <span class="string">'fourth'</span>);</span><br><span class="line"><span class="keyword">list</span>(<span class="variable">$third</span>,<span class="variable">$fourth</span>) = FALSE;</span><br><span class="line">//<span class="keyword">list</span>结构允许数组是一个布尔值FALSE，从而不会去数组里取元素赋值给对应的变量</span><br><span class="line"></span><br><span class="line">//<span class="keyword">list</span>+each+<span class="keyword">while</span>遍历数组</span><br><span class="line"><span class="keyword">while</span>(<span class="keyword">list</span>(<span class="variable">$first</span>,<span class="variable">$second</span>) = each(<span class="variable">$arr</span>))&#123;</span><br><span class="line">	//判断each得到的结果</span><br><span class="line">	echo <span class="variable">$first</span>,<span class="variable">$second</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>list搭配each的好处：能够直接将数组的元素取出来，且赋值给变量，而在后续的程序中可以直接使用变量来操作。</p>
+<h2 id="二维数组">二维数组</h2><p>数组的元素的值是一个数组数据类型。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//二维数组</span></span><br><span class="line"><span class="variable">$arr</span> = <span class="keyword">array</span>(</span><br><span class="line">	<span class="string">'person1'</span> =&gt; <span class="keyword">array</span>(<span class="string">'name'</span> =&gt; <span class="string">'乔峰'</span>,<span class="string">'age'</span> =&gt; <span class="number">36</span>,<span class="string">'power'</span> =&gt; <span class="string">'降龙十八掌'</span>),</span><br><span class="line">	<span class="string">'person2'</span> =&gt; <span class="keyword">array</span>(<span class="string">'name'</span> =&gt; <span class="string">'段誉'</span>,<span class="string">'age'</span> =&gt; <span class="number">18</span>,<span class="string">'power'</span> =&gt; <span class="string">'凌波微步'</span>),</span><br><span class="line">	<span class="string">'person3'</span> =&gt; <span class="keyword">array</span>(<span class="string">'name'</span> =&gt; <span class="string">'虚竹'</span>,<span class="string">'age'</span> =&gt; <span class="number">23</span>,<span class="string">'power'</span> =&gt; <span class="string">'北冥神功'</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">//var_dump($arr);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//访问乔峰的年龄</span></span><br><span class="line"><span class="comment">//echo $arr['person1']['age'];			//36</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//访问Person1</span></span><br><span class="line"><span class="comment">//echo $arr['person1'];					//错误，不能直接echo数组</span></span><br><span class="line"><span class="comment">//var_dump($arr['person1']);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//print_r打印数组</span></span><br><span class="line"><span class="comment">//print_r($arr['person1']);				//打印数组结构和内容，不管数据类型以及元素个数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//二维数组遍历</span></span><br><span class="line"><span class="keyword">foreach</span>(<span class="variable">$arr</span> <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$value</span>)&#123;</span><br><span class="line">	<span class="comment">//将二维数组遍历成一维数组，然后直接访问一维数组里的数据（元素）</span></span><br><span class="line">	<span class="comment">//输入个人信息</span></span><br><span class="line">	<span class="keyword">echo</span> <span class="string">"$key :姓名是"</span> . <span class="variable">$value</span>[<span class="string">'name'</span>] . <span class="string">' 年龄是'</span> . <span class="variable">$value</span>[<span class="string">'age'</span>] . <span class="string">' 技能是'</span> . <span class="variable">$value</span>[<span class="string">'power'</span>] . <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组的增删改查</span></span><br><span class="line"><span class="comment">//一维数组</span></span><br><span class="line"><span class="variable">$arr</span> = <span class="keyword">array</span>();				<span class="comment">//新增</span></span><br><span class="line"><span class="variable">$arr</span>[] = ‘泰山’;			<span class="comment">//新增元素</span></span><br><span class="line"><span class="variable">$arr</span>[<span class="number">0</span>] = ‘衡山’;			<span class="comment">//修改元素</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$arr</span>[<span class="number">0</span>];				<span class="comment">//查看元素</span></span><br><span class="line"><span class="keyword">unset</span>(<span class="variable">$arr</span>[<span class="number">0</span>]);				<span class="comment">//删除元素</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//二维数组</span></span><br><span class="line"><span class="comment">//定义一个数组</span></span><br><span class="line"><span class="variable">$arr</span> = <span class="keyword">array</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//新增数组元素</span></span><br><span class="line"><span class="variable">$arr</span>[] = <span class="keyword">array</span>(<span class="string">'a'</span>,<span class="string">'b'</span>);</span><br><span class="line"><span class="variable">$arr</span>[] = <span class="keyword">array</span>(<span class="string">'c'</span>,<span class="string">'d'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//查看数组</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$arr</span>[<span class="number">0</span>][<span class="number">1</span>];				<span class="comment">//b</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$arr</span>[<span class="number">1</span>][<span class="number">0</span>];				<span class="comment">//c</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//修改数组</span></span><br><span class="line"><span class="comment">//修改二维数组d=&gt;e</span></span><br><span class="line"><span class="variable">$arr</span>[<span class="number">1</span>][<span class="number">1</span>] = <span class="string">'e'</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$arr</span>[<span class="number">1</span>][<span class="number">1</span>];				<span class="comment">//e</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//修改一维数组0 =&gt; 'hello world';</span></span><br><span class="line"><span class="variable">$arr</span>[<span class="number">0</span>] = <span class="string">'hello world'</span>;</span><br><span class="line"><span class="comment">//var_dump($arr);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//删除数组</span></span><br><span class="line"><span class="comment">//删除二维数组</span></span><br><span class="line"><span class="keyword">unset</span>(<span class="variable">$arr</span>[<span class="number">1</span>][<span class="number">0</span>]);</span><br><span class="line"><span class="comment">//删除一维数组</span></span><br><span class="line"><span class="keyword">unset</span>(<span class="variable">$arr</span>[<span class="number">0</span>]);</span><br><span class="line">var_dump(<span class="variable">$arr</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="数组相关函数">数组相关函数</h2><ul>
+<li>key：获取当前数组当前指针所指向元素的下标</li>
+<li>current：获取当前数组指针所指向的元素的值</li>
+<li>reset：重置数组的指针，让数组指针指向第一个元素，如果成功返回第一个元素的值，失败返回FALSE<br>注意：如果数组第一个元素被删除，那么指针重置之后，是第二个元素（从第一个有效元素开始）</li>
+<li>next：返回数组当前指针所指向的下一位的元素的值，并指针下移一位<br>注意：如果当前指针已经在数组元素的最后一个元素，那么next返回FALSE，指针依然下移一位，移除了数组</li>
+<li>prev：返回当前指针所在位置的前一个元素的值，并且将指针向前移动一位<br>注意：如果当前指针已经在数组元素的第一个元素，那么使用Prev将会将数组的指针移除数组，返回FALSE<br>如果指针一旦移除数组，那么都不能通过prev或者next将指针拉回来。</li>
+<li>end ：获取数组元素最后一个元素的值，指针也会指向最后一个元素<br>注意：end函数与Reset函数有异曲同工之妙，也能把移除数组的指针给重置回来</li>
+<li>array_keys：获取数组的所有下标，返回一个索引数组，数组元素的值都是目标数组的下标</li>
+<li>array_values：获取数组所有的值，返回一个索引数组</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义函数</span></span><br><span class="line"><span class="variable">$arr</span> = <span class="keyword">array</span>(</span><br><span class="line">	<span class="string">'name'</span> =&gt; <span class="string">'杨过'</span>,</span><br><span class="line">	<span class="string">'age'</span>  =&gt; <span class="number">23</span>,</span><br><span class="line">	<span class="string">'power'</span>=&gt; <span class="string">'黯然销魂掌'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">//key函数</span></span><br><span class="line">var_dump(key(<span class="variable">$arr</span>));			<span class="comment">//name</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//current函数</span></span><br><span class="line">var_dump(current(<span class="variable">$arr</span>));		<span class="comment">//杨过</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//next函数</span></span><br><span class="line">var_dump(next(<span class="variable">$arr</span>));			<span class="comment">//23</span></span><br><span class="line">var_dump(key(<span class="variable">$arr</span>));			<span class="comment">//age</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//prev函数</span></span><br><span class="line">var_dump(prev(<span class="variable">$arr</span>));			<span class="comment">//杨过</span></span><br><span class="line">var_dump(key(<span class="variable">$arr</span>));			<span class="comment">//name</span></span><br><span class="line"></span><br><span class="line">var_dump(prev(<span class="variable">$arr</span>));			<span class="comment">//false</span></span><br><span class="line">var_dump(key(<span class="variable">$arr</span>));			<span class="comment">//NULL</span></span><br><span class="line"></span><br><span class="line">var_dump(next(<span class="variable">$arr</span>));			<span class="comment">//false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//unset($arr['name']);</span></span><br><span class="line"><span class="comment">//var_dump(key($arr));</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Reset函数</span></span><br><span class="line"><span class="comment">//var_dump(reset($arr));			//杨过</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//end函数</span></span><br><span class="line">var_dump(end(<span class="variable">$arr</span>));	</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用Reset，key，current，next对数组进行遍历</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$arr</span> = <span class="keyword">array</span>(</span><br><span class="line">	<span class="string">'name'</span> =&gt; <span class="string">'杨过'</span>,</span><br><span class="line">	<span class="string">'age'</span>  =&gt; <span class="number">23</span>,</span><br><span class="line">	<span class="string">'power'</span>=&gt; <span class="string">'黯然销魂掌'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="variable">$value</span> = current(<span class="variable">$arr</span>))&#123;</span><br><span class="line">	<span class="comment">//如果$value有值，那么结果就是TRUE</span></span><br><span class="line">	<span class="comment">//获取键名</span></span><br><span class="line">	<span class="variable">$key</span> = key(<span class="variable">$arr</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//输出</span></span><br><span class="line">	<span class="keyword">echo</span> <span class="string">'key 为'</span>,<span class="variable">$key</span>,<span class="string">' value '</span>,<span class="variable">$value</span>,<span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//改变数组的指针：下移</span></span><br><span class="line">	next(<span class="variable">$arr</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果后续还需要使用函数来访问数组，那么需要重置数组指针，foreach不需要，因为foreach会自己重置数组指针</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//array_keys函数</span></span><br><span class="line">var_dump(array_keys(<span class="variable">$arr</span>));	</span><br><span class="line"></span><br><span class="line"><span class="comment">//二维数组</span></span><br><span class="line"><span class="variable">$arr2</span> = <span class="keyword">array</span>(</span><br><span class="line">	<span class="string">'person1'</span> =&gt; <span class="keyword">array</span>(<span class="string">'赵敏'</span>,<span class="string">'18'</span>),</span><br><span class="line">	<span class="string">'person2'</span> =&gt; <span class="keyword">array</span>(<span class="string">'青翼蝠王'</span>,<span class="number">56</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">var_dump(array_keys(<span class="variable">$arr2</span>));</span><br><span class="line">var_dump(array_values(<span class="variable">$arr2</span>));</span><br></pre></td></tr></table></figure>
+<p>以下四个函数:</p>
+<ol>
+<li>都是对原数组进行操作。</li>
+<li>都会重置数组里面的索引。</li>
+</ol>
+<ul>
+<li>array_push：从数组的尾端加入一个元素（压栈）</li>
+<li>array_pop：从数组的尾端弹出一个元素（出栈）</li>
+<li>array_shift：从数组头部将数组元素移出</li>
+<li>array_unshift：从数组的头部插入数据</li>
+<li>shuffle：将原来的数组里的元素打乱<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//空数组：栈</span></span><br><span class="line"><span class="variable">$arr</span> = <span class="keyword">array</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组模拟栈</span></span><br><span class="line"><span class="comment">//压栈</span></span><br><span class="line">array_push(<span class="variable">$arr</span>,<span class="string">'one'</span>);</span><br><span class="line">array_push(<span class="variable">$arr</span>,<span class="string">'two'</span>);</span><br><span class="line">array_push(<span class="variable">$arr</span>,<span class="string">'three'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//var_dump($arr);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//出栈</span></span><br><span class="line">var_dump(array_pop(<span class="variable">$arr</span>));			<span class="comment">//two</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//出队，将元素从数组的头部弹出</span></span><br><span class="line">var_dump(array_shift(<span class="variable">$arr</span>));			<span class="comment">//one</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//以下内容与模拟队列数据结构无关</span></span><br><span class="line"><span class="comment">//从数组头部插入数据</span></span><br><span class="line">array_unshift(<span class="variable">$arr</span>,<span class="string">'four'</span>);</span><br><span class="line"></span><br><span class="line">var_dump(<span class="variable">$arr</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>数组与字符串之间的转换</p>
+<ul>
+<li>explode：将字符串按照指定的分隔符分解成一系列小的字符串，都成为数组的一个元素</li>
+<li>implode：将一个数组里的所有的元素按照某个分隔符进行拼接，变成一个字符串<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义数组</span></span><br><span class="line"><span class="variable">$arr</span> = <span class="keyword">array</span>(<span class="string">'黑猫警长'</span>,<span class="string">'黑色'</span>,<span class="string">'流氓'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//将一个数组拼接成一个字符串implode</span></span><br><span class="line"><span class="variable">$str</span> = implode(<span class="string">'|'</span>,<span class="variable">$arr</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$str</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//将一个有结构的字符串转换成一个数组：explode</span></span><br><span class="line"><span class="variable">$ex_arr</span> = explode(<span class="string">'|'</span>,<span class="variable">$str</span>);</span><br><span class="line"></span><br><span class="line">var_dump(<span class="variable">$ex_arr</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>CAPTCHA：验证码，制作验证码随机字符串</p>
+<ul>
+<li>range：按照ASCII码能够指定范围，自动生成数组元素的函数</li>
+<li>array_rand：从数组中随机取出指定长度的个数的元素下标</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//range，生成指定范围的数组</span></span><br><span class="line"><span class="variable">$arr1</span> = range(<span class="number">1</span>,<span class="number">9</span>);				<span class="comment">//生成一个1到9 的索引数组</span></span><br><span class="line"><span class="comment">//print_r($arr);</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$arr2</span> = range(<span class="string">'a'</span>,<span class="string">'z'</span>);			<span class="comment">//生成一个a到z的索引数组</span></span><br><span class="line"><span class="variable">$arr3</span> = range(<span class="string">'A'</span>,<span class="string">'Z'</span>);			<span class="comment">//生成一个A到Z的索引数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//var_dump($arr1 + $arr2);					//26个元素</span></span><br><span class="line"><span class="comment">//var_dump(array_merge($arr1,$arr2));		//35个元素</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//合并生成的所有数组</span></span><br><span class="line"><span class="variable">$arr</span> = array_merge(<span class="variable">$arr1</span>,<span class="variable">$arr2</span>,<span class="variable">$arr3</span>);		<span class="comment">//61个元素</span></span><br><span class="line"><span class="comment">//$arr = array_merge(range(1,9),range('a','z'),range('A','Z'));</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//随机取出指定长度的字符串</span></span><br><span class="line"><span class="comment">//var_dump(array_rand($arr,4));</span></span><br><span class="line"><span class="comment">//得到4个随机下标</span></span><br><span class="line"><span class="variable">$arr_key</span> = array_rand(<span class="variable">$arr</span>,<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//打乱数组下标元素</span></span><br><span class="line">shuffle(<span class="variable">$arr_key</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//取得下标对应的数组的值</span></span><br><span class="line"><span class="variable">$captcha</span> = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>(<span class="variable">$arr_key</span> <span class="keyword">as</span> <span class="variable">$value</span>)&#123;</span><br><span class="line">	<span class="variable">$captcha</span> .= <span class="variable">$arr</span>[<span class="variable">$value</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$captcha</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过字符串来随机生成验证码</span></span><br><span class="line"><span class="variable">$str</span> = <span class="string">"123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//随机获取对应的字符</span></span><br><span class="line"><span class="variable">$captcha</span> = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="variable">$i</span> = <span class="number">0</span>;<span class="variable">$i</span> &lt; <span class="number">4</span>;<span class="variable">$i</span>++)&#123;</span><br><span class="line">	<span class="comment">//获取1到61之间的随机数</span></span><br><span class="line">	<span class="variable">$num</span> = mt_rand(<span class="number">1</span>,<span class="number">61</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//$captcha .= substr($str,$num,1);</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//字符串获取某个字符，可以使用类似数组下标形式访问$str[0] == 1</span></span><br><span class="line">	<span class="variable">$captcha</span> .= <span class="variable">$str</span>[<span class="variable">$num</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出验证码</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$captcha</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="数组合并：+和array_merge()">数组合并：+和array_merge()</h2><ul>
+<li>+：保存第一个数组的所有元素，如果后面的数组的元素与前面数组的元素的下标相同，那么就忽略，如果不同则加到第一个数组里，最终返回一个数组</li>
+<li>array_merge()：先保留第一个数组的所有元素，如果后面数组的元素与前面数组的元素关联下标相同则用后面数组的元素覆盖前面的；如果是索引下标，直接添加到第一个数组后面，重置索引。</li>
+</ul>
+<h2 id="数组的比较">数组的比较</h2><p>数组的比较主要是比较数组长度，数组元素的值<br>==和===<br>==：要求数组长度一致，数组元素的值相等，下标也要相等<br>===：数组长度一致，值和类型都完全一致，出现的顺序必须也相同<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$arr1</span> = <span class="keyword">array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line"><span class="variable">$arr2</span> = <span class="keyword">array</span>(<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>);</span><br><span class="line"><span class="variable">$arr3</span> = <span class="keyword">array</span>(<span class="number">2</span> =&gt;<span class="number">3</span>,<span class="number">1</span> =&gt; <span class="number">2</span>, <span class="number">0</span> =&gt; <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//==比较</span></span><br><span class="line">var_dump(<span class="variable">$arr1</span> == <span class="variable">$arr2</span>);				<span class="comment">//false，下标对应的元素的值不等</span></span><br><span class="line">var_dump(<span class="variable">$arr1</span> == <span class="variable">$arr3</span>);				<span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//===比较</span></span><br><span class="line">var_dump(<span class="variable">$arr1</span> === <span class="variable">$arr3</span>);				<span class="comment">//false</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="排序算法">排序算法</h2><p>冒泡算法，快速排序，选择排序和插入排序。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//冒泡算法</span></span><br><span class="line"><span class="variable">$arr</span> = <span class="keyword">array</span>(<span class="number">2</span>,<span class="number">3</span>,<span class="number">0</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">7</span>,<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//因为排序需要每次将一个元素与数组的其他元素进行比较，所以需要两层循环来控制</span></span><br><span class="line"><span class="comment">//外层循环控制冒泡次数</span></span><br><span class="line"><span class="comment">//内存循环比较每次的大小，得到每次的最大值（泡）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="variable">$i</span> = <span class="number">0</span>,<span class="variable">$length</span> = count(<span class="variable">$arr</span>);<span class="variable">$i</span> &lt; <span class="variable">$length</span>;<span class="variable">$i</span>++)&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//内存循环</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="variable">$j</span> = <span class="number">0</span>;<span class="variable">$j</span> &lt; (<span class="variable">$length</span> - <span class="variable">$i</span> - <span class="number">1</span>);<span class="variable">$j</span>++)&#123;</span><br><span class="line">		<span class="comment">//拿着j变量所对应的数组元素，与后面的元素进行比较</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="variable">$arr</span>[<span class="variable">$j</span>] &gt; <span class="variable">$arr</span>[<span class="variable">$j</span> + <span class="number">1</span>])&#123;</span><br><span class="line">			<span class="comment">//交换位置</span></span><br><span class="line">			<span class="variable">$temp</span>		= <span class="variable">$arr</span>[<span class="variable">$j</span>];</span><br><span class="line">			<span class="variable">$arr</span>[<span class="variable">$j</span>]	= <span class="variable">$arr</span>[<span class="variable">$j</span>+<span class="number">1</span>];</span><br><span class="line">			<span class="variable">$arr</span>[<span class="variable">$j</span>+<span class="number">1</span>]	= <span class="variable">$temp</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var_dump(<span class="variable">$arr</span>);</span><br></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/PHP/">PHP</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/05/09/php-5-basic-knowledge/" data-title="php学习笔记5-基础知识：数组 | 王志刚" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/05/11/linux-kernel-1-disassembling-a-simple-c-program/" title="Linux内核分析1-反汇编一个简单的c程序">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Linux内核分析1-反汇编一个简单的c程序</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/05/09/php-4-basic-knowledge/"  title="php学习笔记4-基础知识：数据类型转换、文件包含、终止脚本执行">
+ <strong>下一篇：</strong><br/> 
+ <span>php学习笔记4-基础知识：数据类型转换、文件包含、终止脚本执行
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/05/09/php-5-basic-knowledge/" data-title="php学习笔记5-基础知识：数组" data-url="http://yoursite.com/2015/05/09/php-5-basic-knowledge/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数组"><span class="toc-number">1.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组分类"><span class="toc-number">2.</span> <span class="toc-text">数组分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#索引数组"><span class="toc-number">2.1.</span> <span class="toc-text">索引数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关联数组"><span class="toc-number">2.2.</span> <span class="toc-text">关联数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组遍历"><span class="toc-number">3.</span> <span class="toc-text">数组遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#for循环遍历索引数组"><span class="toc-number">3.1.</span> <span class="toc-text">for循环遍历索引数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#foreach遍历"><span class="toc-number">3.2.</span> <span class="toc-text">foreach遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数each()遍历数组"><span class="toc-number">3.3.</span> <span class="toc-text">函数each()遍历数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list使用"><span class="toc-number">4.</span> <span class="toc-text">list使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二维数组"><span class="toc-number">5.</span> <span class="toc-text">二维数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组相关函数"><span class="toc-number">6.</span> <span class="toc-text">数组相关函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组合并：+和array_merge()"><span class="toc-number">7.</span> <span class="toc-text">数组合并：+和array_merge()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组的比较"><span class="toc-number">8.</span> <span class="toc-text">数组的比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#排序算法"><span class="toc-number">9.</span> <span class="toc-text">排序算法</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/个人博客/" title="个人博客">个人博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/计算机科学/" title="计算机科学">计算机科学<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/PHP/" title="PHP">PHP<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/解释型语言/" title="解释型语言">解释型语言<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编译型语言/" title="编译型语言">编译型语言<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/github-pages/" title="github pages">github pages<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/个人博客/" title="个人博客">个人博客<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Wang ZhiGang in China. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="wzg">wzg</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"wzg"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'fuhongxue';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
