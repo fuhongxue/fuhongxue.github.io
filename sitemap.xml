@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2015/05/12/php-7-file-operations/</loc>
+    <lastmod>2015-05-12T15:53:37.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2015/05/12/php-6-data-transfer/</loc>
+    <lastmod>2015-05-12T09:42:53.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2015/05/09/php-5-basic-knowledge/</loc>
     <lastmod>2015-05-11T12:27:55.000Z</lastmod>
   </url>

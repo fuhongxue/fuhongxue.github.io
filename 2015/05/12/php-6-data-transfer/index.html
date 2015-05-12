@@ -1,0 +1,558 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>php学习笔记6-数据传输基础 | 王志刚</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="wzg">
+    
+
+    
+    <meta name="description" content="浏览器传值浏览器如何给服务器传输数据？
+表单传值增加一对form标签，将一些需要提交的数据，在form使用表单元素（input，select，textarea）
+
+post传值：数据以post形式传输
+12345&amp;lt;form method=”POST” action=”?”&amp;gt;	&amp;lt;input type=”text” name=”name” /&amp;gt;	&amp;lt;input type=”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php学习笔记6-数据传输基础">
+<meta property="og:url" content="http://yoursite.com/2015/05/12/php-6-data-transfer/index.html">
+<meta property="og:site_name" content="王志刚">
+<meta property="og:description" content="浏览器传值浏览器如何给服务器传输数据？
+表单传值增加一对form标签，将一些需要提交的数据，在form使用表单元素（input，select，textarea）
+
+post传值：数据以post形式传输
+12345&amp;lt;form method=”POST” action=”?”&amp;gt;	&amp;lt;input type=”text” name=”name” /&amp;gt;	&amp;lt;input type=”">
+<meta property="og:image" content="/image/php_learn/upload.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php学习笔记6-数据传输基础">
+<meta name="twitter:description" content="浏览器传值浏览器如何给服务器传输数据？
+表单传值增加一对form标签，将一些需要提交的数据，在form使用表单元素（input，select，textarea）
+
+post传值：数据以post形式传输
+12345&amp;lt;form method=”POST” action=”?”&amp;gt;	&amp;lt;input type=”text” name=”name” /&amp;gt;	&amp;lt;input type=”">
+
+    
+    <link rel="alternative" href="/atom.xml" title="王志刚" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="王志刚" title="王志刚"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="王志刚">王志刚</a></h1>
+				<h2 class="blog-motto">疑似码农</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/05/12/php-6-data-transfer/" title="php学习笔记6-数据传输基础" itemprop="url">php学习笔记6-数据传输基础</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-12T05:37:15.000Z" itemprop="datePublished"> 发表于 2015-05-12</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#浏览器传值"><span class="toc-number">1.</span> <span class="toc-text">浏览器传值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#表单传值"><span class="toc-number">1.1.</span> <span class="toc-text">表单传值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#URL传值"><span class="toc-number">1.2.</span> <span class="toc-text">URL传值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GET和POST的区别"><span class="toc-number">2.</span> <span class="toc-text">GET和POST的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#checkbox提交数据"><span class="toc-number">3.</span> <span class="toc-text">checkbox提交数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据传输方式"><span class="toc-number">4.</span> <span class="toc-text">数据传输方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件上传"><span class="toc-number">5.</span> <span class="toc-text">文件上传</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="浏览器传值">浏览器传值</h2><p>浏览器如何给服务器传输数据？</p>
+<h3 id="表单传值">表单传值</h3><p>增加一对form标签，将一些需要提交的数据，在form使用表单元素（input，select，textarea）</p>
+<ul>
+<li><p>post传值：数据以post形式传输</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">form</span> <span class="attribute">method</span>=<span class="value">”POST”</span> <span class="attribute">action</span>=<span class="value">”?”</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">”text”</span> <span class="attribute">name</span>=<span class="value">”name”</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">”text”</span> <span class="attribute">name</span>=<span class="value">”age”</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">”submit”</span> <span class="attribute">value</span>=<span class="value">”提交”</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>get传值：将数据绑定到URL（名字=值）</p>
+</li>
+</ul>
+<h3 id="URL传值">URL传值</h3><p>URL后增加参数<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.itcast.cn/<span class="built_in">index</span>.php?<span class="keyword">name</span>=张三&amp;age=<span class="number">18</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="GET和POST的区别">GET和POST的区别</h2><ol>
+<li>表单对应的提交方式区别：METHOD=“GET/POST”</li>
+<li>数据提交过程区别：GET将所有的数据拼接到URL（name=值&amp;name2=值2…），POST提交的数据是看不到的</li>
+<li>GET方式不安全，POST方式相对安全</li>
+<li>GET方式传输数据，数据量小（2KB），post方式基本无限制（8M）</li>
+<li>GET提交数据效率比POST要高</li>
+</ol>
+<p>如何选择表单提交方式？</p>
+<ol>
+<li>如果数据安全性要求高：使用post提交</li>
+<li>如果数据量比较大，使用post提交</li>
+</ol>
+<h2 id="checkbox提交数据">checkbox提交数据</h2><p>因为PHP会将中括号当做数组的元素来对待，所以只需要在浏览器传递数据的过程中，给name增加一个中括号，让PHP在解析的时候，当做数组处理，从而将多个checkbox的值保存到一个数组中。<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;input <span class="variable">type=</span><span class="string">"checkbox"</span> <span class="variable">name=</span><span class="string">"hobby[]"</span> <span class="variable">value=</span><span class="string">"1"</span>&gt;篮球&amp;nbsp;&amp;nbsp;</span><br><span class="line">&lt;input <span class="variable">type=</span><span class="string">"checkbox"</span> <span class="variable">name=</span><span class="string">"hobby[]"</span> <span class="variable">value=</span><span class="string">"2"</span>&gt;足球&amp;nbsp;&amp;nbsp;</span><br><span class="line">&lt;input <span class="variable">type=</span><span class="string">"checkbox"</span> <span class="variable">name=</span><span class="string">"hobby[]"</span> <span class="variable">value=</span><span class="string">"3"</span>&gt;羽毛球&amp;nbsp;&amp;nbsp;</span><br><span class="line">&lt;input <span class="variable">type=</span><span class="string">"checkbox"</span> <span class="variable">name=</span><span class="string">"hobby[]"</span> <span class="variable">value=</span><span class="string">"4"</span>&gt;乒乓球&amp;nbsp;&amp;nbsp;</span><br><span class="line">&lt;input <span class="variable">type=</span><span class="string">"checkbox"</span> <span class="variable">name=</span><span class="string">"hobby[]"</span> <span class="variable">value=</span><span class="string">"5"</span>&gt;网球&amp;nbsp;&amp;nbsp;</span><br><span class="line">&lt;input <span class="variable">type=</span><span class="string">"checkbox"</span> <span class="variable">name=</span><span class="string">"hobby[]"</span> <span class="variable">checked=</span><span class="string">"checked"</span> <span class="variable">value=</span><span class="string">"6"</span>&gt;台球&amp;nbsp;&amp;nbsp;</span><br></pre></td></tr></table></figure></p>
+<p>因为checkbox往往是多选，PHP最终接收的数据会形成一个数组，但是数组不能存储，需要转化成字符串才能存储。所以，将爱好转换成字符串保存到数据库。<br>implode：将数组元素变成字符串<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//接收数据</span></span><br><span class="line"><span class="variable">$hobby</span> = <span class="variable">$_POST</span>[<span class="string">'hobby'</span>];		<span class="comment">//array</span></span><br><span class="line">var_dump(<span class="variable">$hobby</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//将数据变成字符串</span></span><br><span class="line"><span class="variable">$hobby</span> = implode(<span class="string">'|'</span>,<span class="variable">$hobby</span>);		<span class="comment">//string</span></span><br><span class="line">var_dump(<span class="variable">$hobby</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="数据传输方式">数据传输方式</h2><ul>
+<li>字符数据传输方式<br>普通的数据传输都是基于此方式。</li>
+<li>二进制格式传输<br>文件的传输：图片，普通文件</li>
+</ul>
+<h2 id="文件上传">文件上传</h2><p>概念：从一台电脑上，将文件传输到另外一台电脑上。<br>web：从客户端机器（用户）上传到服务端机器。</p>
+<p>get或者post方式不能直接进行二进制文件的传输。get是不能传输二进制文件，post需要搭配一个属性才能进行文件传输。</p>
+<ul>
+<li><p>文件上传必须要在服务器端先开启文件上传的功能,在php.ini修改配置项：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">; 是否允许文件上传，默认是开启</span><br><span class="line">file_uploads = <span class="constant">On</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">; 文件上传到服务器后产生的临时文件路径，如果没有指定，那么使用系统临时目录一般会修改配置文件，指定临时目录。我只改这项。</span><br><span class="line">upload_tmp_dir = <span class="constant">F</span><span class="symbol">:/server/tmp</span></span><br><span class="line"></span><br><span class="line">; 允许上传单个文件最大值</span><br><span class="line">upload_max_filesize = <span class="number">2</span>M</span><br><span class="line"></span><br><span class="line">；一次上传文件允许的最大数目</span><br><span class="line">max_file_uploads = <span class="number">20</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>post默认提交字符流数据，不能提交二进制数据，如果需要提交二进制数据，需要给表单额外增加一个属性：enctype=”multipart/form-data”</p>
+</li>
+<li><p>文件上传流程：<br><img src="/image/php_learn/upload.jpg" alt="upload上传流程图"> </p>
+</li>
+<li><p>验证文件合法性</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//文件上传错误判断</span></span><br><span class="line"><span class="keyword">switch</span>(<span class="variable">$_FILES</span>[<span class="string">'file'</span>][<span class="string">'error'</span>])&#123;</span><br><span class="line">	<span class="comment">//判断</span></span><br><span class="line">	<span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">		<span class="comment">//正确</span></span><br><span class="line">		<span class="comment">//两个参数：目标文件，目标路径</span></span><br><span class="line">		move_uploaded_file(<span class="variable">$_FILES</span>[<span class="string">'file'</span>][<span class="string">'tmp_name'</span>],<span class="string">'./uploads/'</span> . <span class="variable">$_FILES</span>[<span class="string">'file'</span>][<span class="string">'name'</span>]);</span><br><span class="line">		<span class="comment">//						d:/server/tmp/php9286.tmp,./uploads/programmer.gif</span></span><br><span class="line">		<span class="comment">//上传成功</span></span><br><span class="line">		<span class="keyword">echo</span> <span class="string">'上传成功！'</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">		header(<span class="string">'Refresh:3;url=demo05_upload.html'</span>);</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">'文件大小超过服务器的限制！'</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">		header(<span class="string">'Refresh:3;url=demo05_upload.html'</span>);</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">'文件只有部分上传成功！'</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">		<span class="comment">//还有很多，要做到完整，必须对每一个错误代码都进行处理</span></span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		header(<span class="string">'Refresh:3;url=demo05_upload.html'</span>);</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">'文件上传失败！'</span>;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>移动临时文件<br>PHP提供了两个函数来实现文件的移动<br>move_uploaded_file：将文件直接移动到目标路径，不会保留原文件<br>copy：将文件复制到目标路径，会保留原文件</p>
+</li>
+<li><p>封装上传文件函数<br>ini_get：通过配置项，获取php.ini中对应配置项的值</p>
+</li>
+</ul>
+<p>两个文件：<br>demo_upload.php用来接受请求，以及调用封装的函数<br>upload.php对上传的函数进行封装</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//demo_upload.php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//上传文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//1.	加载Upload文件</span></span><br><span class="line"><span class="keyword">include_once</span> <span class="string">'header.php'</span>;</span><br><span class="line"><span class="keyword">include_once</span> <span class="string">'upload.php'</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//2.	先对外部数据进行判断</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="variable">$_FILES</span>))&#123;</span><br><span class="line">	<span class="keyword">die</span>(<span class="string">'没有上传文件'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//3.	调用上传函数进行上传</span></span><br><span class="line"><span class="variable">$res</span> = upload(<span class="variable">$_FILES</span>[<span class="string">'file'</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.	判断结果</span></span><br><span class="line"><span class="keyword">if</span>(is_array(<span class="variable">$res</span>))&#123;</span><br><span class="line">	<span class="comment">//出错了</span></span><br><span class="line">	<span class="keyword">exit</span>(<span class="variable">$res</span>[<span class="number">1</span>]);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="comment">//成功了</span></span><br><span class="line">	<span class="keyword">echo</span> <span class="string">'文件上传成功，文件路径为：'</span> . <span class="variable">$res</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line">	<span class="comment">//upload.php</span></span><br><span class="line">	<span class="comment">//上传文件函数</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span><br><span class="line">	 * 文件上传</span><br><span class="line">	 *<span class="phpdoc"> @param</span>1 array $file，上传的文件的信息，例$_FILES['file']</span><br><span class="line">	 *<span class="phpdoc"> @param</span>2 array $files，允许上传文件的后缀名，给定默认值，例array('gif','png','jpeg','jpg') </span><br><span class="line">	 * </span><br><span class="line">	 *<span class="phpdoc"> @return</span> miexd，成功返回文件的路径，如果失败，返回数组，第一个值是FALSE，第二个是错误信息</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">upload</span><span class="params">(<span class="variable">$file</span>,<span class="variable">$allow</span> = array<span class="params">(<span class="string">'gif'</span>,<span class="string">'png'</span>,<span class="string">'jpg'</span>,<span class="string">'jpeg'</span>)</span>)</span></span>&#123;</span><br><span class="line">		<span class="comment">//1.	对$file进行判断，如果不是数组，就不存在上传文件</span></span><br><span class="line">		<span class="keyword">if</span>(!is_array(<span class="variable">$file</span>))&#123;</span><br><span class="line">			<span class="comment">//不是数组</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">array</span>(<span class="keyword">false</span>,<span class="string">'当前不是上传的文件信息！'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//2.	文件是否上传成功</span></span><br><span class="line">		<span class="comment">//定义一个错误字符串</span></span><br><span class="line">		<span class="variable">$errorinfo</span> = <span class="string">''</span>;</span><br><span class="line">		<span class="keyword">switch</span>(<span class="variable">$file</span>[<span class="string">'error'</span>])&#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">				<span class="variable">$errorinfo</span> = <span class="string">'文件超过服务器限制！允许上传的文件的最大值为：'</span> . ini_get(<span class="string">'upload_max_filesize'</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">				<span class="variable">$errorinfo</span> = <span class="string">'文件超过浏览器允许大小！'</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">				<span class="variable">$errorinfo</span> = <span class="string">'文件只上传成功一部分！'</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">				<span class="variable">$errorinfo</span> = <span class="string">'没有选中要上传的文件！'</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">				<span class="variable">$errorinfo</span> = <span class="string">'找不到服务器的临时目录！'</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">				<span class="variable">$errorinfo</span> = <span class="string">'文件上传路径不可写！'</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//判断errorinfo</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="variable">$errorinfo</span>)&#123;</span><br><span class="line">			<span class="comment">//错误信息存在</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">array</span>(<span class="keyword">FALSE</span>,<span class="variable">$errorinfo</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//3.	文件类型判断</span></span><br><span class="line">		<span class="comment">//获取文件后缀名</span></span><br><span class="line">		<span class="variable">$extension</span> = getExtension(<span class="variable">$file</span>[<span class="string">'name'</span>]);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//3.1	判断文件后缀是否存在</span></span><br><span class="line">		<span class="keyword">if</span>(!<span class="variable">$extension</span>)&#123;</span><br><span class="line">			<span class="comment">//文件后缀名不存在</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">array</span>(<span class="keyword">false</span>,<span class="string">'当前文件没有后缀名！'</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//3.2	当前文件是否允许上传</span></span><br><span class="line">		<span class="keyword">if</span>(!in_array(<span class="variable">$extension</span>,<span class="variable">$allow</span>))&#123;</span><br><span class="line">			<span class="comment">//文件后缀不允许</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">array</span>(<span class="keyword">false</span>,<span class="string">'当前文件类型不允许上传，允许上传的类型有：'</span> . implode(<span class="string">','</span>,<span class="variable">$allow</span>));</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//4.	上传文件</span></span><br><span class="line">		<span class="comment">//4.1	重命名文件：获取一个随机的文件名字</span></span><br><span class="line">		<span class="variable">$filename</span> = getRandomFilename();</span><br><span class="line"></span><br><span class="line">		<span class="comment">//拼凑文件全名</span></span><br><span class="line">		<span class="variable">$filename</span> .= <span class="string">'.'</span> . <span class="variable">$extension</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//4.2	移动文件</span></span><br><span class="line">		<span class="keyword">if</span>(!@move_uploaded_file(<span class="variable">$file</span>[<span class="string">'tmp_name'</span>],<span class="string">'./uploads/'</span> . <span class="variable">$filename</span>))&#123;</span><br><span class="line">			<span class="comment">//文件移动失败</span></span><br><span class="line">			<span class="comment">//将错误信息写入到错误日志</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">array</span>(<span class="keyword">false</span>,<span class="string">'文件上传失败！'</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//4.3	文件上传成功</span></span><br><span class="line">		<span class="keyword">return</span>  <span class="string">'./upload/'</span> . <span class="variable">$filename</span>;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span><br><span class="line">	 * 获取文件后缀名</span><br><span class="line">	 *<span class="phpdoc"> @param</span>1 string $filename，文件路径</span><br><span class="line">	 *<span class="phpdoc"> @return</span> mixed，如果成功返回文件后缀名，如果失败返回FALSE</span><br><span class="line">	 */</span></span><br><span class="line">	 <span class="function"><span class="keyword">function</span> <span class="title">getExtension</span><span class="params">(<span class="variable">$filename</span>)</span></span>&#123;</span><br><span class="line">		<span class="comment">//获取文件后缀名</span></span><br><span class="line">		<span class="keyword">if</span>(strrpos(<span class="variable">$filename</span>,<span class="string">'.'</span>))&#123;</span><br><span class="line">			<span class="keyword">return</span> substr(<span class="variable">$filename</span>,strrpos(<span class="variable">$filename</span>,<span class="string">'.'</span>) + <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//如果没有.</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">FALSE</span>;</span><br><span class="line">	 &#125;</span><br><span class="line"></span><br><span class="line">	 <span class="comment">/*</span><br><span class="line">	  * 获取一个随机的名字</span><br><span class="line">	  *<span class="phpdoc"> @return</span> string $filename，返回一个随机字符串</span><br><span class="line">	  */</span></span><br><span class="line">	  <span class="function"><span class="keyword">function</span> <span class="title">getRandomFilename</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="comment">//随机文件名规则：年月日时分秒+随机字符串（6）</span></span><br><span class="line">		<span class="variable">$filename</span> = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//获取年月日时分秒</span></span><br><span class="line">		<span class="variable">$filename</span> .= date(<span class="string">'YmdHis'</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//获取一个随机字符串</span></span><br><span class="line">		<span class="variable">$str</span> = <span class="string">'abcdefghijklmnopqrstuvwxyz'</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="variable">$i</span> = <span class="number">0</span>;<span class="variable">$i</span> &lt; <span class="number">6</span>;<span class="variable">$i</span>++)&#123;</span><br><span class="line">			<span class="variable">$filename</span> .= <span class="variable">$str</span>[mt_rand(<span class="number">0</span>,<span class="number">25</span>)];</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//返回文件名</span></span><br><span class="line">		<span class="keyword">return</span> <span class="variable">$filename</span>;</span><br><span class="line">	  &#125;</span></span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/PHP/">PHP</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/05/12/php-6-data-transfer/" data-title="php学习笔记6-数据传输基础 | 王志刚" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/05/12/php-7-file-operations/" title="php学习笔记7-文件操作">
+  <strong>上一篇：</strong><br/>
+  <span>
+  php学习笔记7-文件操作</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/05/11/linux-kernel-1-disassembling-a-simple-c-program/"  title="Linux内核分析1-反汇编一个简单的c程序">
+ <strong>下一篇：</strong><br/> 
+ <span>Linux内核分析1-反汇编一个简单的c程序
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/05/12/php-6-data-transfer/" data-title="php学习笔记6-数据传输基础" data-url="http://yoursite.com/2015/05/12/php-6-data-transfer/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#浏览器传值"><span class="toc-number">1.</span> <span class="toc-text">浏览器传值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#表单传值"><span class="toc-number">1.1.</span> <span class="toc-text">表单传值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#URL传值"><span class="toc-number">1.2.</span> <span class="toc-text">URL传值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GET和POST的区别"><span class="toc-number">2.</span> <span class="toc-text">GET和POST的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#checkbox提交数据"><span class="toc-number">3.</span> <span class="toc-text">checkbox提交数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据传输方式"><span class="toc-number">4.</span> <span class="toc-text">数据传输方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件上传"><span class="toc-number">5.</span> <span class="toc-text">文件上传</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/个人博客/" title="个人博客">个人博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/计算机科学/" title="计算机科学">计算机科学<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/PHP/" title="PHP">PHP<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/解释型语言/" title="解释型语言">解释型语言<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编译型语言/" title="编译型语言">编译型语言<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/github-pages/" title="github pages">github pages<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/个人博客/" title="个人博客">个人博客<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Wang ZhiGang in China. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="wzg">wzg</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"wzg"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'fuhongxue';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

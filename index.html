@@ -81,6 +81,199 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/05/12/php-7-file-operations/" title="php学习笔记7-文件操作" itemprop="url">php学习笔记7-文件操作</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-12T11:09:53.000Z" itemprop="datePublished"> 发表于 2015-05-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="文件（目录）操作">文件（目录）操作</h2><p>文件操作：对文件的增删改查。（文件夹也是文件）</p>
+<p>为什么要使用文件操作？</p>
+<ol>
+<li>有一些数据：不经常被修改，但是又经常被使用，数据量小，使用文件来保存数据（配置文件，xml文件，session文件）</li>
+<li>系统日志文件：把一些系统错误，保存到日志文件供管理员或者程序员去分析。</li>
+</ol>
+<h3 id="文件目录的操作">文件目录的操作</h3><p>对文件操作必须先找到对应的路径。</p>
+<p>文件操作步骤</p>
+<ol>
+<li>得到文件路径对应的资源<br>opendir：打开一个目录，需要一个路径参数，返回一个资源</li>
+<li>需要从资源里获取对应的数据<br>readdir：读取，从资源里读取一个对应文件，当前文件指针所指向的文件，将文件指针下移一位。返回当前文件的文件名字或者FALSE。可以显示的使用资源参数，也可以不提供，因为系统会向上自动寻找文件路径资源。<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//打开路径，得到路径里的所有资源</span></span><br><span class="line"><span class="variable">$o</span> <span class="subst">=</span> opendir(<span class="variable">$dir</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//var_dump($o);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//读取文件，从路径资源中一个一个读取</span></span><br><span class="line">var_dump(readdir(<span class="variable">$o</span>));			<span class="comment">//.当前文件夹</span></span><br><span class="line">var_dump(readdir());			<span class="comment">//..上级目录</span></span><br><span class="line">var_dump(readdir());			<span class="comment">//demo01_dir.php</span></span><br><span class="line">var_dump(readdir());			<span class="comment">//son</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="目录相关函数">目录相关函数</h3><p>rewinddir：重置目录资源的指针，回到第一个文件（.文件）<br>closedir：释放目录资源<br>scandir：浏览器目录，把所有的文件都获得，并存放到一个数组返回</p>
+<h3 id="遍历目录">遍历目录</h3><ol>
+<li>获得路径资源</li>
+<li>逐个的读取文件信息</li>
+<li>关闭资源<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义目录</span></span><br><span class="line"><span class="variable">$dir</span> = <span class="string">'./test'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取目录资源</span></span><br><span class="line"><span class="variable">$o</span> = opendir(<span class="variable">$dir</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个计数器</span></span><br><span class="line"><span class="variable">$count</span> = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//遍历文件</span></span><br><span class="line"><span class="keyword">while</span>(<span class="variable">$filename</span> = readdir(<span class="variable">$o</span>))&#123;</span><br><span class="line">	<span class="comment">//第一步：执行readdir($o)</span></span><br><span class="line">	<span class="comment">//第二步：把执行结果赋值给$filename</span></span><br><span class="line">	<span class="comment">//第三步：while判断条件：将$filename自动转化成布尔类型</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//输出当前得到的文件</span></span><br><span class="line">	<span class="keyword">echo</span> <span class="variable">$filename</span>,<span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//计数器自加</span></span><br><span class="line">	++<span class="variable">$count</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出计数器</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"当前路径&#123;$dir&#125;下共有&#123;$count&#125;个文件。"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//关闭资源</span></span><br><span class="line">closedir(<span class="variable">$o</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/PHP/">PHP</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/05/12/php-7-file-operations/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/05/12/php-7-file-operations/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/05/12/php-6-data-transfer/" title="php学习笔记6-数据传输基础" itemprop="url">php学习笔记6-数据传输基础</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-12T05:37:15.000Z" itemprop="datePublished"> 发表于 2015-05-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="浏览器传值">浏览器传值</h2><p>浏览器如何给服务器传输数据？</p>
+<h3 id="表单传值">表单传值</h3><p>增加一对form标签，将一些需要提交的数据，在form使用表单元素（input，select，textarea）</p>
+<ul>
+<li><p>post传值：数据以post形式传输</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">form</span> <span class="attribute">method</span>=<span class="value">”POST”</span> <span class="attribute">action</span>=<span class="value">”?”</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">”text”</span> <span class="attribute">name</span>=<span class="value">”name”</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">”text”</span> <span class="attribute">name</span>=<span class="value">”age”</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">”submit”</span> <span class="attribute">value</span>=<span class="value">”提交”</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>get传值：将数据绑定到URL（名字=值）</p>
+</li>
+</ul>
+<h3 id="URL传值">URL传值</h3><p>URL后增加参数<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.itcast.cn/<span class="built_in">index</span>.php?<span class="keyword">name</span>=张三&amp;age=<span class="number">18</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="GET和POST的区别">GET和POST的区别</h2><ol>
+<li>表单对应的提交方式区别：METHOD=“GET/POST”</li>
+<li>数据提交过程区别：GET将所有的数据拼接到URL（name=值&amp;name2=值2…），POST提交的数据是看不到的</li>
+<li>GET方式不安全，POST方式相对安全</li>
+<li>GET方式传输数据，数据量小（2KB），post方式基本无限制（8M）</li>
+<li>GET提交数据效率比POST要高</li>
+</ol>
+<p>如何选择表单提交方式？</p>
+<ol>
+<li>如果数据安全性要求高：使用post提交</li>
+<li>如果数据量比较大，使用post提交</li>
+</ol>
+<h2 id="checkbox提交数据">checkbox提交数据</h2><p>因为PHP会将中括号当做数组的元素来对待，所以只需要在浏览器传递数据的过程中，给name增加一个中括号，让PHP在解析的时候，当做数组处理，从而将多个checkbox的值保存到一个数组中。<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;input <span class="variable">type=</span><span class="string">"checkbox"</span> <span class="variable">name=</span><span class="string">"hobby[]"</span> <span class="variable">value=</span><span class="string">"1"</span>&gt;篮球&amp;nbsp;&amp;nbsp;</span><br><span class="line">&lt;input <span class="variable">type=</span><span class="string">"checkbox"</span> <span class="variable">name=</span><span class="string">"hobby[]"</span> <span class="variable">value=</span><span class="string">"2"</span>&gt;足球&amp;nbsp;&amp;nbsp;</span><br><span class="line">&lt;input <span class="variable">type=</span><span class="string">"checkbox"</span> <span class="variable">name=</span><span class="string">"hobby[]"</span> <span class="variable">value=</span><span class="string">"3"</span>&gt;羽毛球&amp;nbsp;&amp;nbsp;</span><br><span class="line">&lt;input <span class="variable">type=</span><span class="string">"checkbox"</span> <span class="variable">name=</span><span class="string">"hobby[]"</span> <span class="variable">value=</span><span class="string">"4"</span>&gt;乒乓球&amp;nbsp;&amp;nbsp;</span><br><span class="line">&lt;input <span class="variable">type=</span><span class="string">"checkbox"</span> <span class="variable">name=</span><span class="string">"hobby[]"</span> <span class="variable">value=</span><span class="string">"5"</span>&gt;网球&amp;nbsp;&amp;nbsp;</span><br><span class="line">&lt;input <span class="variable">type=</span><span class="string">"checkbox"</span> <span class="variable">name=</span><span class="string">"hobby[]"</span> <span class="variable">checked=</span><span class="string">"checked"</span> <span class="variable">value=</span><span class="string">"6"</span>&gt;台球&amp;nbsp;&amp;nbsp;</span><br></pre></td></tr></table></figure></p>
+<p>因为checkbox往往是多选，PHP最终接收的数据会形成一个数组，但是数组不能存储，需要转化成字符串才能存储。所以，将爱好转换成字符串保存到数据库。<br>implode：将数组元素变成字符串<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//接收数据</span></span><br><span class="line"><span class="variable">$hobby</span> = <span class="variable">$_POST</span>[<span class="string">'hobby'</span>];		<span class="comment">//array</span></span><br><span class="line">var_dump(<span class="variable">$hobby</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//将数据变成字符串</span></span><br><span class="line"><span class="variable">$hobby</span> = implode(<span class="string">'|'</span>,<span class="variable">$hobby</span>);		<span class="comment">//string</span></span><br><span class="line">var_dump(<span class="variable">$hobby</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="数据传输方式">数据传输方式</h2><ul>
+<li>字符数据传输方式<br>普通的数据传输都是基于此方式。</li>
+<li>二进制格式传输<br>文件的传输：图片，普通文件</li>
+</ul>
+<h2 id="文件上传">文件上传</h2><p>概念：从一台电脑上，将文件传输到另外一台电脑上。<br>web：从客户端机器（用户）上传到服务端机器。</p>
+<p>get或者post方式不能直接进行二进制文件的传输。get是不能传输二进制文件，post需要搭配一个属性才能进行文件传输。</p>
+<ul>
+<li><p>文件上传必须要在服务器端先开启文件上传的功能,在php.ini修改配置项：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">; 是否允许文件上传，默认是开启</span><br><span class="line">file_uploads = <span class="constant">On</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">; 文件上传到服务器后产生的临时文件路径，如果没有指定，那么使用系统临时目录一般会修改配置文件，指定临时目录。我只改这项。</span><br><span class="line">upload_tmp_dir = <span class="constant">F</span><span class="symbol">:/server/tmp</span></span><br><span class="line"></span><br><span class="line">; 允许上传单个文件最大值</span><br><span class="line">upload_max_filesize = <span class="number">2</span>M</span><br><span class="line"></span><br><span class="line">；一次上传文件允许的最大数目</span><br><span class="line">max_file_uploads = <span class="number">20</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>post默认提交字符流数据，不能提交二进制数据，如果需要提交二进制数据，需要给表单额外增加一个属性：enctype=”multipart/form-data”</p>
+</li>
+<li><p>文件上传流程：<br><img src="/image/php_learn/upload.jpg" alt="upload上传流程图"> </p>
+</li>
+<li><p>验证文件合法性</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//文件上传错误判断</span></span><br><span class="line"><span class="keyword">switch</span>(<span class="variable">$_FILES</span>[<span class="string">'file'</span>][<span class="string">'error'</span>])&#123;</span><br><span class="line">	<span class="comment">//判断</span></span><br><span class="line">	<span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">		<span class="comment">//正确</span></span><br><span class="line">		<span class="comment">//两个参数：目标文件，目标路径</span></span><br><span class="line">		move_uploaded_file(<span class="variable">$_FILES</span>[<span class="string">'file'</span>][<span class="string">'tmp_name'</span>],<span class="string">'./uploads/'</span> . <span class="variable">$_FILES</span>[<span class="string">'file'</span>][<span class="string">'name'</span>]);</span><br><span class="line">		<span class="comment">//						d:/server/tmp/php9286.tmp,./uploads/programmer.gif</span></span><br><span class="line">		<span class="comment">//上传成功</span></span><br><span class="line">		<span class="keyword">echo</span> <span class="string">'上传成功！'</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">		header(<span class="string">'Refresh:3;url=demo05_upload.html'</span>);</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">'文件大小超过服务器的限制！'</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">		header(<span class="string">'Refresh:3;url=demo05_upload.html'</span>);</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">'文件只有部分上传成功！'</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">		<span class="comment">//还有很多，要做到完整，必须对每一个错误代码都进行处理</span></span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		header(<span class="string">'Refresh:3;url=demo05_upload.html'</span>);</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">'文件上传失败！'</span>;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>移动临时文件<br>PHP提供了两个函数来实现文件的移动<br>move_uploaded_file：将文件直接移动到目标路径，不会保留原文件<br>copy：将文件复制到目标路径，会保留原文件</p>
+</li>
+<li><p>封装上传文件函数<br>ini_get：通过配置项，获取php.ini中对应配置项的值</p>
+</li>
+</ul>
+<p>两个文件：<br>demo_upload.php用来接受请求，以及调用封装的函数<br>upload.php对上传的函数进行封装</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//demo_upload.php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//上传文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//1.	加载Upload文件</span></span><br><span class="line"><span class="keyword">include_once</span> <span class="string">'header.php'</span>;</span><br><span class="line"><span class="keyword">include_once</span> <span class="string">'upload.php'</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//2.	先对外部数据进行判断</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="variable">$_FILES</span>))&#123;</span><br><span class="line">	<span class="keyword">die</span>(<span class="string">'没有上传文件'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//3.	调用上传函数进行上传</span></span><br><span class="line"><span class="variable">$res</span> = upload(<span class="variable">$_FILES</span>[<span class="string">'file'</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.	判断结果</span></span><br><span class="line"><span class="keyword">if</span>(is_array(<span class="variable">$res</span>))&#123;</span><br><span class="line">	<span class="comment">//出错了</span></span><br><span class="line">	<span class="keyword">exit</span>(<span class="variable">$res</span>[<span class="number">1</span>]);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="comment">//成功了</span></span><br><span class="line">	<span class="keyword">echo</span> <span class="string">'文件上传成功，文件路径为：'</span> . <span class="variable">$res</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line">	<span class="comment">//upload.php</span></span><br><span class="line">	<span class="comment">//上传文件函数</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span><br><span class="line">	 * 文件上传</span><br><span class="line">	 *<span class="phpdoc"> @param</span>1 array $file，上传的文件的信息，例$_FILES['file']</span><br><span class="line">	 *<span class="phpdoc"> @param</span>2 array $files，允许上传文件的后缀名，给定默认值，例array('gif','png','jpeg','jpg') </span><br><span class="line">	 * </span><br><span class="line">	 *<span class="phpdoc"> @return</span> miexd，成功返回文件的路径，如果失败，返回数组，第一个值是FALSE，第二个是错误信息</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">upload</span><span class="params">(<span class="variable">$file</span>,<span class="variable">$allow</span> = array<span class="params">(<span class="string">'gif'</span>,<span class="string">'png'</span>,<span class="string">'jpg'</span>,<span class="string">'jpeg'</span>)</span>)</span></span>&#123;</span><br><span class="line">		<span class="comment">//1.	对$file进行判断，如果不是数组，就不存在上传文件</span></span><br><span class="line">		<span class="keyword">if</span>(!is_array(<span class="variable">$file</span>))&#123;</span><br><span class="line">			<span class="comment">//不是数组</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">array</span>(<span class="keyword">false</span>,<span class="string">'当前不是上传的文件信息！'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//2.	文件是否上传成功</span></span><br><span class="line">		<span class="comment">//定义一个错误字符串</span></span><br><span class="line">		<span class="variable">$errorinfo</span> = <span class="string">''</span>;</span><br><span class="line">		<span class="keyword">switch</span>(<span class="variable">$file</span>[<span class="string">'error'</span>])&#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">				<span class="variable">$errorinfo</span> = <span class="string">'文件超过服务器限制！允许上传的文件的最大值为：'</span> . ini_get(<span class="string">'upload_max_filesize'</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">				<span class="variable">$errorinfo</span> = <span class="string">'文件超过浏览器允许大小！'</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">				<span class="variable">$errorinfo</span> = <span class="string">'文件只上传成功一部分！'</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">				<span class="variable">$errorinfo</span> = <span class="string">'没有选中要上传的文件！'</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">				<span class="variable">$errorinfo</span> = <span class="string">'找不到服务器的临时目录！'</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">				<span class="variable">$errorinfo</span> = <span class="string">'文件上传路径不可写！'</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//判断errorinfo</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="variable">$errorinfo</span>)&#123;</span><br><span class="line">			<span class="comment">//错误信息存在</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">array</span>(<span class="keyword">FALSE</span>,<span class="variable">$errorinfo</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//3.	文件类型判断</span></span><br><span class="line">		<span class="comment">//获取文件后缀名</span></span><br><span class="line">		<span class="variable">$extension</span> = getExtension(<span class="variable">$file</span>[<span class="string">'name'</span>]);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//3.1	判断文件后缀是否存在</span></span><br><span class="line">		<span class="keyword">if</span>(!<span class="variable">$extension</span>)&#123;</span><br><span class="line">			<span class="comment">//文件后缀名不存在</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">array</span>(<span class="keyword">false</span>,<span class="string">'当前文件没有后缀名！'</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//3.2	当前文件是否允许上传</span></span><br><span class="line">		<span class="keyword">if</span>(!in_array(<span class="variable">$extension</span>,<span class="variable">$allow</span>))&#123;</span><br><span class="line">			<span class="comment">//文件后缀不允许</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">array</span>(<span class="keyword">false</span>,<span class="string">'当前文件类型不允许上传，允许上传的类型有：'</span> . implode(<span class="string">','</span>,<span class="variable">$allow</span>));</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//4.	上传文件</span></span><br><span class="line">		<span class="comment">//4.1	重命名文件：获取一个随机的文件名字</span></span><br><span class="line">		<span class="variable">$filename</span> = getRandomFilename();</span><br><span class="line"></span><br><span class="line">		<span class="comment">//拼凑文件全名</span></span><br><span class="line">		<span class="variable">$filename</span> .= <span class="string">'.'</span> . <span class="variable">$extension</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//4.2	移动文件</span></span><br><span class="line">		<span class="keyword">if</span>(!@move_uploaded_file(<span class="variable">$file</span>[<span class="string">'tmp_name'</span>],<span class="string">'./uploads/'</span> . <span class="variable">$filename</span>))&#123;</span><br><span class="line">			<span class="comment">//文件移动失败</span></span><br><span class="line">			<span class="comment">//将错误信息写入到错误日志</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">array</span>(<span class="keyword">false</span>,<span class="string">'文件上传失败！'</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//4.3	文件上传成功</span></span><br><span class="line">		<span class="keyword">return</span>  <span class="string">'./upload/'</span> . <span class="variable">$filename</span>;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span><br><span class="line">	 * 获取文件后缀名</span><br><span class="line">	 *<span class="phpdoc"> @param</span>1 string $filename，文件路径</span><br><span class="line">	 *<span class="phpdoc"> @return</span> mixed，如果成功返回文件后缀名，如果失败返回FALSE</span><br><span class="line">	 */</span></span><br><span class="line">	 <span class="function"><span class="keyword">function</span> <span class="title">getExtension</span><span class="params">(<span class="variable">$filename</span>)</span></span>&#123;</span><br><span class="line">		<span class="comment">//获取文件后缀名</span></span><br><span class="line">		<span class="keyword">if</span>(strrpos(<span class="variable">$filename</span>,<span class="string">'.'</span>))&#123;</span><br><span class="line">			<span class="keyword">return</span> substr(<span class="variable">$filename</span>,strrpos(<span class="variable">$filename</span>,<span class="string">'.'</span>) + <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//如果没有.</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">FALSE</span>;</span><br><span class="line">	 &#125;</span><br><span class="line"></span><br><span class="line">	 <span class="comment">/*</span><br><span class="line">	  * 获取一个随机的名字</span><br><span class="line">	  *<span class="phpdoc"> @return</span> string $filename，返回一个随机字符串</span><br><span class="line">	  */</span></span><br><span class="line">	  <span class="function"><span class="keyword">function</span> <span class="title">getRandomFilename</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="comment">//随机文件名规则：年月日时分秒+随机字符串（6）</span></span><br><span class="line">		<span class="variable">$filename</span> = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//获取年月日时分秒</span></span><br><span class="line">		<span class="variable">$filename</span> .= date(<span class="string">'YmdHis'</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//获取一个随机字符串</span></span><br><span class="line">		<span class="variable">$str</span> = <span class="string">'abcdefghijklmnopqrstuvwxyz'</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="variable">$i</span> = <span class="number">0</span>;<span class="variable">$i</span> &lt; <span class="number">6</span>;<span class="variable">$i</span>++)&#123;</span><br><span class="line">			<span class="variable">$filename</span> .= <span class="variable">$str</span>[mt_rand(<span class="number">0</span>,<span class="number">25</span>)];</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//返回文件名</span></span><br><span class="line">		<span class="keyword">return</span> <span class="variable">$filename</span>;</span><br><span class="line">	  &#125;</span></span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/PHP/">PHP</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/05/12/php-6-data-transfer/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/05/12/php-6-data-transfer/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/05/11/linux-kernel-1-disassembling-a-simple-c-program/" title="Linux内核分析1-反汇编一个简单的c程序" itemprop="url">Linux内核分析1-反汇编一个简单的c程序</a>
   </h1>
   <p class="article-author">By
@@ -773,164 +966,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/05/04/step-by-step-create-php-development-environment-1-apache/" title="一步步教你在Windows下搭建PHP开发环境(1)Apache安装" itemprop="url">一步步教你在Windows下搭建PHP开发环境(1)Apache安装</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-04T08:45:10.000Z" itemprop="datePublished"> 发表于 2015-05-04</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="前言">前言</h2><p>用一些集成的开发环境，如 PHPstudy，appserve，wamp，xamp等，不需要单独安装和配置软件，即可当做一个动态web服务器使用。<br>但是集成开发环境是第三方提供，存在安全隐患。所以，在真实项目开发中，服务器端的部署都是使用单独安装后配置的。<br>该教程所有软件下载地址：<a href="http://pan.baidu.com/s/1o6zHn78" target="_blank" rel="external">百度云</a></p>
-<h2 id="安装Apache">安装Apache</h2><h3 id="下载Apache软件">下载Apache软件</h3><p><img src="/image/php_environment/download_apache.png" alt=""></p>
-<h3 id="双击安装文件，选择next">双击安装文件，选择next</h3><p><img src="/image/php_environment/apache1.jpg" alt="">  </p>
-<h3 id="选择_I_accept_the_items_in_the_licence_agreement,然后点击next">选择 I accept the items in the licence agreement,然后点击next</h3><p><img src="/image/php_environment/apache2.jpg" alt=""> </p>
-<h3 id="点击next，进入到服务器信息配置界面">点击next，进入到服务器信息配置界面</h3><p><img src="/image/php_environment/apache3.jpg" alt=""> </p>
-<h3 id="填写服务器配置信息，点击next">填写服务器配置信息，点击next</h3><p><img src="/image/php_environment/apache4.jpg" alt=""> </p>
-<h3 id="在配置模式选择_自定义_模式，点击next">在配置模式选择 自定义 模式，点击next</h3><p><img src="/image/php_environment/apache5.jpg" alt=""> </p>
-<h3 id="进入路径配置界面">进入路径配置界面</h3><p>a) 创建一个server目录（不能中文目录，名字自己定）<br><img src="/image/php_environment/apache5_1.jpg" alt=""><br>b) 在server下创建apache目录，将安装目录选择到apache目录下<br><img src="/image/php_environment/apache5_2.jpg" alt=""> </p>
-<h3 id="点击next，进入准备安装界面，点击Install。">点击next，进入准备安装界面，点击Install。</h3><p><img src="/image/php_environment/apache8.jpg" alt=""> </p>
-<h3 id="点击finish完成">点击finish完成</h3><p><img src="/image/php_environment/apache9.jpg" alt=""> </p>
-<h3 id="验证apache是否安装成功，在浏览器输入localhost,出现It_work即安装成功">验证apache是否安装成功，在浏览器输入localhost,出现It work即安装成功</h3><p><img src="/image/php_environment/apache10.jpg" alt=""> </p>
-<h2 id="Apache目录分析">Apache目录分析</h2><p><img src="/image/php_environment/apache_dirInfo.jpg" alt=""> </p>
-<h2 id="Apache的bin目录">Apache的bin目录</h2><p>httpd.exe:Apache的服务端，处理各种请求的软件</p>
-<p>几个简单的httpd命令：<br>-M : Apache可以加载的模块（功能）<br>-l : 已经加载的模块<br>-t : 验证配置文件的语法错误</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/PHP/">PHP</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/PHP/">PHP</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/05/04/step-by-step-create-php-development-environment-1-apache/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/05/04/step-by-step-create-php-development-environment-1-apache/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/05/04/what-is-complied-language-and-interpreted-language/" title="编译和解释的区别是什么？" itemprop="url">编译和解释的区别是什么？</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-04T06:55:40.000Z" itemprop="datePublished"> 发表于 2015-05-04</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="该篇文章转载出处">该篇文章转载出处</h2><p>在程序员面试的过程中，会出现面试官问及低级语言与高级语言，编译与解释，脚本语言与<br>编译型语言的区别。<br>从网上找到一篇资料讲的还算详细，先转载过来：<a href="http://www.cnblogs.com/bluestorm/archive/2012/12/09/2810167.html" target="_blank" rel="external">Bluestorm’s Space</a><br>后面，我会进行综合整理。    </p>
-<h2 id="编译和解释的区别是什么？">编译和解释的区别是什么？</h2><p>编译器是把源程序的每一条语句都编译成机器语言,并保存成二进制文件,这样运行时计算机可以直接以机器语言来运行此程序,速度很快;    </p>
-<p>而解释器则是只在执行程序时,才一条一条的解释成机器语言给计算机来执行,所以运行速度是不如编译后的程序运行的快的.     </p>
-<p>这是因为计算机不能直接认识并执行我们写的语句,它只能认识机器语言(是二进制的形式)   </p>
-<h3 id="低级语言与高级语言">低级语言与高级语言</h3><p>最初的计算机程序都是用0和1的序列表示的，程序员直接使用的是机器指令，无需翻译，从纸带打孔输入即可执行得到结果。后来为了方便记忆，就将用0、1序列表示的机器指令都用符号助记，这些与机器指令一一对应的助记符就成了汇编指令，从而诞生了汇编语言。无论是机器指令还是汇编指令都是面向机器的，统称为低级语言。因为是针对特定机器的机器指令的助记符，所以汇编语言是无法独立于机器(特定的CPU体系结构)的。但汇编语言也是要经过翻译成机器指令才能执行的，所以也有将运行在一种机器上的汇编语言翻译成运行在另一种机器上的机器指令的方法，那就是交叉汇编技术。   </p>
-<p>高级语言是从人类的逻辑思维角度出发的计算机语言，抽象程度大大提高，需要经过编译成特定机器上的目标代码才能执行，一条高级语言的语句往往需要若干条机器指令来完成。高级语言独立于机器的特性是靠编译器为不同机器生成不同的目标代码(或机器指令)来实现的。那具体的说，要将高级语言编译到什么程度呢，这又跟编译的技术有关了，既可以编译成直接可执行的目标代码，也可以编译成一种中间表示，然后拿到不同的机器和系统上去执行，这种情况通常又需要支撑环境，比如解释器或虚拟机的支持，Java程序编译成bytecode，再由不同平台上的虚拟机执行就是很好的例子。所以，说高级语言不依赖于机器，是指在不同的机器或平台上高级语言的程序本身不变，而通过编译器编译得到的目标代码去适应不同的机器。从这个意义上来说，通过交叉汇编，一些汇编程序也可以获得不同机器之间的可移植性，但这种途径获得的移植性远远不如高级语言来的方便和实用性大。   </p>
-<h3 id="编译与解释">编译与解释</h3><p>编译是将源程序翻译成可执行的目标代码，翻译与执行是分开的；而解释是对源程序的翻译与执行一次性完成，不生成可存储的目标代码。这只是表象，二者背后的最大区别是：对解释执行而言，程序运行时的控制权在解释器而不在用户程序；对编译执行而言，运行时的控制权在用户程序。</p>
-<p>解释具有良好的动态特性和可移植性，比如在解释执行时可以动态改变变量的类型、对程序进行修改以及在程序中插入良好的调试诊断信息等，而将解释器移植到不同的系统上，则程序不用改动就可以在移植了解释器的系统上运行。同时解释器也有很大的缺点，比如执行效率低，占用空间大，因为不仅要给用户程序分配空间，解释器本身也占用了宝贵的系统资源。</p>
-<p>编译器是把源程序的每一条语句都编译成机器语言,并保存成二进制文件,这样运行时计算机可以直接以机器语言来运行此程序,速度很快;<br>而解释器则是只在执行程序时,才一条一条的解释成机器语言给计算机来执行,所以运行速度是不如编译后的程序运行的快的.</p>
-<p>1、编辑：用编辑软件（EDIT.EXE或记事本）形成源程序（.ASM）,如：LX.ASM;<br>2、汇编：用汇编程序（MASM.EXE）对源程序进行汇编，形成目标文件（.OBJ），格式如下：MASM LX.ASM;<br>3、连接：用连接程序（LINK.EXE）对目标程序进行连接，形成可执行文件（.EXE），格式如下：LINK LX.OBJ;<br>4、执行：如果结果在屏幕在显示，则直接执行可执行文件。<br>5、调试：用调试程序（DEBUG.EXE）对可执行文件进行调试，格式如下：DEBUG LX.EXE</p>
-<ol>
-<li><p>在具体计算机上实现一种语言，首先要确定的是表示该语言语义解释的虚拟计算机，一个关键的问题是程序执行时的基本表示是实际计算机上的机器语言还是虚拟机的机器语言。这个问题决定了语言的实现。根据这个问题的回答，可以将程序设计语言划分为两大类：编译型语言和解释型语言。</p>
-</li>
-<li><p>由编译型语言编写的源程序需要经过编译、汇编和链接才能输出目标代码，然后机器执行目标代码，得出运行结果，目标代码由机器指令组成，一般不能独立运行，因为源程序中可能使用了某些汇编程序不能解释引用的库函数，而库函数代码又不在源程序中，此时还需要链接程序完成外部引用和目标模块调用的链接任务，最后输出可执行代码。C、C++、Fortran、Pascal、Ada都是编译实现的。</p>
-</li>
-<li><p>解释型语言的实现中，翻译器并不产生目标机器代码，而是产生易于执行的中间代码，这种中间代码与机器代码是不同的，中间代码的解释是由软件支持的，不能直接使用硬件，软件解释器通常会导致执行效率较低。用解释型语言编写的程序是由另一个可以理解中间代码的解释程序执行的。与编译程序不同的是，解释程序的任务是逐一将源程序的语句解释成可执行的机器指令，不需要将源程序翻译成目标代码后再执行。对于解释型Basic语言，需要一个专门的解释器解释执行 Basic程序，每条语言只有在执行才被翻译。这种解释型语言每执行一次就翻译一次，因而效率低下。</p>
-</li>
-<li><p>Java很特殊，Java程序也需要编译，但是没有直接编译称为机器语言，而是编译称为字节码，然后在Java虚拟机上用解释方式执行字节码。Python 的也采用了类似Java的编译模式，先将Python程序编译成Python字节码，然后由一个专门的Python字节码解释器负责解释执行字节码。</p>
-</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/计算机科学/">计算机科学</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/编译型语言/">编译型语言</a><a href="/tags/解释型语言/">解释型语言</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/05/04/what-is-complied-language-and-interpreted-language/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/05/04/what-is-complied-language-and-interpreted-language/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -953,7 +988,7 @@
 		  
 		
 		  
-			<li><a href="/categories/PHP/" title="PHP">PHP<sup>8</sup></a></li>
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>10</sup></a></li>
 		  
 		
 		  
@@ -974,7 +1009,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/PHP/" title="PHP">PHP<sup>8</sup></a></li>
+				<li><a href="/tags/PHP/" title="PHP">PHP<sup>10</sup></a></li>
 			
 		
 			
