@@ -81,6 +81,320 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/05/15/php-8-mysql-basic-knowledge/" title="php学习笔记7-mysql基础知识" itemprop="url">php学习笔记7-mysql基础知识</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-15T08:10:16.000Z" itemprop="datePublished"> 发表于 2015-05-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="数据库词汇">数据库词汇</h2><p>数据：data，凡是能携带信息的媒介都是数据</p>
+<ol>
+<li>硬盘数据：保存在磁盘中，以二进制形式保存</li>
+<li>内存数据：运行在内存中</li>
+</ol>
+<p>数据库：Database，高效存储和处理数据的媒介（凡是存放数据的地方都可以称之为数据库）<br>数据库分为两大阵营：关系型数据库，非关系型数据库。<br>数据库系统：Database System = DBMS +DB，DBMS（Database Management System）管理数据库<br>DBA：Database Administrator，DBA待遇非常好。</p>
+<h2 id="关系型数据库SQL">关系型数据库SQL</h2><p>关系型数据库：大型（ORACLE，DB2），中型（mysql，SqlServer），小型（access）<br>mysql：最高并发量千万级，免费<br>ORACLE：收费</p>
+<p>定义：建立在关系模型上的数据库。<br>关系模型：通过各种关系来体现数据与数据之间的联系的模型。</p>
+<p>通俗：关系型数据库就是一张二维表（具有行和列，还有表头），用来管理表内的数据关系和表与表之间的关系。</p>
+<p>关系型数据库特点：如果某个数据不完整，那么数据库在磁盘空间上一样的需要分配空间来保存该数据。关系型数据库比较占磁盘空间。</p>
+<h2 id="非关系型数据库">非关系型数据库</h2><p>定义：所有不是关系型数据库的数据库都是非关系型数据库<br>NOSQL：Not Only SQL。<br>非关系型数据库保存数据的方式：键值对</p>
+<p>特点：</p>
+<ol>
+<li>运行在内存</li>
+<li>使用键值对来保存和表示数据</li>
+<li>运行之后，会进行数据同步（将内存的数据写入到磁盘）</li>
+</ol>
+<p>关系型数据库和非关系型数据对比</p>
+<ol>
+<li>保存数据的介质不同（关系型在磁盘，非关系型在内存）</li>
+<li>非关系型数据库效率比关系型数据库高得多</li>
+<li>关系型数据库比非关系型数据库安全</li>
+</ol>
+<p>是一种关系型数据库操作语言，也是一种编程语言<br>SQL：Structured Query Language，结构化查询语言。<br>SQL包含三个部分：<br>DDL：Data Definition Language，数据定义语言，库和表的维护create，drop，alter<br>DML：Data manipulation Language，数据操作语言（DQL：Data Query Language），数据的查询，select<br>DCL：Data Control Language，数据控制语言，用于数据库的权限管理，grant，revoke</p>
+<h2 id="SQL的基本操作">SQL的基本操作</h2><p>CRUD：create（创建：增），read/retrieve（读取：查），update（更新：改），delete（删除：删）</p>
+<h2 id="软件结构">软件结构</h2><p>mysql是一种c/s软件结构。在运行之前，必须保证服务端和客户端同时运行才能正常工作。</p>
+<p>工作流程</p>
+<ol>
+<li><p>客户端发送连接请求，建立连接：mysql –h –P –u –p<br>a)    h：host，ip地址或者域名，默认可以没有代表localhost<br>b)    P：大写，端口默认为3306<br>c)    u：username，用户名<br>d)    p：password，用户密码</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;mysql<span class="class">.exe</span> -h127.<span class="number">0.0</span>.<span class="number">1</span> -P3306 -uroot -<span class="tag">p</span></span><br><span class="line">Enter password: *</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>准备SQL语句：逐行执行，以分号为结束符</p>
+<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="literal">show</span> databases<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发送SQL语句：发送给服务器</p>
+</li>
+<li>服务器接收SQL并执行</li>
+<li>服务器发送执行结果给客户端</li>
+<li><p>客户端解析结果</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">mysql&gt; show databases;</span><br><span class="line">+--------------------+</span></span><br><span class="line"><span class="header">| Database           |</span><br><span class="line">+--------------------+</span></span><br><span class="line">| information<span class="emphasis">_schema |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_</span>schema |</span><br><span class="line"><span class="header">| test               |</span><br><span class="line">+--------------------+</span></span><br><span class="line">4 rows in set (0.17 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭连接<br>a)    exit<br>b)    quit<br>c)    \q</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="keyword">exit</span></span><br><span class="line">Bye</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>mysql客户端操作服务端原理<br><img src="/image/php_learn/mysql1.jpg" alt=""><br>所有的处理操作都是在服务端，客户端只是负责发送SQL语句和接收执行结果，并解析。</p>
+<h2 id="管理服务端">管理服务端</h2><p>windows下有三种方式进行服务端管理</p>
+<ol>
+<li>windows服务管理</li>
+<li><p>通过服务命令在dos（CMD）下管理<br>net：管理服务<br>net start|stop 服务名</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">C:<span class="command">\Users</span><span class="command">\Administrator</span>&gt;net stop mysql</span><br><span class="line">MySQL 服务正在停止.</span><br><span class="line">MySQL 服务已成功停止。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">C:<span class="command">\Users</span><span class="command">\Administrator</span>&gt;net start mysql</span><br><span class="line">MySQL 服务正在启动 .</span><br><span class="line">MySQL 服务已经启动成功。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>直接通过mysqld.exe启动<br>mysqld的执行必须要指定配置文件才能启动成功<br>mysqld.exe –defaults-file=d:/server/mysql/my.ini</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">C:</span>\Users\Administrator&gt;mysqld.exe –defaults-file=<span class="string">d:</span><span class="regexp">/server/</span>mysql/my.ini</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="服务端内部结构">服务端内部结构</h2><p>服务器是由数据库系统在帮助运行。<br>在服务器端，有四个对象，分别是：数据库管理系统-&gt;数据库-&gt;数据表-&gt;数据字段-&gt;管理数据<br><img src="/image/php_learn/mysql2.jpg" alt=""></p>
+<h2 id="数据库基本操作">数据库基本操作</h2><p>数据库基本操作包含三个部分：库操作，表操作（字段操作），数据操作</p>
+<h3 id="库操作">库操作</h3><p>SQL语句是以行为执行单位，每行结束都应该有结束符号分号（有特例：建议每行语句都有分号）</p>
+<h4 id="新增数据库">新增数据库</h4><p>create database 数据库名字 [库选项];</p>
+<p>库选项：<br>字符集设置（charset）：表示以后在当前数据库存储的数据，默认采用utf-8的字符集存储<br>校对集设置（collate）：如何比较大小<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">- 两个中划线+空格，是sql语句的一种注释</span><br><span class="line"></span>-<span class="ruby">- 库操作</span><br><span class="line"></span>-<span class="ruby">- 创建数据库</span><br><span class="line"></span>-<span class="ruby">- create database mydatabase charset utf8;</span><br><span class="line"></span></span><br><span class="line">mysql&gt; create database mydatabase charset utf8;</span><br><span class="line">Query OK, 1 row affected (0.29 sec)</span><br></pre></td></tr></table></figure></p>
+<p>执行以上语句，数据库管理系统做了哪些事情？</p>
+<ol>
+<li>创建了一个叫做mydatabase的数据库（默认使用utf8来存储数据）</li>
+<li>会在磁盘里开辟一块空间来存储数据（对应外部体现就是创建一个文件夹，文件夹的名字叫做mydatabase）<br>文件夹的路径可以通过my.ini查看</li>
+<li>库选项在数据库文件夹下有一个对应的文件db.opt</li>
+</ol>
+<p>数据库命名规范</p>
+<ol>
+<li>使用字母，下划线和数字构成</li>
+<li>不能是关键字，如果是关键字，需要使用反引号将名字包裹<br>a)    反引号：esc下面的波浪线按键对应的英文状态下的输出</li>
+<li>可以使用中文作为数据库名字，但是也需要使用反引号（强烈建议：不用使用中文）</li>
+</ol>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 关键字</span></span><br><span class="line">create database database charset utf8; <span class="comment">-- 错误</span></span><br><span class="line">create database `database` charset utf8; <span class="comment">-- 正确</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 中文</span></span><br><span class="line">create database `中国` charset utf8;</span><br><span class="line"></span><br><span class="line">mysql&gt;  <span class="keyword">set</span> names gbk;</span><br><span class="line">Query OK, <span class="number">0</span> rows affected (<span class="number">0.06</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; create database `中国` charset utf8;</span><br><span class="line">Query OK, <span class="number">1</span> row affected (<span class="number">0.15</span> sec)</span><br><span class="line"><span class="comment">-- 中文</span></span><br></pre></td></tr></table></figure>
+<h4 id="查看数据库">查看数据库</h4><p>查看数据库基本信息：show databases;||模糊查询：show databases like ‘pattern’</p>
+<p>查看所有<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">mysql&gt; show databases;</span><br><span class="line">+--------------------+</span></span><br><span class="line"><span class="header">| Database           |</span><br><span class="line">+--------------------+</span></span><br><span class="line">| information<span class="emphasis">_schema |</span><br><span class="line">| 中国                  |</span><br><span class="line">| mydatabase         |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_</span>schema |</span><br><span class="line"><span class="header">| test               |</span><br><span class="line">+--------------------+</span></span><br><span class="line">6 rows in set (0.08 sec)</span><br></pre></td></tr></table></figure></p>
+<p>模糊匹配：%匹配任何内容，_表示匹配一个字符<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">show databases like <span class="emphasis">'data%'</span>; -- 匹配所有以Data开始的数据库</span><br><span class="line">show databases like <span class="emphasis">'databas_'</span>; -- 匹配所有以databas开始，然后后面跟一个字符的数据库</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; show databases like 'data%';</span><br><span class="line">+------------------+</span></span><br><span class="line"><span class="header">| Database (data%) |</span><br><span class="line">+------------------+</span></span><br><span class="line"><span class="header">| database         |</span><br><span class="line">+------------------+</span></span><br><span class="line">1 row in set (0.08 sec)</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; show databases like 'databas_';</span><br><span class="line">+---------------------+</span></span><br><span class="line"><span class="header">| Database (databas_) |</span><br><span class="line">+---------------------+</span></span><br><span class="line"><span class="header">| database            |</span><br><span class="line">+---------------------+</span></span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>下划线使用<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">show</span> <span class="keyword">databases</span> <span class="keyword">like</span> <span class="string">'information_%'</span>;</span> <span class="comment">-- 匹配所有以information开始，后面接任何内容</span></span><br><span class="line"><span class="comment">-- 匹配下划线：需要转义符号</span></span><br><span class="line"><span class="operator"><span class="keyword">show</span> <span class="keyword">databases</span> <span class="keyword">like</span> <span class="string">'information\_%'</span>;</span> <span class="comment">-- 匹配所有以information_开始，后面匹配所有</span></span><br></pre></td></tr></table></figure></p>
+<p>查看数据库创建语句：show create database 数据库名字<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">mysql&gt; show create database `database`;</span><br><span class="line">+----------+-------------------------------------------------------------------+</span></span><br><span class="line"></span><br><span class="line">| Database | Create Database                                                   |</span><br><span class="line"></span><br><span class="line"><span class="code">+----------+</span>-------------------------------------------------------------------+</span><br><span class="line"></span><br><span class="line">| database | CREATE DATABASE <span class="code">`database`</span> /<span class="strong">*!40100 DEFAULT CHARACTER SET utf8 *</span>/ |</span><br><span class="line"></span><br><span class="line"><span class="code">+----------+</span>-------------------------------------------------------------------+</span><br><span class="line"></span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>修改数据库：数据库名称不可修改，只能修改数据库的库选项<br>语法：alter database 数据库名字 [库选项]<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 修改数据库的库选项</span></span><br><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">database</span> mydatabase <span class="keyword">charset</span> gbk;</span>	<span class="comment">-- 将数据库mydatabase的字符集改成gbk</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="删除数据库">删除数据库</h4><p>drop Database 数据库名字;<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 删除数据库</span></span><br><span class="line"><span class="operator"><span class="keyword">drop</span> <span class="keyword">database</span> <span class="string">`database`</span>;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="表操作">表操作</h3><p>表不能脱离字段存在，字段也不能脱离表，所谓的表操作就是表和字段同时操作<br>新增表：create table 表名(字段1 字段类型,字段2 字段类型)[表选项]</p>
+<ol>
+<li>字段必须要有字段类型：字段 字段类型</li>
+<li>字段与字段之间使用逗号分隔</li>
+<li>最后一个字段不需要使用逗号</li>
+</ol>
+<p>表选项<br>字符集：当前表的数据采用什么字符集保存，字符集以表的字符集为标准<br>存储引擎：当前表的数据采用什么样的存储引擎来存储</p>
+<p>存储引擎：不同存储和处理数据的方式<br>注意：数据表必须存储在数据库的内部。</p>
+<h4 id="创建数据表">创建数据表</h4><ol>
+<li><p>显示指定数据库：在创建表名的时候使用：库.表名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 表操作</span></span><br><span class="line"><span class="comment">-- 创建数据表</span></span><br><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> mydatabase.mytable(</span><br><span class="line">id <span class="built_in">int</span>, <span class="comment">-- id为整型</span></span><br><span class="line">name <span class="built_in">varchar</span>(<span class="number">10</span>) <span class="comment">-- name为字符串类型</span></span><br><span class="line">) <span class="keyword">charset</span> utf8 <span class="keyword">engine</span> <span class="keyword">innodb</span>;</span>	<span class="comment">-- 存储引擎为InnoDB，默认为这个，不写也一样</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>隐式的指定数据：事先进入到某个数据库的环境：use 数据库名字</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">use</span> mydatabase;</span></span><br><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> mytable2(</span><br><span class="line">id <span class="built_in">int</span>,</span><br><span class="line">name <span class="built_in">varchar</span>(<span class="number">10</span>)</span><br><span class="line">)<span class="keyword">charset</span> utf8;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>创建表语句执行之后的结果：在对应的数据库文件夹下创建两个对应的数据表的结构文件 mytable.frm 和 mytable2.frm<br>该结构与选定的存储引擎有关系。</p>
+<p>存储引擎：有多种，InnoDB和Myisam<br>InnoDB：只会创建一个表结构文件，其他的索引和数据存放在ibdata1文件中<br>Myisam：会创建三个文件，一个是结构文件，一个是数据文件，一个是索引文件</p>
+<h4 id="查看表">查看表</h4><ol>
+<li><p>查看表基本信息：show tables || show tables like ‘pattern’;</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use mydatabase;</span><br><span class="line">Database changed</span><br><span class="line"><span class="header">mysql&gt; show tables;</span><br><span class="line">+----------------------+</span></span><br><span class="line"><span class="header">| Tables_in_mydatabase |</span><br><span class="line">+----------------------+</span></span><br><span class="line">| mytable              |</span><br><span class="line">| mytable2             |</span><br><span class="line"><span class="header">| mytable3             |</span><br><span class="line">+----------------------+</span></span><br><span class="line">3 rows in set (0.01 sec)</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; show tables like 'mytable_';</span><br><span class="line">+---------------------------------+</span></span><br><span class="line"><span class="header">| Tables_in_mydatabase (mytable_) |</span><br><span class="line">+---------------------------------+</span></span><br><span class="line">| mytable2                        |</span><br><span class="line"><span class="header">| mytable3                        |</span><br><span class="line">+---------------------------------+</span></span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看表的创建语句：show create table 表名;</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">mysql&gt; show create table mytable;</span><br><span class="line">+---------+--------------------------------------------------</span></span><br><span class="line">---------------------------------------------------------+</span><br><span class="line">| Table   | Create Table</span><br><span class="line"><span class="header">                                                         |</span><br><span class="line">+---------+--------------------------------------------------</span></span><br><span class="line">---------------------------------------------------------+</span><br><span class="line">| mytable | CREATE TABLE <span class="code">`mytable`</span> (</span><br><span class="line"><span class="code">  `id` int(11) DEFAULT NULL,</span></span><br><span class="line"><span class="code">  `name` varchar(10) DEFAULT NULL</span></span><br><span class="line"><span class="header">) ENGINE=InnoDB DEFAULT CHARSET=utf8 |</span><br><span class="line">+---------+--------------------------------------------------</span></span><br><span class="line">---------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看表结构：desc|describe 表名/show columns from 表名</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">mysql&gt; desc mytable;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="header">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| id    | int(11)     | YES  |     | NULL    |       |</span><br><span class="line"><span class="header">| name  | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">2 rows in set (0.10 sec)</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; describe mytable2;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="header">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| id    | int(11)     | YES  |     | NULL    |       |</span><br><span class="line"><span class="header">| name  | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">2 rows in set (0.01 sec)</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; show columns from mytable;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="header">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| id    | int(11)     | YES  |     | NULL    |       |</span><br><span class="line"><span class="header">| name  | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">2 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="修改表">修改表</h4><p>可以修改表的名字，表的字段的增删改查，字段的属性的修改，字段的位置的修改<br>语法：alter table 表名 [add/modify/drop] [column] 字段名字 [字段类型] [字段位置]</p>
+<p>增加字段<br>alter table 表名 add column 字段名字 字段类型 [位置]<br>字段默认在表最后增加<br>位置：first表示在最前面，after表示在某个字段之后（默认其实是after在最后一个字段之后）<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">mysql&gt; desc mytable1;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="header">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| id    | int(11)     | YES  |     | NULL    |       |</span><br><span class="line"><span class="header">| name  | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">2 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; alter table mytable1 add column age int;</span><br><span class="line">Query OK, 0 rows affected (0.30 sec)</span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; desc mytable1;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="header">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| id    | int(11)     | YES  |     | NULL    |       |</span><br><span class="line">| name  | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line"><span class="header">| age   | int(11)     | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">3 rows in set (0.01 sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql&gt; alter table mytable1 add first int first; -- 在mytable1的最前面增加一个整</span><br><span class="line">型first字段</span><br><span class="line">Query OK, 0 rows affected (0.64 sec)</span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; desc mytable1;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="header">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| first | int(11)     | YES  |     | NULL    |       |</span><br><span class="line">| id    | int(11)     | YES  |     | NULL    |       |</span><br><span class="line">| name  | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line"><span class="header">| age   | int(11)     | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">4 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
+<h4 id="修改字段">修改字段</h4><p>修改字段位置，修改字段的类型，修改字段的名字<br>修改字段类型+字段位置<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">alter table mytable1 modify first varchar(10) after age;</span><br><span class="line"><span class="bullet">-- </span>修改表中first字段的字段类型为varchar，并且将位置放到age字段之后</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; desc mytable1;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="header">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| first | int(11)     | YES  |     | NULL    |       |</span><br><span class="line">| id    | int(11)     | YES  |     | NULL    |       |</span><br><span class="line">| name  | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line"><span class="header">| age   | int(11)     | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; alter table mytable1 modify first varchar(10) after age;</span><br><span class="line">Query OK, 0 rows affected (0.26 sec)</span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; desc mytable1;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="header">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| id    | int(11)     | YES  |     | NULL    |       |</span><br><span class="line">| name  | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line">| age   | int(11)     | YES  |     | NULL    |       |</span><br><span class="line"><span class="header">| first | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">4 rows in set (0.07 sec)</span><br></pre></td></tr></table></figure></p>
+<p>修改字段名字<br>alter table 表名 change 旧字段 new字段 字段类型 字段位置</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">alter table mytable1 change first second varchar(10);</span><br><span class="line"><span class="bullet">-- </span>修改first字段名字为second</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; desc mytable1;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="header">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| id    | int(11)     | YES  |     | NULL    |       |</span><br><span class="line">| name  | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line">| age   | int(11)     | YES  |     | NULL    |       |</span><br><span class="line"><span class="header">| first | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">4 rows in set (0.07 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; alter table mytable1 change first second varchar(10</span><br><span class="line">Query OK, 0 rows affected (0.33 sec)</span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt;  desc mytable1;</span><br><span class="line">+--------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="header">| Field  | Type        | Null | Key | Default | Extra |</span><br><span class="line">+--------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| id     | int(11)     | YES  |     | NULL    |       |</span><br><span class="line">| name   | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line">| age    | int(11)     | YES  |     | NULL    |       |</span><br><span class="line"><span class="header">| second | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line">+--------+-------------+------+-----+---------+-------+</span></span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>注意：不管是修改字段的那部分都应该跟上字段类型</p>
+<h4 id="删除字段">删除字段</h4><p>alter table 表名 drop 字段名字<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">alter table mytable1 drop second; -- 删除second字段</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt;  desc mytable1;</span><br><span class="line">+--------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="header">| Field  | Type        | Null | Key | Default | Extra |</span><br><span class="line">+--------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| id     | int(11)     | YES  |     | NULL    |       |</span><br><span class="line">| name   | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line">| age    | int(11)     | YES  |     | NULL    |       |</span><br><span class="line"><span class="header">| second | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line">+--------+-------------+------+-----+---------+-------+</span></span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; alter table mytable1 drop second;</span><br><span class="line">Query OK, 0 rows affected (0.32 sec)</span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; desc mytable1;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="header">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| id    | int(11)     | YES  |     | NULL    |       |</span><br><span class="line">| name  | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line"><span class="header">| age   | int(11)     | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">3 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h4 id="修改表名">修改表名</h4><p>语法：rename table 旧表名 to 新表名<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-- </span>修改表结构</span><br><span class="line">rename table mytable to mytable1; -- 将mytable改名为mytable1</span><br><span class="line"></span><br><span class="line">mysql&gt; rename table mytable to mytable1; -- 将mytable改名为mytable1</span><br><span class="line">Query OK, 0 rows affected (0.18 sec)</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; show tables;</span><br><span class="line">+----------------------+</span></span><br><span class="line"><span class="header">| Tables_in_mydatabase |</span><br><span class="line">+----------------------+</span></span><br><span class="line">| mytable1             |</span><br><span class="line">| mytable2             |</span><br><span class="line"><span class="header">| mytable3             |</span><br><span class="line">+----------------------+</span></span><br><span class="line">3 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h4 id="删除表">删除表</h4><p>drop table 表名<br>删除表还会对表文件进行删除<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="header">mysql&gt; show tables;</span><br><span class="line">+----------------------+</span></span><br><span class="line"><span class="header">| Tables_in_mydatabase |</span><br><span class="line">+----------------------+</span></span><br><span class="line">| mytable1             |</span><br><span class="line">| mytable2             |</span><br><span class="line"><span class="header">| mytable3             |</span><br><span class="line">+----------------------+</span></span><br><span class="line">3 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; drop table mytable3;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; show tables;</span><br><span class="line">+----------------------+</span></span><br><span class="line"><span class="header">| Tables_in_mydatabase |</span><br><span class="line">+----------------------+</span></span><br><span class="line">| mytable1             |</span><br><span class="line"><span class="header">| mytable2             |</span><br><span class="line">+----------------------+</span></span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h4 id="注意">注意</h4><ol>
+<li><p>创建过程中会不知道当前表名是否存在：if not exists表示只有表名不存在的时候才去创建，否则放弃执行；</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create table if not exists mytable1(</span><br><span class="line"><span class="code">    -&gt; id int</span></span><br><span class="line"><span class="code">    -&gt; )charset utf8;</span></span><br><span class="line">Query OK, 0 rows affected, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; show warnings;</span><br><span class="line">+-------+------+---------------------------------+</span></span><br><span class="line"><span class="header">| Level | Code | Message                         |</span><br><span class="line">+-------+------+---------------------------------+</span></span><br><span class="line"><span class="header">| Note  | 1050 | Table 'mytable1' already exists |</span><br><span class="line">+-------+------+---------------------------------+</span></span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除表的过程中，不知道表是否已经存在：if exists</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; drop table mytable3; -- 表不存在</span><br><span class="line">ERROR 1051 (42S02): Unknown table <span class="emphasis">'mytable3'</span></span><br><span class="line">mysql&gt; drop table if exists mytable3; -- 表不存在</span><br><span class="line">Query OK, 0 rows affected, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; show warnings;</span><br><span class="line">+-------+------+--------------------------+</span></span><br><span class="line"><span class="header">| Level | Code | Message                  |</span><br><span class="line">+-------+------+--------------------------+</span></span><br><span class="line"><span class="header">| Note  | 1051 | Unknown table 'mytable3' |</span><br><span class="line">+-------+------+--------------------------+</span></span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数据库和数据表都不能随意的删除，删除具有不可逆性。如果确定要删除数据库或者数据表，那么必须要事先备份。</p>
+</li>
+</ol>
+<h2 id="数据操作">数据操作</h2><h3 id="插入数据">插入数据</h3><p>新增数据：insert into 表名 (字段列表) values(值列表)<br>字段列表可以没有，意味着值列表里的字段数必须与表中的字段数完全一致<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">insert</span> into mytable1 <span class="built_in">values</span>(<span class="number">1</span>,<span class="string">'Hanmeimei'</span>,<span class="number">18</span>); -- 插入一个与表字段完全一致的记录</span><br><span class="line">-- 注意：<span class="built_in">values</span>里面的数据值，必须与字段顺序完全对应上</span><br><span class="line">-- <span class="built_in">insert</span> into mytable1 <span class="built_in">values</span>(<span class="string">'Hanmeimei'</span>,<span class="number">2</span>,<span class="number">18</span>); -- 错误，因为顺序不对</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="built_in">insert</span> into mytable1 <span class="built_in">values</span>(<span class="number">1</span>,<span class="string">'Hanmeimei'</span>,<span class="number">18</span>);</span><br><span class="line">Query OK, <span class="number">1</span> row affected (<span class="number">0.11</span> sec)</span><br></pre></td></tr></table></figure></p>
+<p>插入数据必须注意</p>
+<ol>
+<li>插入的值类型必须与数据字段定义的数据类型一致，除了整型可以不加引号之外，其他的都要加上引号</li>
+<li>整型也可以加上引号<br>在严格模式下，只能将数值字符串转化成数值<br>在严格模式下，自增不能使用空字符串来代替</li>
+<li>允许一次性插入多条记录，在values字段后面使用逗号分隔即可</li>
+</ol>
+<h3 id="查看数据">查看数据</h3><p>select 字段列表 from 表名 [where 条件]<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">mysql&gt; select * from mytable1;</span><br><span class="line">+------+-----------+------+</span></span><br><span class="line"><span class="header">| id   | name      | age  |</span><br><span class="line">+------+-----------+------+</span></span><br><span class="line"><span class="header">|    1 | Hanmeimei |   18 |</span><br><span class="line">+------+-----------+------+</span></span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt; select name,age from  mytable1;</span><br><span class="line">+-----------+------+</span></span><br><span class="line"><span class="header">| name      | age  |</span><br><span class="line">+-----------+------+</span></span><br><span class="line"><span class="header">| Hanmeimei |   18 |</span><br><span class="line">+-----------+------+</span></span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from mytable1 where age &gt; 20;</span><br><span class="line">Empty set (0.09 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="修改（更新）数据">修改（更新）数据</h3><p>update 表名 set 字段 = 值 [where条件]<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; update mytable1 set age = 19 where id = 1;-- 修改id为1数据的age字段的值为</span><br><span class="line">19</span><br><span class="line">Query OK, 1 row affected (0.12 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; update mytable1 set age=30,name=<span class="emphasis">'Tom'</span> where id = 2;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">Rows matched: 0  Changed: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; -- 修改id为2数据的年龄和名字字段</span><br><span class="line"><span class="header">mysql&gt;  select * from mytable1;</span><br><span class="line">+------+-----------+------+</span></span><br><span class="line"><span class="header">| id   | name      | age  |</span><br><span class="line">+------+-----------+------+</span></span><br><span class="line">|    1 | Hanmeimei |   19 |</span><br><span class="line">|    3 | Jim       |   22 |</span><br><span class="line">|    4 | Green     |   23 |</span><br><span class="line"><span class="header">|    5 | Polly     |   35 |</span><br><span class="line">+------+-----------+------+</span></span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="删除数据">删除数据</h3><p>delete from 表名 [where条件]<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">mysql&gt;  select * from mytable1;</span><br><span class="line">+------+-----------+------+</span></span><br><span class="line"><span class="header">| id   | name      | age  |</span><br><span class="line">+------+-----------+------+</span></span><br><span class="line">|    1 | Hanmeimei |   19 |</span><br><span class="line">|    3 | Jim       |   22 |</span><br><span class="line">|    4 | Green     |   23 |</span><br><span class="line"><span class="header">|    5 | Polly     |   35 |</span><br><span class="line">+------+-----------+------+</span></span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; delete from mytable1 where id = 5; -- 删除id为5的值的记录</span><br><span class="line">Query OK, 1 row affected (0.11 sec)</span><br><span class="line"></span><br><span class="line"><span class="header">mysql&gt;  select * from mytable1;</span><br><span class="line">+------+-----------+------+</span></span><br><span class="line"><span class="header">| id   | name      | age  |</span><br><span class="line">+------+-----------+------+</span></span><br><span class="line">|    1 | Hanmeimei |   19 |</span><br><span class="line">|    3 | Jim       |   22 |</span><br><span class="line"><span class="header">|    4 | Green     |   23 |</span><br><span class="line">+------+-----------+------+</span></span><br><span class="line">3 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="注意-1">注意</h3><p>一定要小心删除数据，切记需要使用where条件，在删除之前需要对数据进行备份</p>
+<p>行（row）和记录（record）：行和记录表示的意思是完全一样的，行是站在表结构的角度上定义，而记录是站在数据的角度上去定义<br>列（column）和字段（Field）：与行和记录的区别是一样的。</p>
+<h2 id="字符集问题（乱码问题）">字符集问题（乱码问题）</h2><ol>
+<li>mytable1存储的数据是utf8字符集（在创建表的时候，指定了表的数据存储字符集为utf8）</li>
+<li>cmd控制台只能是gbk格式的数据：说明cmd下只能输入和显示gbk格式的数据</li>
+<li>set names gbk的功能</li>
+</ol>
+<p>客户端与服务端进行不同编码的通信的原理<br><img src="/image/php_learn/mysql3.jpg" alt=""></p>
+<p>了解数据库的字符集<br>查看数据库支持哪些字符集？show character set;<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show character set;</span><br><span class="line">+----------+-----------------------------+---------------------+--------+</span><br><span class="line"><span class="string">| Charset  | Description                 | Default collation   | Maxlen |</span></span><br><span class="line">+----------+-----------------------------+---------------------+--------+</span><br><span class="line"><span class="string">| big5     | Big5 Traditional Chinese    | big5_chinese_ci     |      2 |</span></span><br><span class="line"><span class="string">| dec8     | DEC West European           | dec8_swedish_ci     |      1 |</span></span><br><span class="line"><span class="string">| cp850    | DOS West European           | cp850_general_ci    |      1 |</span></span><br><span class="line"><span class="string">| hp8      | HP West European            | hp8_english_ci      |      1 |</span></span><br><span class="line"><span class="string">| koi8r    | KOI8-R Relcom Russian       | koi8r_general_ci    |      1 |</span></span><br><span class="line"><span class="string">| latin1   | cp1252 West European        | latin1_swedish_ci   |      1 |</span></span><br><span class="line"><span class="string">| latin2   | ISO 8859-2 Central European | latin2_general_ci   |      1 |</span></span><br><span class="line"><span class="string">| swe7     | 7bit Swedish                | swe7_swedish_ci     |      1 |</span></span><br><span class="line"><span class="string">| ascii    | US ASCII                    | ascii_general_ci    |      1 |</span></span><br><span class="line"><span class="string">| ujis     | EUC-JP Japanese             | ujis_japanese_ci    |      3 |</span></span><br><span class="line"><span class="string">| sjis     | Shift-JIS Japanese          | sjis_japanese_ci    |      2 |</span></span><br><span class="line"><span class="string">| hebrew   | ISO 8859-8 Hebrew           | hebrew_general_ci   |      1 |</span></span><br><span class="line"><span class="string">| tis620   | TIS620 Thai                 | tis620_thai_ci      |      1 |</span></span><br><span class="line"><span class="string">| euckr    | EUC-KR Korean               | euckr_korean_ci     |      2 |</span></span><br><span class="line"><span class="string">| koi8u    | KOI8-U Ukrainian            | koi8u_general_ci    |      1 |</span></span><br><span class="line"><span class="string">| gb2312   | GB2312 Simplified Chinese   | gb2312_chinese_ci   |      2 |</span></span><br><span class="line"><span class="string">| greek    | ISO 8859-7 Greek            | greek_general_ci    |      1 |</span></span><br><span class="line"><span class="string">| cp1250   | Windows Central European    | cp1250_general_ci   |      1 |</span></span><br><span class="line"><span class="string">| gbk      | GBK Simplified Chinese      | gbk_chinese_ci      |      2 |</span></span><br><span class="line"><span class="string">| latin5   | ISO 8859-9 Turkish          | latin5_turkish_ci   |      1 |</span></span><br><span class="line"><span class="string">| armscii8 | ARMSCII-8 Armenian          | armscii8_general_ci |      1 |</span></span><br><span class="line"><span class="string">| utf8     | UTF-8 Unicode               | utf8_general_ci     |      3 |</span></span><br><span class="line"><span class="string">| ucs2     | UCS-2 Unicode               | ucs2_general_ci     |      2 |</span></span><br><span class="line"><span class="string">| cp866    | DOS Russian                 | cp866_general_ci    |      1 |</span></span><br><span class="line"><span class="string">| keybcs2  | DOS Kamenicky Czech-Slovak  | keybcs2_general_ci  |      1 |</span></span><br><span class="line"><span class="string">| macce    | Mac Central European        | macce_general_ci    |      1 |</span></span><br><span class="line"><span class="string">| macroman | Mac West European           | macroman_general_ci |      1 |</span></span><br><span class="line"><span class="string">| cp852    | DOS Central European        | cp852_general_ci    |      1 |</span></span><br><span class="line"><span class="string">| latin7   | ISO 8859-13 Baltic          | latin7_general_ci   |      1 |</span></span><br><span class="line"><span class="string">| utf8mb4  | UTF-8 Unicode               | utf8mb4_general_ci  |      4 |</span></span><br><span class="line"><span class="string">| cp1251   | Windows Cyrillic            | cp1251_general_ci   |      1 |</span></span><br><span class="line"><span class="string">| utf16    | UTF-16 Unicode              | utf16_general_ci    |      4 |</span></span><br><span class="line"><span class="string">| cp1256   | Windows Arabic              | cp1256_general_ci   |      1 |</span></span><br><span class="line"><span class="string">| cp1257   | Windows Baltic              | cp1257_general_ci   |      1 |</span></span><br><span class="line"><span class="string">| utf32    | UTF-32 Unicode              | utf32_general_ci    |      4 |</span></span><br><span class="line"><span class="string">| binary   | Binary pseudo charset       | binary              |      1 |</span></span><br><span class="line"><span class="string">| geostd8  | GEOSTD8 Georgian            | geostd8_general_ci  |      1 |</span></span><br><span class="line"><span class="string">| cp932    | SJIS for Windows Japanese   | cp932_japanese_ci   |      2 |</span></span><br><span class="line"><span class="string">| eucjpms  | UJIS for Windows Japanese   | eucjpms_japanese_ci |      3 |</span></span><br><span class="line">+----------+-----------------------------+---------------------+--------+</span><br><span class="line"><span class="number">39</span> rows in set (<span class="number">0.03</span> sec)</span><br></pre></td></tr></table></figure></p>
+<p>查看服务器对客户端的默认识别方式：将客户端当前何种字符集对待。<br>show variables like ‘character<em>set</em>%’;<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">mysql&gt; show variables like 'character_set%';</span><br><span class="line">+--------------------------+---------------------------------+</span></span><br><span class="line"><span class="header">| Variable_name            | Value                           |</span><br><span class="line">+--------------------------+---------------------------------+</span></span><br><span class="line">| character<span class="emphasis">_set_</span>client     | gbk                             |</span><br><span class="line">| character<span class="emphasis">_set_</span>connection | gbk                             |</span><br><span class="line">| character<span class="emphasis">_set_</span>database   | utf8                            |</span><br><span class="line">| character<span class="emphasis">_set_</span>filesystem | binary                          |</span><br><span class="line">| character<span class="emphasis">_set_</span>results    | gbk                             |</span><br><span class="line">| character<span class="emphasis">_set_</span>server     | utf8                            |</span><br><span class="line">| character<span class="emphasis">_set_</span>system     | utf8                            |</span><br><span class="line"><span class="header">| character_sets_dir       | F:\server\mysql\share\charsets\ |</span><br><span class="line">+--------------------------+---------------------------------+</span></span><br><span class="line">8 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>要保证服务器能够正确识别客户端传过去的数据，只要保证character_set_client的字符集与客户端的字符集一致即可。<br>set character_set_client = gbk;</li>
+<li>要保证服务器能够正确的给客户端提供对应字符集的数据，只要保证character_set_results与客户端的字符集一致即可<br>set character_set_results = gbk;</li>
+<li>set names gbk:所做的事情就是将传输数据以及接受数据都设置成当前客户端的字符集<br>set names gbk;<br>&lt;=========&gt;<br>set character_set_client = gbk;<br>set character_set_connection = gbk;<br>set character_set_results = gbk<br>set character_set_database = gbk;</li>
+</ol>
+<p>在使用cmd下面的mysql.exe的时候：set names gbk<br>在使用EditPlus的时候，EditPlus下面的编码是ANSI，ANSI代表当前电脑默认的字符集，中国大陆销售的电脑默认都是gbk编码：set names gbk<br>在使用EditPlus的时候，EditPlus下面的编码是utf-8：set names utf8</p>
+<p>一旦数据库存储的数据本身是乱码，那么任何修改都不可以生效，全部查看到的都是乱码。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/PHP/">PHP</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/05/15/php-8-mysql-basic-knowledge/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/05/15/php-8-mysql-basic-knowledge/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/05/14/linux-kernel-2-disassembling-how-operating-system-works/" title="Linux内核分析2-操作系统是如何工作的？" itemprop="url">Linux内核分析2-操作系统是如何工作的？</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-14T13:42:31.000Z" itemprop="datePublished"> 发表于 2015-05-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>王志刚，学习笔记，《Linux内核分析》MOOC 课程 <a href="http://mooc.study.163.com/course/USTC-1000029000" target="_blank" rel="external">http://mooc.study.163.com/course/USTC-1000029000</a></p>
+<h2 id="计算机是如何工作的">计算机是如何工作的</h2><p>三个基础性并且非常重要的概念：</p>
+<ul>
+<li>存储程序计算机：所有计算基础性的逻辑框架。</li>
+<li>函数调用堆栈</li>
+<li>中断机制</li>
+</ul>
+<h3 id="与堆栈有关的寄存器">与堆栈有关的寄存器</h3><p>– esp，堆栈指针（stack pointer）<br>– ebp，基址指针（base pointer）</p>
+<p>堆栈操作<br>– push<br>栈顶地址减少4个字节（32位）<br>– pop<br>栈顶地址增加4个字节</p>
+<p>ebp在C语言中用作记录当前函数调用基址</p>
+<h3 id="其他关键寄存器">其他关键寄存器</h3><p>– cs : eip：总是指向下一条的指令地址</p>
+<p>• 顺序执行：总是指向地址连续的下一条指令<br>• 跳转/分支：执行这样的指令的时候，cs : eip的值会根据程序需要被修改<br>• call：将当前cs : eip的值压入栈顶，cs : eip指向被调用函数的入口地址<br>• ret：从栈顶弹出原来保存在这里的cs : eip的值，放入cs : eip中</p>
+<h3 id="函数堆栈框架的形成">函数堆栈框架的形成</h3><ul>
+<li><p>call xxx</p>
+<ul>
+<li>执行call之前</li>
+<li>执行call时，cs : eip原来的值指向call下一条指令，该值被保存到栈顶，然后cs : eip的值指向xxx的入口地址</li>
+</ul>
+</li>
+<li><p>进入xxx</p>
+<ul>
+<li>第一条指令： pushl %ebp</li>
+<li>第二条指令： movl %esp, %ebp</li>
+<li>函数体中的常规操作，可能会压栈、出栈</li>
+</ul>
+</li>
+<li><p>退出xxx</p>
+<ul>
+<li>movl %ebp,%esp</li>
+<li>popl %ebp</li>
+<li>ret</li>
+</ul>
+</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Linux/">Linux</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/05/14/linux-kernel-2-disassembling-how-operating-system-works/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/05/14/linux-kernel-2-disassembling-how-operating-system-works/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/05/14/firefox-autoproxy-freegate-over-wall/" title="Firefox+autoproxy+自由门翻墙" itemprop="url">Firefox+autoproxy+自由门翻墙</a>
   </h1>
   <p class="article-author">By
@@ -225,6 +539,25 @@
 <li>fseek：重置指针的位置，需要用户自己指定位置</li>
 </ul>
 <figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取文件资源</span></span><br><span class="line"><span class="variable">$f</span> = <span class="keyword">fopen</span>(<span class="string">'a.txt'</span>,<span class="string">'r+'</span>);		<span class="comment">//只读打开文件</span></span><br><span class="line"><span class="comment">//var_dump($f);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//读取数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//获取字符</span></span><br><span class="line">var_dump(fgetc(<span class="variable">$f</span>));			<span class="comment">//&lt;</span></span><br><span class="line">var_dump(fgetc(<span class="variable">$f</span>));			<span class="comment">//?</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//获取字符串</span></span><br><span class="line"><span class="comment">//var_dump(fgets($f,2));			//p</span></span><br><span class="line"><span class="comment">//var_dump(strlen(fgets($f,1024)));		//php\r\n 5个长度</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//fread读取数据</span></span><br><span class="line"><span class="comment">//var_dump(fread($f,1024));		//读指定长度数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//写入内容</span></span><br><span class="line"><span class="comment">//var_dump(fwrite($f,'hello world'));		//无法写入，因为是只读模式打开</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//指定指针的位置</span></span><br><span class="line">fseek(<span class="variable">$f</span>,<span class="number">0</span>);					<span class="comment">//指针回到文件的第一个位置</span></span><br><span class="line"><span class="comment">// fwrite($f,"&lt;?php            \r\n");</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//关闭文件资源</span></span><br><span class="line"><span class="keyword">fclose</span>(<span class="variable">$f</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="文件操作相关函数">文件操作相关函数</h3><p>copy：拷贝，会保存原文件<br>unlink：删除文件<br>rename：重命名文件<br>filemtime：m代表modify，修改的意思，获取文件最后被修改的时间<br>filesize：获取文件的长度<br>fileperms：获取文件的权限（主要针对Linux），返回是一个八进制结果<br><figure class="highlight rsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//重命名</span></span><br><span class="line"><span class="comment">//rename('a.txt','b.txt');</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//获取文件最后修改时间</span></span><br><span class="line">var_dump(filemtime(<span class="string">'b.txt'</span>));		<span class="comment">//文件最后修改的时间戳</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//获取文件大小</span></span><br><span class="line">var_dump(filesize(<span class="string">'b.txt'</span>));		<span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//获取文件权限</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%o"</span>,fileperms(<span class="string">'b.txt'</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//删除文件</span></span><br><span class="line">unlink(<span class="string">'b.txt'</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="文件下载">文件下载</h3><p>文件下载分为两种方式</p>
+<ul>
+<li><p>html的a标签实现：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"./a.zip"</span>&gt;</span>美女<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  a标签实现下载的缺点：</p>
+<ol>
+<li>导致服务器会自动解析相关文件（如果服务器能够识别）</li>
+<li>路径是文件在服务器存在的真实路径，所以导致不安全</li>
+</ol>
+</li>
+<li><p>PHP实现下载<br>header(“Content-type: application/octet-stream”)：当前PHP输出给浏览器的数据是流式文件，浏览器不要解析（其实就是下载的意思）<br>header(“Content-Disposition: attachment; filename=filename”)：对文件进行伪装，文件变成一个普通的附件并进行重命名</p>
+<p>  PHP下载原理</p>
+<pre><code><span class="bullet">1. </span>通过header设置告诉浏览器，接收到内容之后不要解析，应该当做附件处理
+<span class="bullet">2. </span>输出对应的数据即可。
+</code></pre><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//PHP实现文件下载</span></span><br><span class="line"><span class="keyword">header</span>(<span class="string">"Content-type: application/octet-stream"</span>);</span><br><span class="line"><span class="keyword">header</span>(<span class="string">"Content-Disposition: attachment; filename=beautifulgirl.jpg"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出数据</span></span><br><span class="line"><span class="comment">//echo file_get_contents('test.php');</span></span><br><span class="line">echo file_get_contents(<span class="string">'programmer.gif'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//原理</span></span><br><span class="line"><span class="comment">//一次性读入所有内容</span></span><br><span class="line"><span class="comment">//fopen+fread+echo，循环获取输出</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="统计流量（人数，访问次数，用户IP）示例">统计流量（人数，访问次数，用户IP）示例</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">'Content-type:text/html;charset=utf-8'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//统计流量（人数，访问次数，用户IP）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//假设用户访问，得到IP地址</span></span><br><span class="line"><span class="variable">$remote</span> = <span class="variable">$_SERVER</span>[<span class="string">'REMOTE_ADDR'</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//拼凑要写入到文件的数据：ip|2014-8-19 10:24:15</span></span><br><span class="line"><span class="variable">$write</span> = <span class="variable">$remote</span> . <span class="string">'|'</span> . date(<span class="string">'Y-m-d H:i:s'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出信息：挡墙网页已经被第几次访问，当前用户是第几次来访问</span></span><br><span class="line"><span class="variable">$str</span> = file_get_contents(<span class="string">'record.txt'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个变量保存当前用户的点击次数</span></span><br><span class="line"><span class="variable">$clickcount</span> = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断当前有没有记录访问信息</span></span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$str</span>)&#123;</span><br><span class="line">	<span class="comment">//有数据</span></span><br><span class="line">	<span class="comment">//以行区分当前文件有多少行</span></span><br><span class="line">	<span class="variable">$rows</span> = explode(<span class="string">"\r\n"</span>,<span class="variable">$str</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//获取已经访问过的用户的数量</span></span><br><span class="line">	<span class="variable">$count</span> = count(<span class="variable">$rows</span>) + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//判断当前用户是第几次访问该网页</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">foreach</span>(<span class="variable">$rows</span> <span class="keyword">as</span> <span class="variable">$value</span>)&#123;</span><br><span class="line">		<span class="comment">//value代表一个访问记录</span></span><br><span class="line">		<span class="variable">$ip</span> = explode(<span class="string">"|"</span>,<span class="variable">$value</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//判读是不是当前用户查看的</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="variable">$ip</span>[<span class="number">0</span>] == <span class="variable">$remote</span>)&#123;</span><br><span class="line">			<span class="comment">//以前访问的记录与当前用户的ip相同</span></span><br><span class="line">			<span class="variable">$clickcount</span>++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//修改write</span></span><br><span class="line">	<span class="variable">$write</span> = <span class="string">"\r\n"</span> . <span class="variable">$write</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="comment">//当前用户是第一个来访问该网页</span></span><br><span class="line">	<span class="variable">$count</span> = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//写入数据</span></span><br><span class="line">file_put_contents(<span class="string">'record.txt'</span>,<span class="variable">$write</span>,FILE_APPEND);</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出信息</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"当前网页已经是第&#123;$count&#125;次被访问&lt;br/&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"您是第&#123;$clickcount&#125;次来访问该网页&lt;br/&gt;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//192.168.3.100/20140819/homework_record.php</span></span><br></pre></td></tr></table></figure>
 
         
         
@@ -834,165 +1167,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/05/06/php-virtualhost-configure/" title="php学习笔记1-虚拟主机配置" itemprop="url">php学习笔记1-虚拟主机配置</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-06T07:29:15.000Z" itemprop="datePublished"> 发表于 2015-05-06</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="前言">前言</h2><p>通过<code>一步步搭建php环境</code>三篇教程，我们搭建好了php环境。<br>在实际开发过程中，一个服务器端不可能只是放置一个网站，可能是多个网站。也就是说可能存在有多个目录，每个目录可能就代表了一个网站。这就需要对apache做相应的配置</p>
-<h2 id="虚拟主机配置">虚拟主机配置</h2><p>apache的虚拟主机配置分为三种：基于ip的虚拟主机，基于域名的虚拟主机，基于端口号的虚拟主机<br>本教程讲基于域名的虚拟主机配置。<br>apache提供了多个位置来配置虚拟主机，httpd.conf和extra/httpd_vhosts.conf<br>httpd.conf配置后，只需重启apache即可生效<br>extra/httpd_vhosts.conf配置后，需要在 httpd.conf加载对应的配置文件<br>本教程用extra/httpd_vhosts.conf配置，符合模块化编程思想。</p>
-<h3 id="加载虚拟主机配置文件">加载虚拟主机配置文件</h3><p>在 apache/conf/httpd.conf 文件添加：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#加载虚拟主机</span></span><br><span class="line"><span class="keyword">Include</span> conf/extra/httpd-vhosts.conf</span><br></pre></td></tr></table></figure>
-<p>会产生警告：<br><img src="/image/php_environment/v1.jpg" alt=""> </p>
-<h3 id="去除警告">去除警告</h3><p>出现警告的原因是加载配置信息的时候 ， httpd_vhosts.conf 文件中出现了不存在的路径信息。<br>将 httpd_vhosts.conf 以下几行信息注释或者删掉：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:<span class="number">80</span>&gt;</span><br><span class="line">    ServerAdmin webmaster@dummy-host.mark.coma</span><br><span class="line">    DocumentRoot <span class="string">"C:/PHP_Learning/server/apache/docs/dummy-host.mark.coma"</span></span><br><span class="line">    ServerName dummy-host.mark.coma</span><br><span class="line">    ServerAlias www.dummy-host.mark.coma</span><br><span class="line">    ErrorLog <span class="string">"logs/dummy-host.mark.coma-error.log"</span></span><br><span class="line">    CustomLog <span class="string">"logs/dummy-host.mark.coma-access.log"</span> common</span><br><span class="line">&lt;/VirtualHost&gt;</span><br><span class="line"></span><br><span class="line">&lt;VirtualHost *:<span class="number">80</span>&gt;</span><br><span class="line">    ServerAdmin webmaster@dummy-host2.mark.coma</span><br><span class="line">    DocumentRoot <span class="string">"C:/PHP_Learning/server/apache/docs/dummy-host2.mark.coma"</span></span><br><span class="line">    ServerName dummy-host2.mark.coma</span><br><span class="line">    ErrorLog <span class="string">"logs/dummy-host2.mark.coma-error.log"</span></span><br><span class="line">    CustomLog <span class="string">"logs/dummy-host2.mark.coma-access.log"</span> common</span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="创建虚拟主机">创建虚拟主机</h3><p>比如添加一个shop文件夹（我建立在server目录下，这个可以随意，必须在中文路径下），代表商城的网站，在httpd_vhosts.conf下添加：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:<span class="number">80</span>&gt;</span><br><span class="line">	<span class="comment">#域名</span></span><br><span class="line">	ServerName www.shop.com</span><br><span class="line">	<span class="comment">#网站根目录</span></span><br><span class="line">	DocumentRoot <span class="string">"C:/PHP_Learning/server/shop"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">#设置目录访问权限</span></span><br><span class="line">	&lt;Directory <span class="string">"C:/PHP_Learning/server/shop"</span>&gt;</span><br><span class="line">		<span class="comment">#设置顺序</span></span><br><span class="line">		Order Deny,Allow</span><br><span class="line">		Deny from all</span><br><span class="line">		Allow from all</span><br><span class="line"></span><br><span class="line">		<span class="comment"># 如果不存在访问文件，则列出所有文件列表</span></span><br><span class="line">		options Indexes</span><br><span class="line"></span><br><span class="line">		<span class="comment"># 默认访问的文件</span></span><br><span class="line">		DirectoryIndex index.php</span><br><span class="line">	&lt;/Directory&gt;</span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="修改hosts文件">修改hosts文件</h3><p>由于我们是在本地测试，还未使用真实域名。所以在hosts将 www.shop.com 映射到 localhost<br>hosts文件路径：C:/Windows/System32/drivers/etc。<br>在hosts文件中添加一下内容：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.0.1 www.shop.com</span><br></pre></td></tr></table></figure></p>
-<h3 id="测试虚拟主机是否创建成功">测试虚拟主机是否创建成功</h3><p>在shop文件夹下，新建一个index.php,写一些语句测试（比如 echo “Hello World”）</p>
-<h3 id="解决localhost不被虚拟主机覆盖">解决localhost不被虚拟主机覆盖</h3><p>注意：如果开启了虚拟主机，localhost会被第一个虚拟主机覆盖，为了不被覆盖，需要增加一个localhost的虚拟主机,在httpd_vhosts.conf下添加</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:<span class="number">80</span>&gt;</span><br><span class="line">	<span class="comment">#域名</span></span><br><span class="line">	ServerName localhost</span><br><span class="line">	<span class="comment">#网站根目录</span></span><br><span class="line">	DocumentRoot <span class="string">"F:/server/apache/htdocs"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">#设置目录访问权限</span></span><br><span class="line">	&lt;Directory <span class="string">"F:/server/apache/htdocs"</span>&gt;</span><br><span class="line">		<span class="comment">#设置顺序</span></span><br><span class="line">		Order Deny,Allow</span><br><span class="line">		Deny from all</span><br><span class="line">		Allow from all</span><br><span class="line"></span><br><span class="line">		<span class="comment"># 如果不存在访问文件，则列出所有文件列表</span></span><br><span class="line">		options Indexes</span><br><span class="line">	&lt;/Directory&gt;</span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/PHP/">PHP</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/PHP/">PHP</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/05/06/php-virtualhost-configure/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/05/06/php-virtualhost-configure/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/05/05/step-by-step-create-php-development-environment-3-php/" title="一步步教你在Windows下搭建PHP开发环境(3)php安装" itemprop="url">一步步教你在Windows下搭建PHP开发环境(3)php安装</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-05T11:04:56.000Z" itemprop="datePublished"> 发表于 2015-05-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="前言">前言</h2><p>本教程是<code>一步步教你在Windows下搭建PHP开发环境</code>系列的第3篇。<br>在阅读本教程的时候，假设你已经完成了前面的部分。<br>该教程所有软件下载地址：<a href="http://pan.baidu.com/s/1o6zHn78" target="_blank" rel="external">百度云</a></p>
-<h2 id="安装PHP">安装PHP</h2><p>PHP不像apache和mysql那样，有安装文件，可以直接安装。PHP是一个文件夹，需要通过配置文件，<br>关联到apache里面去。</p>
-<h3 id="下载php安装文件">下载php安装文件</h3><p><img src="/image/php_environment/p1.jpg" alt=""> </p>
-<h3 id="安装：在server目录下，直接放置解压后的php文件夹（将文件夹改为php）">安装：在server目录下，直接放置解压后的php文件夹（将文件夹改为php）</h3><p><img src="/image/php_environment/p2.jpg" alt=""> </p>
-<h3 id="配置apache：让apache能够识别php">配置apache：让apache能够识别php</h3><h4 id="在apache中加载php模块（把php当做apache的一个模块来运行）">在apache中加载php模块（把php当做apache的一个模块来运行）</h4><p>在apache/conf/httpd.conf文件中加入以下语句</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#加载php当作apache的一个模块</span></span><br><span class="line"><span class="comment">#加载模式：LoadModule 模块名（不能随意） 模块动态链接库所在路径（绝对路径）</span></span><br><span class="line">LoadModule php5_module C:/PHP_Learning/server/php/php5apache2_2.dll</span><br><span class="line"></span><br><span class="line"><span class="comment">#增加php模块需要处理的文件</span></span><br><span class="line"><span class="comment">#将以.php结尾的文件交给php模块去处理</span></span><br><span class="line">AddType application/x-httpd-php .php</span><br></pre></td></tr></table></figure>
-<h4 id="测试apache是否能够识别php">测试apache是否能够识别php</h4><p>在apache/htdocs/文件夹下新建 index.php 文件，写入以下代码</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">"Hello World!"</span>;</span><br></pre></td></tr></table></figure>
-<p>在浏览器中输入 <a href="http://localhost/index.php" target="_blank" rel="external">http://localhost/index.php</a>, 如果显示 Hello World 则成功</p>
-<h4 id="配置php：让php充当mysql的客户端去连接mysql的服务端">配置php：让php充当mysql的客户端去连接mysql的服务端</h4><p>php本身没有能力去操作mysql，需要借助外部扩展才可以。php提供了一套mysql的扩展能够连接<br>mysql服务器。<br>1 得到php配置文件，php目录下有两个配置文件（只是模板，我们可以复制）<br>php.ini-development：开发模式下的配置文件<br>php.ini-production：生产模式下的配置文件（系统已经对外开放）</p>
-<p>将php.ini-development复制一份，更名为php.ini</p>
-<p>2 将php配置文件，加载到Apache的配置文件中<br>在apache/conf/httpd.conf文件中加入以下语句</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#增加php配置文件路径（绝对路径，根据自己实际放的位置设置）</span></span><br><span class="line">PHPIniDir C:/PHP_Learning/server/php</span><br></pre></td></tr></table></figure>
-<p>3 开启mysql扩展<br>在第1步创建的php.ini文件中，添加一下语句<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">;加载php对应的mysql扩展</span><br><span class="line">extension=php_mysql.dll</span><br></pre></td></tr></table></figure></p>
-<p>4 指定扩展文件所在路径<br>在第1步创建的php.ini文件中，添加一下语句<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">;指定mysql扩展文件所在路径</span><br><span class="line">extension_dir = <span class="string">"F:/server/php/ext"</span></span><br></pre></td></tr></table></figure></p>
-<p>5 验证是否连接成功<br>在apache/htdocs/文件夹下的 index.php 文件，写入以下代码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//连接数据库</span></span><br><span class="line">	<span class="variable">$link</span> = mysql_connect(<span class="string">"localhost"</span>,<span class="string">"root"</span>,<span class="string">"1"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="variable">$link</span>) &#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"连接成功"</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;	</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"连接失败"</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
-<p>重启apache后，访问localhost/index.php, 如果成功能看到显示 <code>连接成功</code> </p>
-<p>也可以在 index.php文件中，通过 phpInfo(); 来观察加载了哪些扩展</p>
-<h4 id="增加php时区">增加php时区</h4><p>在用 phpInfo() 函数所展示的页面中，在date项有一个warning：<br><img src="/image/php_environment/p3.jpg" alt=""> </p>
-<p>在php/php.ini中添加配置信息，增加一个时区：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">; 增加一个时区，中国时区</span><br><span class="line">date.timezone = PRC</span><br></pre></td></tr></table></figure>
-<p>重启apache，再次查看的时候，warning消失了：<br><img src="/image/php_environment/p4.jpg" alt=""> </p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/PHP/">PHP</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/PHP/">PHP</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/05/05/step-by-step-create-php-development-environment-3-php/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/05/05/step-by-step-create-php-development-environment-3-php/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -1011,11 +1185,11 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		  
 		
 		  
-			<li><a href="/categories/PHP/" title="PHP">PHP<sup>10</sup></a></li>
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>11</sup></a></li>
 		  
 		
 		  
@@ -1040,7 +1214,11 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/PHP/" title="PHP">PHP<sup>10</sup></a></li>
+				<li><a href="/tags/PHP/" title="PHP">PHP<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 			
 		
 			
@@ -1061,10 +1239,6 @@
 		
 			
 				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
 			
 		
 			

@@ -4,22 +4,46 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Firefox+autoproxy+自由门翻墙 | 王志刚</title>
+    <title>Linux内核分析2-操作系统是如何工作的？ | 王志刚</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wzg">
     
 
     
-    <meta name="description" content="前言受限于伟大的 GFW（Great Firewall,常用简称:GFW,中文也称中国国家防火墙、长城防火墙或万里防火墙），程序员很多技术资料都看不了，下不到。这样一来，翻墙就变成了一个要掌握的技能。翻墙也成为了很多技术人以及很多不想被蒙蔽的人的需求，在这个市场经济里，常常是有需求，就有人满足你的需求，把它变成一个商品，这个商品就是VPN。如果你不想要折腾，那么花钱买服务不失为一个很好的选择，也不">
+    <meta name="description" content="王志刚，学习笔记，《Linux内核分析》MOOC 课程 http://mooc.study.163.com/course/USTC-1000029000
+计算机是如何工作的三个基础性并且非常重要的概念：
+
+存储程序计算机：所有计算基础性的逻辑框架。
+函数调用堆栈
+中断机制
+
+与堆栈有关的寄存器– esp，堆栈指针（stack pointer）– ebp，基址指针（base pointer）
+堆栈操">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Firefox+autoproxy+自由门翻墙">
-<meta property="og:url" content="http://yoursite.com/2015/05/14/firefox-autoproxy-freegate-over-wall/index.html">
+<meta property="og:title" content="Linux内核分析2-操作系统是如何工作的？">
+<meta property="og:url" content="http://yoursite.com/2015/05/14/linux-kernel-2-disassembling-how-operating-system-works/index.html">
 <meta property="og:site_name" content="王志刚">
-<meta property="og:description" content="前言受限于伟大的 GFW（Great Firewall,常用简称:GFW,中文也称中国国家防火墙、长城防火墙或万里防火墙），程序员很多技术资料都看不了，下不到。这样一来，翻墙就变成了一个要掌握的技能。翻墙也成为了很多技术人以及很多不想被蒙蔽的人的需求，在这个市场经济里，常常是有需求，就有人满足你的需求，把它变成一个商品，这个商品就是VPN。如果你不想要折腾，那么花钱买服务不失为一个很好的选择，也不">
+<meta property="og:description" content="王志刚，学习笔记，《Linux内核分析》MOOC 课程 http://mooc.study.163.com/course/USTC-1000029000
+计算机是如何工作的三个基础性并且非常重要的概念：
+
+存储程序计算机：所有计算基础性的逻辑框架。
+函数调用堆栈
+中断机制
+
+与堆栈有关的寄存器– esp，堆栈指针（stack pointer）– ebp，基址指针（base pointer）
+堆栈操">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Firefox+autoproxy+自由门翻墙">
-<meta name="twitter:description" content="前言受限于伟大的 GFW（Great Firewall,常用简称:GFW,中文也称中国国家防火墙、长城防火墙或万里防火墙），程序员很多技术资料都看不了，下不到。这样一来，翻墙就变成了一个要掌握的技能。翻墙也成为了很多技术人以及很多不想被蒙蔽的人的需求，在这个市场经济里，常常是有需求，就有人满足你的需求，把它变成一个商品，这个商品就是VPN。如果你不想要折腾，那么花钱买服务不失为一个很好的选择，也不">
+<meta name="twitter:title" content="Linux内核分析2-操作系统是如何工作的？">
+<meta name="twitter:description" content="王志刚，学习笔记，《Linux内核分析》MOOC 课程 http://mooc.study.163.com/course/USTC-1000029000
+计算机是如何工作的三个基础性并且非常重要的概念：
+
+存储程序计算机：所有计算基础性的逻辑框架。
+函数调用堆栈
+中断机制
+
+与堆栈有关的寄存器– esp，堆栈指针（stack pointer）– ebp，基址指针（base pointer）
+堆栈操">
 
     
     <link rel="alternative" href="/atom.xml" title="王志刚" type="application/atom+xml">
@@ -79,14 +103,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/14/firefox-autoproxy-freegate-over-wall/" title="Firefox+autoproxy+自由门翻墙" itemprop="url">Firefox+autoproxy+自由门翻墙</a>
+      <a href="/2015/05/14/linux-kernel-2-disassembling-how-operating-system-works/" title="Linux内核分析2-操作系统是如何工作的？" itemprop="url">Linux内核分析2-操作系统是如何工作的？</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
 		
   <p class="article-time">
-    <time datetime="2015-05-14T04:21:20.000Z" itemprop="datePublished"> 发表于 2015-05-14</time>
+    <time datetime="2015-05-14T13:42:31.000Z" itemprop="datePublished"> 发表于 2015-05-14</time>
     
   </p>
 </header>
@@ -95,19 +119,44 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#步骤"><span class="toc-number">2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">3.</span> <span class="toc-text">参考资料</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机是如何工作的"><span class="toc-number">1.</span> <span class="toc-text">计算机是如何工作的</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#与堆栈有关的寄存器"><span class="toc-number">1.1.</span> <span class="toc-text">与堆栈有关的寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他关键寄存器"><span class="toc-number">1.2.</span> <span class="toc-text">其他关键寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数堆栈框架的形成"><span class="toc-number">1.3.</span> <span class="toc-text">函数堆栈框架的形成</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="前言">前言</h2><p>受限于伟大的 GFW（Great Firewall,常用简称:GFW,中文也称中国国家防火墙、长城防火墙或万里防火墙），<br>程序员很多技术资料都看不了，下不到。这样一来，翻墙就变成了一个要掌握的技能。<br>翻墙也成为了很多技术人以及很多不想被蒙蔽的人的需求，在这个市场经济里，常常是有需求，就有人满足你的需求，把它变成一个商品，这个商品就是VPN。如果你不想要折腾，那么花钱买服务不失为一个很好的选择，也不贵一年才几百块钱。<br>我是一个能不花钱就不花钱的具有穷人思维的爱折腾的人，关于翻墙，最直接的方式是改hosts，它能让你实现部分网址的翻墙。我一年前折腾过GoAgent，用了一段时间，但是GoAgent到2015年失效了。试过免费VPN，强烈不推荐去搞这个，几乎所有的免费VPN上网都不畅，服务很烂。GoAgent的设置也很麻烦，而GoAgent需要注册IP，注册IP需要google账户，google账户需要翻墙，这是一个死循环，当初我是用限时免费VPN翻墙注册google账户。况且现在GoAgent都失效了，也不值得去搞了。<br>昨天，我尝试着用 Firefox+autoproxy+自由门 的方式去翻墙，发现挺简单的。试用了一下网速还很流畅。</p>
-<h2 id="步骤">步骤</h2><p>我大概写一下翻墙步骤，然后再贴出参考资料，不会详细介绍，一步步教学。参考资料里面的信息已经足够详细了。</p>
+		<p>王志刚，学习笔记，《Linux内核分析》MOOC 课程 <a href="http://mooc.study.163.com/course/USTC-1000029000" target="_blank" rel="external">http://mooc.study.163.com/course/USTC-1000029000</a></p>
+<h2 id="计算机是如何工作的">计算机是如何工作的</h2><p>三个基础性并且非常重要的概念：</p>
 <ul>
-<li>安装Firefox<br>这个不用说，自己去下载安装包。</li>
-<li>在Firefox安装autoproxy插件<br>可以自行百度如何安装这个插件。</li>
-<li>下载自由门<br>自由门软件可能需要翻墙。下载网址：<a href="http://leapb.zym9.net/" target="_blank" rel="external">http://leapb.zym9.net/</a></li>
-<li>在autoproxy插件设置默认用 FreeGate 翻墙<br>如何设置可以在参考资料里面找到</li>
+<li>存储程序计算机：所有计算基础性的逻辑框架。</li>
+<li>函数调用堆栈</li>
+<li>中断机制</li>
 </ul>
-<h2 id="参考资料">参考资料</h2><p>2015年火狐翻墙傻瓜式教程：<a href="http://www.firefoxfan.com/firefox-tutorial/firefox-autoproxy-goagent.html" target="_blank" rel="external">http://www.firefoxfan.com/firefox-tutorial/firefox-autoproxy-goagent.html</a><br>火狐+自由门快速进行翻墙: <a href="http://mozilla.com.cn/thread-56365-1-1.html" target="_blank" rel="external">http://mozilla.com.cn/thread-56365-1-1.html</a></p>
+<h3 id="与堆栈有关的寄存器">与堆栈有关的寄存器</h3><p>– esp，堆栈指针（stack pointer）<br>– ebp，基址指针（base pointer）</p>
+<p>堆栈操作<br>– push<br>栈顶地址减少4个字节（32位）<br>– pop<br>栈顶地址增加4个字节</p>
+<p>ebp在C语言中用作记录当前函数调用基址</p>
+<h3 id="其他关键寄存器">其他关键寄存器</h3><p>– cs : eip：总是指向下一条的指令地址</p>
+<p>• 顺序执行：总是指向地址连续的下一条指令<br>• 跳转/分支：执行这样的指令的时候，cs : eip的值会根据程序需要被修改<br>• call：将当前cs : eip的值压入栈顶，cs : eip指向被调用函数的入口地址<br>• ret：从栈顶弹出原来保存在这里的cs : eip的值，放入cs : eip中</p>
+<h3 id="函数堆栈框架的形成">函数堆栈框架的形成</h3><ul>
+<li><p>call xxx</p>
+<ul>
+<li>执行call之前</li>
+<li>执行call时，cs : eip原来的值指向call下一条指令，该值被保存到栈顶，然后cs : eip的值指向xxx的入口地址</li>
+</ul>
+</li>
+<li><p>进入xxx</p>
+<ul>
+<li>第一条指令： pushl %ebp</li>
+<li>第二条指令： movl %esp, %ebp</li>
+<li>函数体中的常规操作，可能会压栈、出栈</li>
+</ul>
+</li>
+<li><p>退出xxx</p>
+<ul>
+<li>movl %ebp,%esp</li>
+<li>popl %ebp</li>
+<li>ret</li>
+</ul>
+</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -115,13 +164,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/工具使用/">工具使用</a>
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/工具使用/">工具使用</a>
+  <span></span> <a href="/tags/Linux/">Linux</a>
   </div>
 
 </div>
@@ -130,7 +179,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/05/14/firefox-autoproxy-freegate-over-wall/" data-title="Firefox+autoproxy+自由门翻墙 | 王志刚" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/05/14/linux-kernel-2-disassembling-how-operating-system-works/" data-title="Linux内核分析2-操作系统是如何工作的？ | 王志刚" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -144,18 +193,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/05/14/linux-kernel-2-disassembling-how-operating-system-works/" title="Linux内核分析2-操作系统是如何工作的？">
+ <a href="/2015/05/15/php-8-mysql-basic-knowledge/" title="php学习笔记7-mysql基础知识">
   <strong>上一篇：</strong><br/>
   <span>
-  Linux内核分析2-操作系统是如何工作的？</span>
+  php学习笔记7-mysql基础知识</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/05/12/php-7-file-operations/"  title="php学习笔记7-文件操作">
+<a href="/2015/05/14/firefox-autoproxy-freegate-over-wall/"  title="Firefox+autoproxy+自由门翻墙">
  <strong>下一篇：</strong><br/> 
- <span>php学习笔记7-文件操作
+ <span>Firefox+autoproxy+自由门翻墙
 </span>
 </a>
 </div>
@@ -164,7 +213,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/05/14/firefox-autoproxy-freegate-over-wall/" data-title="Firefox+autoproxy+自由门翻墙" data-url="http://yoursite.com/2015/05/14/firefox-autoproxy-freegate-over-wall/"></div>
+	<div class="ds-thread" data-thread-key="2015/05/14/linux-kernel-2-disassembling-how-operating-system-works/" data-title="Linux内核分析2-操作系统是如何工作的？" data-url="http://yoursite.com/2015/05/14/linux-kernel-2-disassembling-how-operating-system-works/"></div>
 </section>
 
 
@@ -180,7 +229,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#步骤"><span class="toc-number">2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">3.</span> <span class="toc-text">参考资料</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机是如何工作的"><span class="toc-number">1.</span> <span class="toc-text">计算机是如何工作的</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#与堆栈有关的寄存器"><span class="toc-number">1.1.</span> <span class="toc-text">与堆栈有关的寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他关键寄存器"><span class="toc-number">1.2.</span> <span class="toc-text">其他关键寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数堆栈框架的形成"><span class="toc-number">1.3.</span> <span class="toc-text">函数堆栈框架的形成</span></a></li></ol></li></ol>
  
   </div>
 
