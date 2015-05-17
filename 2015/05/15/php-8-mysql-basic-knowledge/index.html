@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>php学习笔记7-mysql基础知识 | 王志刚</title>
+    <title>php学习笔记8-mysql基础知识:数据库词汇,基本操作 | 王志刚</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wzg">
@@ -18,7 +18,7 @@
 
 数据库：Database，高效存储和处理数据的媒介（凡是存放数据的地方都可以称之为数据库）数据库分为两大阵营：关系型数据库，非关系型数据库。数据库系统：Database System = DBMS +DB，DBMS（Database Management System）管理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="php学习笔记7-mysql基础知识">
+<meta property="og:title" content="php学习笔记8-mysql基础知识:数据库词汇,基本操作">
 <meta property="og:url" content="http://yoursite.com/2015/05/15/php-8-mysql-basic-knowledge/index.html">
 <meta property="og:site_name" content="王志刚">
 <meta property="og:description" content="数据库词汇数据：data，凡是能携带信息的媒介都是数据
@@ -31,7 +31,7 @@
 <meta property="og:image" content="/image/php_learn/mysql2.jpg">
 <meta property="og:image" content="/image/php_learn/mysql3.jpg">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="php学习笔记7-mysql基础知识">
+<meta name="twitter:title" content="php学习笔记8-mysql基础知识:数据库词汇,基本操作">
 <meta name="twitter:description" content="数据库词汇数据：data，凡是能携带信息的媒介都是数据
 
 硬盘数据：保存在磁盘中，以二进制形式保存
@@ -97,7 +97,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/15/php-8-mysql-basic-knowledge/" title="php学习笔记7-mysql基础知识" itemprop="url">php学习笔记7-mysql基础知识</a>
+      <a href="/2015/05/15/php-8-mysql-basic-knowledge/" title="php学习笔记8-mysql基础知识:数据库词汇,基本操作" itemprop="url">php学习笔记8-mysql基础知识:数据库词汇,基本操作</a>
   </h1>
   <p class="article-author">By
        
@@ -269,8 +269,9 @@
 <ol>
 <li>要保证服务器能够正确识别客户端传过去的数据，只要保证character_set_client的字符集与客户端的字符集一致即可。<br>set character_set_client = gbk;</li>
 <li>要保证服务器能够正确的给客户端提供对应字符集的数据，只要保证character_set_results与客户端的字符集一致即可<br>set character_set_results = gbk;</li>
-<li>set names gbk:所做的事情就是将传输数据以及接受数据都设置成当前客户端的字符集<br>set names gbk;<br>&lt;=========&gt;<br>set character_set_client = gbk;<br>set character_set_connection = gbk;<br>set character_set_results = gbk<br>set character_set_database = gbk;</li>
+<li>set names gbk:所做的事情就是将传输数据以及接受数据都设置成当前客户端的字符集<br>set names gbk;<br>&lt;=========&gt;<br>set character_set_client = gbk;<br>set character_set_connection = gbk;<br>set character_set_results = gbk</li>
 </ol>
+<p>character_set_database表示的是当前数据库的字符集。<br>set character_set_database = gbk;</p>
 <p>在使用cmd下面的mysql.exe的时候：set names gbk<br>在使用EditPlus的时候，EditPlus下面的编码是ANSI，ANSI代表当前电脑默认的字符集，中国大陆销售的电脑默认都是gbk编码：set names gbk<br>在使用EditPlus的时候，EditPlus下面的编码是utf-8：set names utf8</p>
 <p>一旦数据库存储的数据本身是乱码，那么任何修改都不可以生效，全部查看到的都是乱码。</p>
   
@@ -295,7 +296,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/05/15/php-8-mysql-basic-knowledge/" data-title="php学习笔记7-mysql基础知识 | 王志刚" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/05/15/php-8-mysql-basic-knowledge/" data-title="php学习笔记8-mysql基础知识:数据库词汇,基本操作 | 王志刚" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -308,6 +309,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2015/05/16/php-9-mysql-basic-knowledge/" title="php学习笔记9-mysql基础知识2:校对集,数据类型">
+  <strong>上一篇：</strong><br/>
+  <span>
+  php学习笔记9-mysql基础知识2:校对集,数据类型</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2015/05/14/linux-kernel-2-disassembling-how-operating-system-works/"  title="Linux内核分析2-操作系统是如何工作的？">
@@ -321,7 +330,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/05/15/php-8-mysql-basic-knowledge/" data-title="php学习笔记7-mysql基础知识" data-url="http://yoursite.com/2015/05/15/php-8-mysql-basic-knowledge/"></div>
+	<div class="ds-thread" data-thread-key="2015/05/15/php-8-mysql-basic-knowledge/" data-title="php学习笔记8-mysql基础知识:数据库词汇,基本操作" data-url="http://yoursite.com/2015/05/15/php-8-mysql-basic-knowledge/"></div>
 </section>
 
 
@@ -355,7 +364,7 @@
 		  
 		
 		  
-			<li><a href="/categories/PHP/" title="PHP">PHP<sup>11</sup></a></li>
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>12</sup></a></li>
 		  
 		
 		  
@@ -380,7 +389,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/PHP/" title="PHP">PHP<sup>11</sup></a></li>
+				<li><a href="/tags/PHP/" title="PHP">PHP<sup>12</sup></a></li>
 			
 		
 			

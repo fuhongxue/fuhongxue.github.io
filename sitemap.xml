@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2015/05/16/php-9-mysql-basic-knowledge/</loc>
+    <lastmod>2015-05-16T10:34:13.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2015/05/15/php-8-mysql-basic-knowledge/</loc>
-    <lastmod>2015-05-15T14:50:31.000Z</lastmod>
+    <lastmod>2015-05-16T02:22:01.000Z</lastmod>
   </url>
   
   <url>
