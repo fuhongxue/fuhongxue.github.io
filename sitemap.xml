@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2015/05/14/linux-kernel-2-disassembling-how-operating-system-works/</loc>
+    <lastmod>2015-05-17T11:20:01.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2015/05/16/php-9-mysql-basic-knowledge/</loc>
     <lastmod>2015-05-16T10:34:13.000Z</lastmod>
   </url>
@@ -14,11 +19,6 @@
   <url>
     <loc>http://yoursite.com/2015/05/12/php-7-file-operations/</loc>
     <lastmod>2015-05-15T07:58:57.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2015/05/14/linux-kernel-2-disassembling-how-operating-system-works/</loc>
-    <lastmod>2015-05-14T14:14:38.000Z</lastmod>
   </url>
   
   <url>
