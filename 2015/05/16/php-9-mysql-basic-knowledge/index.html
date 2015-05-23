@@ -218,10 +218,9 @@ _cs：（case se">
 <p>时间日期格式<br><img src="/image/php_learn/mysql13.jpg" alt=""><br>datetime：表示年月日时分秒，能够表示9000年，占用8个字节<br>timestamp：时间戳，使用标准整型存储，表现却是年月日，时分秒<br>date：日期部分，可以表示1000-9999年<br>time：时间部分，表示的是一个时间段，从过去什么时间到以后的某个时间<br>year：年，使用一个字节存在，一个字节只能表示256个数值，在计算的时候加上1900再输出<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> test_date(</span><br><span class="line"><span class="string">`datetime`</span> datetime,</span><br><span class="line"><span class="string">`timestamp`</span> <span class="keyword">timestamp</span>,</span><br><span class="line"><span class="string">`date`</span> <span class="built_in">date</span>,</span><br><span class="line"><span class="string">`time`</span> <span class="keyword">time</span>,</span><br><span class="line"><span class="string">`year`</span> <span class="keyword">year</span></span><br><span class="line">)<span class="keyword">charset</span> utf8;</span></span><br><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> test_date <span class="keyword">values</span>(<span class="string">'2014-8-20 16:34:49'</span>,<span class="string">'12345678'</span>,<span class="string">'2014-8-20'</span>,<span class="string">'16:35:35'</span>,<span class="string">'2014'</span>);</span></span><br><span class="line"><span class="comment">-- 时间戳不能是PHP中的时间戳，而应该是时间戳范围内对应的日期时间格式</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> test_date <span class="keyword">values</span>(<span class="string">'2014-8-20 16:34:49'</span>,<span class="string">'2014-8-20 16:36:59'</span>,<span class="string">'2014-8-20'</span>,<span class="string">'16:35:35'</span>,<span class="string">'2014'</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> test_date <span class="keyword">values</span>(<span class="string">'2014-8-20 16:34:49'</span>,<span class="string">'2014-8-20 16:36:59'</span>,<span class="string">'2014-8-20'</span>,<span class="string">'816:35:35'</span>,<span class="string">'2014'</span>);</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> test_date <span class="keyword">values</span>(<span class="string">'2014-8-20 16:34:49'</span>,<span class="string">'2014-8-20 16:36:59'</span>,<span class="string">'2014-8-20'</span>,<span class="string">'-5 16:35:35'</span>,<span class="string">'2014'</span>);</span></span><br><span class="line"><span class="comment">-- time里面的-5表示5天之前</span></span><br></pre></td></tr></table></figure></p>
 <p>注意：</p>
 <ol>
-<li>在mysql中，任意一条记录（所有字段的集合）的长度不能超过65535个字节。<br>所以varchar能够存储的数据的真实长度会变化很大<br>GBK：varchar能够存储多少个字符？32766个字符<br>(65535 – 2) / 2 = 32766.5</li>
-</ol>
+<li><p>在mysql中，任意一条记录（所有字段的集合）的长度不能超过65535个字节。<br>所以varchar能够存储的数据的真实长度会变化很大<br>GBK：varchar能够存储多少个字符？32766个字符<br>(65535 – 2) / 2 = 32766.5</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> test_varchar_max(</span><br><span class="line"><span class="string">`varchar`</span> <span class="built_in">varchar</span>(<span class="number">32766</span>)</span><br><span class="line">)<span class="keyword">charset</span> gbk;</span></span><br><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">table</span> test_varchar_max modify <span class="string">`varchar`</span> <span class="built_in">varchar</span>(<span class="number">32767</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> test_varchar_maxutf8(</span><br><span class="line"><span class="string">`varchar`</span> <span class="built_in">varchar</span>(<span class="number">21844</span>)</span><br><span class="line">)<span class="keyword">charset</span> utf8;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> test_varchar_maxgbk(</span><br><span class="line"><span class="string">`tinyint`</span> mediumint,</span><br><span class="line"><span class="string">`varchar`</span> <span class="built_in">varchar</span>(<span class="number">32765</span>)</span><br><span class="line">)<span class="keyword">charset</span> gbk;</span></span><br><span class="line"><span class="comment">-- 不可，因为刚好占满，但是没有留下空间来保存null</span></span><br></pre></td></tr></table></figure>
-<ol>
+</li>
 <li><p>在mysql中，如果所有的字段里，没有全部不允许为null，那么需要一个字节来保存null</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> test_varchar_maxgbk(</span><br><span class="line"><span class="string">`tinyint`</span> mediumint <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line"><span class="string">`varchar`</span> <span class="built_in">varchar</span>(<span class="number">32765</span>) <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">)<span class="keyword">charset</span> gbk;</span></span><br><span class="line"><span class="comment">-- 可以，没有可以为null的字段，那么不需要空间来保存null值</span></span><br><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> test_varchar_maxgbk1(</span><br><span class="line"><span class="string">`tinyint`</span> <span class="built_in">smallint</span>,</span><br><span class="line"><span class="string">`varchar`</span> <span class="built_in">varchar</span>(<span class="number">32765</span>)</span><br><span class="line">)<span class="keyword">charset</span> gbk;</span></span><br><span class="line"><span class="comment">-- 留了一个字节空间用来保存null值</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -242,7 +241,7 @@ _cs：（case se">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/PHP/">PHP</a>
+  <span></span> <a href="/tags/PHP/">PHP</a><a href="/tags/mysql/">mysql</a>
   </div>
 
 </div>
@@ -264,6 +263,14 @@ _cs：（case se">
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2015/05/19/php-10-mysql-basic-knowledge/" title="php学习笔记10-mysql基础知识3:字段属性,高级操作">
+  <strong>上一篇：</strong><br/>
+  <span>
+  php学习笔记10-mysql基础知识3:字段属性,高级操作</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2015/05/15/php-8-mysql-basic-knowledge/"  title="php学习笔记8-mysql基础知识:数据库词汇,基本操作">
@@ -311,7 +318,7 @@ _cs：（case se">
 		  
 		
 		  
-			<li><a href="/categories/PHP/" title="PHP">PHP<sup>12</sup></a></li>
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>13</sup></a></li>
 		  
 		
 		  
@@ -336,7 +343,11 @@ _cs：（case se">
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/PHP/" title="PHP">PHP<sup>12</sup></a></li>
+				<li><a href="/tags/PHP/" title="PHP">PHP<sup>13</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>3</sup></a></li>
 			
 		
 			

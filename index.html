@@ -81,6 +81,164 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/05/19/php-10-mysql-basic-knowledge/" title="php学习笔记10-mysql基础知识3:字段属性,高级操作" itemprop="url">php学习笔记10-mysql基础知识3:字段属性,高级操作</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-19T07:29:10.000Z" itemprop="datePublished"> 发表于 2015-05-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="字段属性">字段属性</h2><p>在字段类型之后，用于对当前字段进行一系列的约束的内容（限制内容的情况）<br>字段属性：null/not null，primary key，auto_increment，unique key，comment，default</p>
+<h3 id="null">null</h3><p>表示字段的值可以为空（在进行数据插入的时候，该字段可以不给数据），not null表示不能为空，必须要给定值（不能是null）</p>
+<h3 id="default">default</h3><p>默认值，系统给出的最多的值是default null。<br>尽量不要让字段允许为空，因为数据往往需要有值才有意义。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建表</span></span><br><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> student(</span><br><span class="line"><span class="built_in">number</span> <span class="built_in">char</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="literal">null</span>, <span class="comment">-- number字段不能为空</span></span><br><span class="line">name <span class="built_in">varchar</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">phone_num <span class="built_in">char</span>(<span class="number">11</span>) <span class="keyword">default</span> <span class="literal">null</span>,<span class="comment">-- 允许为空，且默认就是空</span></span><br><span class="line">gender tinyint <span class="keyword">default</span> <span class="number">0</span><span class="comment">-- 用数字表示性别，0代表男，1代表女</span></span><br><span class="line">)<span class="keyword">charset</span> utf8;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 插入值</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> student <span class="keyword">values</span>(<span class="string">'itcast0001'</span>,<span class="string">'李旭东'</span>,<span class="literal">null</span>,<span class="number">1</span>);</span> <span class="comment">-- 因为电话字段必须要输入内容，使用null</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> student (<span class="built_in">number</span>,name) <span class="keyword">values</span>(<span class="string">'itcast0002'</span>,<span class="string">'余旭东'</span>);</span></span><br><span class="line"><span class="comment">-- 可以为有默认值的字段不进行数据插入</span></span><br><span class="line"><span class="comment">-- 假设有20个字段：其中有两个字段想使用默认值，而不知道默认值是什么</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> student <span class="keyword">values</span>(<span class="string">'itcast0003'</span>,<span class="string">'周</span></span></span><br></pre></td></tr></table></figure></p>
+<h3 id="primary_key">primary key</h3><p>主键，主要的键，用主键修饰的字段，该字段具有唯一性（不能重复）</p>
+<ol>
+<li>一张表最多只能有一个主键</li>
+<li>主键字段不能为空   </li>
+</ol>
+<p>如何给表添加主键呢？</p>
+<ol>
+<li><p>在创建表的时候，直接在某个字段后添加主键信息</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建一个用户表</span></span><br><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> <span class="string">`user`</span>(</span><br><span class="line">username <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">primary</span> <span class="keyword">key</span>,</span><br><span class="line"><span class="keyword">password</span> <span class="built_in">char</span>(<span class="number">50</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">email <span class="built_in">varchar</span>(<span class="number">50</span>),</span><br><span class="line">name <span class="built_in">varchar</span>(<span class="number">10</span>),</span><br><span class="line">phone_num <span class="built_in">char</span>(<span class="number">11</span>)</span><br><span class="line">)<span class="keyword">charset</span> utf8;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- md5函数 ： md5('密码')</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="string">`user`</span> <span class="keyword">values</span>(<span class="string">'mark1'</span>,<span class="keyword">md5</span>(<span class="string">'mark1'</span>),<span class="keyword">default</span>,<span class="string">'陈骏宇'</span>,<span class="keyword">default</span>);</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="string">`user`</span> <span class="keyword">values</span>(<span class="string">'mark2'</span>,<span class="keyword">md5</span>(<span class="string">'mark2'</span>),<span class="string">'123456@qq.com'</span>,<span class="string">'唐勇战'</span>,<span class="keyword">default</span>);</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="string">`user`</span> <span class="keyword">values</span>(<span class="string">'mark1'</span>,<span class="keyword">md5</span>(<span class="string">'wojiazhuzaina'</span>),<span class="string">'3456789@163.com'</span>,<span class="string">'李少桂'</span>,<span class="keyword">default</span>);</span></span><br><span class="line"><span class="comment">-- 不能插入，因为username字段是主键不允许重复</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在表后面增加primary key语句，来包含对应的主键字段使用该方式，可以使用复合主键（可以使用多个字段共同组成主键）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 删除表</span></span><br><span class="line"><span class="operator"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> <span class="string">`user`</span>;</span></span><br><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> <span class="string">`user`</span>(</span><br><span class="line">username <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line"><span class="keyword">password</span> <span class="built_in">char</span>(<span class="number">50</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">email <span class="built_in">varchar</span>(<span class="number">50</span>),</span><br><span class="line">name <span class="built_in">varchar</span>(<span class="number">10</span>),</span><br><span class="line">phone_num <span class="built_in">char</span>(<span class="number">11</span>),</span><br><span class="line"><span class="keyword">primary</span> <span class="keyword">key</span>(username) <span class="comment">-- 单独为primary key添加字段</span></span><br><span class="line">)<span class="keyword">charset</span> utf8;</span></span><br><span class="line"><span class="comment">-- 复合主键</span></span><br><span class="line"><span class="operator"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> <span class="string">`user`</span>;</span></span><br><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> <span class="string">`user`</span>(</span><br><span class="line">username <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line"><span class="keyword">password</span> <span class="built_in">char</span>(<span class="number">50</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">email <span class="built_in">varchar</span>(<span class="number">50</span>),</span><br><span class="line">name <span class="built_in">varchar</span>(<span class="number">10</span>),</span><br><span class="line">phone_num <span class="built_in">char</span>(<span class="number">11</span>),</span><br><span class="line"><span class="keyword">primary</span> <span class="keyword">key</span>(username,name) <span class="comment">-- 复合主键，使用username和name共同组成唯一字段</span></span><br><span class="line">)<span class="keyword">charset</span> utf8;</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="string">`user`</span> <span class="keyword">values</span>(<span class="string">'mark1'</span>,<span class="keyword">md5</span>(<span class="string">'1234567'</span>),<span class="string">'5689@163.com'</span>,<span class="string">'李少桂'</span>,<span class="keyword">default</span>);</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以通过修改表结构增加主键<br>语法：alter table 表名 add primary key(字段列表)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 给学生表增加主键</span></span><br><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">add</span> <span class="keyword">primary</span> <span class="keyword">key</span>(<span class="built_in">number</span>);</span> <span class="comment">-- 将学生表的number字段当做主键</span></span><br><span class="line"><span class="comment">-- 前提：当前学生表的数据中，number字段唯一（没有重复值）</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>修改主键：主键不能被修改。<br>修改：先删除后增加<br>删除主键：alter table 表名 drop primary key<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 删除主键</span></span><br><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">drop</span> <span class="keyword">primary</span> <span class="keyword">key</span>;</span> <span class="comment">-- 删除学生表的主键</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 给表中一个不存在的字段增加主键</span></span><br><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">add</span> s_id <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">primary</span> <span class="keyword">key</span> <span class="keyword">first</span>;</span></span><br><span class="line"><span class="comment">-- 给学生表先增加一个不为空的s_id字段（整型），放到第一个位置，当做主键</span></span><br><span class="line"><span class="comment">-- 这种情况：可以先把所有的数据给清除掉</span></span><br></pre></td></tr></table></figure></p>
+<p>增加主键<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 给学生表先增加一个不为空的s_id字段（整型），放到第一个位置，当做主键</span></span><br><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">add</span> s_id <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">primary</span> <span class="keyword">key</span> auto_increment <span class="keyword">first</span>;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="auto_increment">auto_increment</h3><p>自动增长</p>
+<ol>
+<li>字段必须是整型</li>
+<li>必须保证使用自动增长的字段首先满足的一个条件：是一个索引字段</li>
+<li>一张表只能有一个自动增长</li>
+<li>自动增长通常是配合逻辑主键（id int primary key auto_increment）</li>
+</ol>
+<p>自动增长在使用后会出现在表的选项里，而且其值为下一条要自增的字段的值</p>
+<p>注意：auto_increment的值的修改，被修改的新值，必须要比当前表中已经存在的自增长的值要大。</p>
+<p>可以通过修改自增长配置来实现自增长的控制<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查看自增长控制变量</span></span><br><span class="line"><span class="operator"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'auto_increment%'</span>;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="unique_key">unique key</h3><p>唯一键，字段的值不能重复</p>
+<ol>
+<li>一张表唯一键可以有多个</li>
+<li>唯一键不对null进行处理</li>
+</ol>
+<p>如何添加唯一键？<br>跟主键的添加方式基本相同</p>
+<ol>
+<li>在字段之后直接跟unique key</li>
+<li>在表的所有字段之后，使用unique key(字段列表)</li>
+<li>在修改表结构的时候增加唯一键：alter table 表名 add unique key(字段列表)</li>
+</ol>
+<p>注意：当唯一键字段不能为null之后，会自动转换成主键（主键只是表现上是主键，实质还是唯一键）<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> test_unique(</span><br><span class="line">username <span class="built_in">varchar</span>(<span class="number">10</span>) <span class="keyword">unique</span> <span class="keyword">key</span>,</span><br><span class="line">email <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">unique</span> <span class="keyword">key</span></span><br><span class="line">)<span class="keyword">charset</span> utf8;</span></span><br></pre></td></tr></table></figure></p>
+<p>唯一键转主键：</p>
+<ol>
+<li>该唯一键不能为空</li>
+<li>该唯一键是第一个不为空的唯一键</li>
+</ol>
+<p>唯一键不会去区分null字段<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> test_unique <span class="keyword">values</span>(<span class="literal">null</span>,<span class="number">1</span>);</span>	<span class="comment">-- 第二个字段变成了主键，所以不能重复</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> test_unique <span class="keyword">values</span>(<span class="literal">null</span>,<span class="number">2</span>);</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> test_unique <span class="keyword">values</span>(<span class="literal">null</span>,<span class="number">3</span>);</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> test_unique <span class="keyword">values</span>(<span class="string">'a'</span>,<span class="number">4</span>);</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> test_unique <span class="keyword">values</span>(<span class="string">'a'</span>,<span class="number">5</span>);</span> <span class="comment">-- 错误，唯一键重复</span></span><br></pre></td></tr></table></figure></p>
+<p>删除唯一键<br>唯一键与主键不同，主键一张表只有一个，而唯一键可能有多个，所谓唯一键的删除，需要额外的指定要删除的唯一键的名字<br>语法：alter table 表名 drop index 唯一键名字(字段名)<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> test_unique2(</span><br><span class="line">username <span class="built_in">varchar</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">unique</span> <span class="keyword">key</span>,</span><br><span class="line">email <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">unique</span> <span class="keyword">key</span></span><br><span class="line">)<span class="keyword">charset</span> utf8;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 删除唯一键</span></span><br><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">table</span> test_unique <span class="keyword">drop</span> <span class="keyword">unique</span> <span class="keyword">key</span>(username);</span><span class="comment">-- 错误</span></span><br><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">table</span> test_unique <span class="keyword">drop</span> <span class="keyword">unique</span> <span class="keyword">key</span>;</span><span class="comment">-- 错误</span></span><br><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">table</span> test_unique <span class="keyword">drop</span> <span class="keyword">index</span> <span class="string">`username`</span>;</span> <span class="comment">-- 正确</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="comment">comment</h3><p>注释，是一种字段说明，会永远的保存在表的创建语句中<br>注释：表示当前代码是注释，不用执行，在语句执行之后，会被忽略掉</p>
+<ol>
+<li>两个中划线后跟一个空格，行注释</li>
+<li>#也是一种行注释</li>
+<li>块注释：/**/<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建一个教师表</span></span><br><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> teacher(</span><br><span class="line">t_id <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">primary</span> <span class="keyword">key</span> auto_increment, <span class="comment">-- 教师id</span></span><br><span class="line">name <span class="built_in">varchar</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="literal">null</span> comment <span class="string">'教师姓名'</span>,#这是老师姓名</span><br><span class="line">salary <span class="built_in">decimal</span>(<span class="number">6</span>,<span class="number">2</span>) <span class="keyword">not</span> <span class="literal">null</span> comment <span class="string">'教师工资'</span>,<span class="comment">/*这里是老师的工资</span><br><span class="line">也不知道是真是假</span><br><span class="line">*/</span></span><br><span class="line">gender enum(<span class="string">'male'</span>,<span class="string">'female'</span>) <span class="keyword">default</span> <span class="string">'male'</span> comment <span class="string">'教师性别'</span></span><br><span class="line">)<span class="keyword">charset</span> utf8;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="关系">关系</h2><p>自然界中实体与实体之间的联系如何在数据库中进行体现。</p>
+<h3 id="多对一/一对多">多对一/一对多</h3><p>需求：有一个学生表一张班级表<br>一个学生只属于一个教室，一个教室却包含多个学生。这种关系就称之为多对一或者一对多的关系<br><img src="/image/php_learn/mysql14.jpg" alt=""></p>
+<h3 id="多对多">多对多</h3><p>需求：有一个教师表和一个学生表<br>一个学生被多个老师教过，一个老师教过多个学生，这个关系就称之为多对多的关系<br><img src="/image/php_learn/mysql15.jpg" alt=""></p>
+<h3 id="一对一">一对一</h3><p>需求：一个学生信息，有10种信息，其中只有5个信息是非常常用的，其他5个信息基本上用不上（婚姻状况，籍贯，国籍）。<br>将一个表中常用的数据和不常用的数据分离开来，分别保存，但是使用同样的id进行管理。<br><img src="/image/php_learn/mysql16.jpg" alt=""></p>
+<h2 id="外键约束">外键约束</h2><p>外键定义：外键就是指的是一个表中某个字段的值指向另外一个表的主键。</p>
+<h3 id="增加外键">增加外键</h3><p>在一张表中创建一个字段，该字段指向另外一张表的主键。通过一定的约束语句来指明其联系。  </p>
+<p>外键规则：</p>
+<ul>
+<li>外键的字段类型与被指向的表的主键的字段类型一致</li>
+<li>如果想要实现on delete set null，外键字段必须可以为空</li>
+</ul>
+<ol>
+<li><p>可以通过在创建表的时候，指定对应的外键<br>语法：foreign key(当前表中的外键字段) references 外键指向的表(外键指向表的主键);  </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> teacher(</span><br><span class="line">t_id <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">primary</span> <span class="keyword">key</span> auto_increment,</span><br><span class="line">name <span class="built_in">varchar</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">salary <span class="built_in">decimal</span>(<span class="number">7</span>,<span class="number">2</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">phone <span class="built_in">char</span>(<span class="number">11</span>),</span><br><span class="line">class_id <span class="built_in">int</span> comment <span class="string">'外键字段，指向class表的c_id'</span>,</span><br><span class="line"><span class="comment">-- 增加外键，当前表的class_id字段指向class表的c_id字段</span></span><br><span class="line"><span class="keyword">foreign</span> <span class="keyword">key</span>(class_id) <span class="keyword">references</span> class(c_id)</span><br><span class="line">)<span class="keyword">charset</span> utf8;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改表的结构增加外键（指定外键名字）<br>alter table 表名 add constraint 外键名 foreign key(字段) references 父表(主键)<br>前提：子表中没有父表中不存在的值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 为学生增加外键，指向班级</span></span><br><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">add</span> <span class="keyword">constraint</span> <span class="string">`student_class`</span> <span class="keyword">foreign</span> <span class="keyword">key</span>(class_id) <span class="keyword">references</span> class(c_id);</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="外键的作用">外键的作用</h3><p>父表：外键所指向的那张表称之为父表<br>子表：外键所在的表就是子表</p>
+<p>外键的作用主要是用来约束外键所在表的数据的操作以及外键所指向的表的操作</p>
+<ol>
+<li>一旦一张表有一个外键字段，那么该表外键字段值，就不能是外键所指向的表中的主键的值之外的值</li>
+<li>约束外键所指向的表的操作（父表不能更新和删除）<br>外键对父表的约束只存在在已经指向的记录，没有被指向的记录可以被任意被操作。<br>修改外键：外键不能被修改，只能先删除后增加</li>
+</ol>
+<h3 id="删除外键">删除外键</h3><p>一张表中可能存在多个外键，所以在删除外键的时候，必须指定外键名称。<br>语法：alter table 表名 drop foreign key 外键名字<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 删除学生表中的外键</span></span><br><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">drop</span> <span class="keyword">foreign</span> <span class="keyword">key</span> student_class;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="修改外键作用">修改外键作用</h3><p>修改外键的约束作用，修改外键对父表的操作约束。<br>默认的，对父表的约束操作是不允许删除和更新。</p>
+<p>修改外键对父表的约束<br>    置空：set null，当父表进行更新或者删除的时候，对应的子表里的数据应该被设置成null<br>    级联：cascade，当父表进行更新或者删除的时候，对应的子表里的数据应该被删除或者被更新</p>
+<p>删除：父表删除有约束记录的时候子表怎么办？<br>    将子表的外键值设置为null（保证子表的外键字段是允许为空）<br>更新：父表更新有约束记录的时候子表怎么办？<br>    将子表的外键值，级联更新</p>
+<p>在增加外键的时候指定约束方式。<br>on delete set null on update cascade：当父表删除记录时，子表置空，当父表更新记录时子表跟着更新<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 增加外键，指定约束模式</span></span><br><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">table</span> student </span><br><span class="line"><span class="keyword">add</span> <span class="keyword">constraint</span> <span class="string">`student_class`</span>  <span class="comment">-- 指定外键名称</span></span><br><span class="line"><span class="keyword">foreign</span> <span class="keyword">key</span>(class_id)  <span class="comment">-- 指定外键字段</span></span><br><span class="line"><span class="keyword">references</span> class(c_id) <span class="comment">-- 指定外键指向的表</span></span><br><span class="line"><span class="keyword">on</span> <span class="keyword">delete</span> <span class="keyword">set</span> <span class="literal">null</span> <span class="comment">-- 当父表删除记录时，子表对应的记录置空</span></span><br><span class="line"><span class="keyword">on</span> <span class="keyword">update</span> <span class="keyword">cascade</span>;</span> <span class="comment">-- 当父表记录更新时，子表跟着更新</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="外键的优缺点">外键的优缺点</h3><p>优点：从数据库管理者出发</p>
+<ol>
+<li>能够保证数据的一致性（父表修改之后，子表跟着修改）</li>
+<li>保证数据的安全性（不允许在子表中增加父表中不存在的值）</li>
+<li>将表与表之间的关心进行了关联（体现了关系型数据库）<br>从PHP开发者出发</li>
+<li>增加了维护的难度</li>
+</ol>
+<p>实际开发中，一般会使用外键字段，但是不使用外键约束。通过程序来实现表与表之间的关系维护。<br>外键：更新班级id，对应的学生的班级id也改变<br>不使用外键：更新班级ID，得到新的班级id和旧的班级id，通过旧的班级id去修改学生的班级id为新的</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/PHP/">PHP</a><a href="/tags/mysql/">mysql</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/05/19/php-10-mysql-basic-knowledge/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/05/19/php-10-mysql-basic-knowledge/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/05/16/php-9-mysql-basic-knowledge/" title="php学习笔记9-mysql基础知识2:校对集,数据类型" itemprop="url">php学习笔记9-mysql基础知识2:校对集,数据类型</a>
   </h1>
   <p class="article-author">By
@@ -188,10 +346,9 @@
 <p>时间日期格式<br><img src="/image/php_learn/mysql13.jpg" alt=""><br>datetime：表示年月日时分秒，能够表示9000年，占用8个字节<br>timestamp：时间戳，使用标准整型存储，表现却是年月日，时分秒<br>date：日期部分，可以表示1000-9999年<br>time：时间部分，表示的是一个时间段，从过去什么时间到以后的某个时间<br>year：年，使用一个字节存在，一个字节只能表示256个数值，在计算的时候加上1900再输出<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> test_date(</span><br><span class="line"><span class="string">`datetime`</span> datetime,</span><br><span class="line"><span class="string">`timestamp`</span> <span class="keyword">timestamp</span>,</span><br><span class="line"><span class="string">`date`</span> <span class="built_in">date</span>,</span><br><span class="line"><span class="string">`time`</span> <span class="keyword">time</span>,</span><br><span class="line"><span class="string">`year`</span> <span class="keyword">year</span></span><br><span class="line">)<span class="keyword">charset</span> utf8;</span></span><br><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> test_date <span class="keyword">values</span>(<span class="string">'2014-8-20 16:34:49'</span>,<span class="string">'12345678'</span>,<span class="string">'2014-8-20'</span>,<span class="string">'16:35:35'</span>,<span class="string">'2014'</span>);</span></span><br><span class="line"><span class="comment">-- 时间戳不能是PHP中的时间戳，而应该是时间戳范围内对应的日期时间格式</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> test_date <span class="keyword">values</span>(<span class="string">'2014-8-20 16:34:49'</span>,<span class="string">'2014-8-20 16:36:59'</span>,<span class="string">'2014-8-20'</span>,<span class="string">'16:35:35'</span>,<span class="string">'2014'</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> test_date <span class="keyword">values</span>(<span class="string">'2014-8-20 16:34:49'</span>,<span class="string">'2014-8-20 16:36:59'</span>,<span class="string">'2014-8-20'</span>,<span class="string">'816:35:35'</span>,<span class="string">'2014'</span>);</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> test_date <span class="keyword">values</span>(<span class="string">'2014-8-20 16:34:49'</span>,<span class="string">'2014-8-20 16:36:59'</span>,<span class="string">'2014-8-20'</span>,<span class="string">'-5 16:35:35'</span>,<span class="string">'2014'</span>);</span></span><br><span class="line"><span class="comment">-- time里面的-5表示5天之前</span></span><br></pre></td></tr></table></figure></p>
 <p>注意：</p>
 <ol>
-<li>在mysql中，任意一条记录（所有字段的集合）的长度不能超过65535个字节。<br>所以varchar能够存储的数据的真实长度会变化很大<br>GBK：varchar能够存储多少个字符？32766个字符<br>(65535 – 2) / 2 = 32766.5</li>
-</ol>
+<li><p>在mysql中，任意一条记录（所有字段的集合）的长度不能超过65535个字节。<br>所以varchar能够存储的数据的真实长度会变化很大<br>GBK：varchar能够存储多少个字符？32766个字符<br>(65535 – 2) / 2 = 32766.5</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> test_varchar_max(</span><br><span class="line"><span class="string">`varchar`</span> <span class="built_in">varchar</span>(<span class="number">32766</span>)</span><br><span class="line">)<span class="keyword">charset</span> gbk;</span></span><br><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">table</span> test_varchar_max modify <span class="string">`varchar`</span> <span class="built_in">varchar</span>(<span class="number">32767</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> test_varchar_maxutf8(</span><br><span class="line"><span class="string">`varchar`</span> <span class="built_in">varchar</span>(<span class="number">21844</span>)</span><br><span class="line">)<span class="keyword">charset</span> utf8;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> test_varchar_maxgbk(</span><br><span class="line"><span class="string">`tinyint`</span> mediumint,</span><br><span class="line"><span class="string">`varchar`</span> <span class="built_in">varchar</span>(<span class="number">32765</span>)</span><br><span class="line">)<span class="keyword">charset</span> gbk;</span></span><br><span class="line"><span class="comment">-- 不可，因为刚好占满，但是没有留下空间来保存null</span></span><br></pre></td></tr></table></figure>
-<ol>
+</li>
 <li><p>在mysql中，如果所有的字段里，没有全部不允许为null，那么需要一个字节来保存null</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> test_varchar_maxgbk(</span><br><span class="line"><span class="string">`tinyint`</span> mediumint <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line"><span class="string">`varchar`</span> <span class="built_in">varchar</span>(<span class="number">32765</span>) <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">)<span class="keyword">charset</span> gbk;</span></span><br><span class="line"><span class="comment">-- 可以，没有可以为null的字段，那么不需要空间来保存null值</span></span><br><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> test_varchar_maxgbk1(</span><br><span class="line"><span class="string">`tinyint`</span> <span class="built_in">smallint</span>,</span><br><span class="line"><span class="string">`varchar`</span> <span class="built_in">varchar</span>(<span class="number">32765</span>)</span><br><span class="line">)<span class="keyword">charset</span> gbk;</span></span><br><span class="line"><span class="comment">-- 留了一个字节空间用来保存null值</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -217,7 +374,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/PHP/">PHP</a>
+  <span></span> <a href="/tags/PHP/">PHP</a><a href="/tags/mysql/">mysql</a>
   </div>
 
 </div>
@@ -436,7 +593,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/PHP/">PHP</a>
+  <span></span> <a href="/tags/PHP/">PHP</a><a href="/tags/mysql/">mysql</a>
   </div>
 
 </div>
@@ -1174,85 +1331,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/05/09/php-3-system-func/" title="php学习笔记3-系统函数" itemprop="url">php学习笔记3-系统函数</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-09T11:11:20.000Z" itemprop="datePublished"> 发表于 2015-05-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="字符串函数">字符串函数</h2><h3 id="strlen：获取字符串长度。">strlen：获取字符串长度。</h3><p>字符：一个完整的符号，英文字母，中文等。<br>字节：由8位组成<br>一个字符最小占用一个字节：ASCII码，英文字母通常占用一个字符。<br>中文gbk或者gb2312编码里，占用两个字节。<br>中文utf-8最少占用3个字节，有可能是4个。</p>
-<h3 id="substr：截取字符串">substr：截取字符串</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$str</span> = <span class="string">'Hello World'</span>;</span><br><span class="line"><span class="variable">$str1</span> = <span class="string">'中国'</span>;</span><br><span class="line"><span class="regexp">//</span>字符串的起始位置从<span class="number">0</span>开始。第一个字符位置是<span class="number">0</span>.</span><br><span class="line">var_dump(substr(<span class="variable">$str</span>, <span class="number">1</span>,<span class="number">3</span>));   <span class="regexp">//ell</span> </span><br><span class="line">var_dump(substr(<span class="variable">$str1</span>, <span class="number">3</span>));  <span class="regexp">//</span>国</span><br></pre></td></tr></table></figure>
-<h3 id="strtolower：将字符串变成小写">strtolower：将字符串变成小写</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strtolower</span><span class="list">(<span class="string">"HELLO"</span>)</span>)</span><span class="comment">; //hello</span></span><br></pre></td></tr></table></figure>
-<h3 id="strtoupper：将字符串变成大写">strtoupper：将字符串变成大写</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strtoupper</span><span class="list">(<span class="string">"Hello"</span>)</span>)</span><span class="comment">; //HELLO</span></span><br></pre></td></tr></table></figure>
-<h3 id="ucfirst：将字符串首字母大写">ucfirst：将字符串首字母大写</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">ucfirst</span><span class="list">(<span class="string">"hello"</span>)</span>)</span><span class="comment">;  //Hello</span></span><br></pre></td></tr></table></figure>
-<h3 id="strrev：_字符反转">strrev： 字符反转</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strrev</span><span class="list">(<span class="quoted">'hello</span>')</span>)</span> <span class="comment">; //olleh</span></span><br></pre></td></tr></table></figure>
-<h3 id="strpos:_获取字符串中某个字符首次出现的位置">strpos: 获取字符串中某个字符首次出现的位置</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strpos</span><span class="list">(<span class="quoted">'hello</span> world', <span class="quoted">'l</span>')</span>)</span><span class="comment">; //2</span></span><br></pre></td></tr></table></figure>
-<h3 id="strrpos:_获取字符串中某个字符最后一次出现的位置">strrpos: 获取字符串中某个字符最后一次出现的位置</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strrpos</span><span class="list">(<span class="quoted">'hello</span> world', <span class="quoted">'l</span>')</span>)</span><span class="comment">; //9</span></span><br></pre></td></tr></table></figure>
-<h3 id="strchr:_是strstr函数别名，查找某个字符在字符串中首次出现的位置，并返回该到字符串最后的整个字符串。">strchr: 是strstr函数别名，查找某个字符在字符串中首次出现的位置，并返回该到字符串最后的整个字符串。</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strstr</span><span class="list">(<span class="quoted">'hello</span> world', <span class="quoted">'l</span>')</span>)</span><span class="comment">; //llo world</span></span><br></pre></td></tr></table></figure>
-<h3 id="strrchr:_获取字符串中某个字符最后一次出现的位置，并返回该到字符串最后的整个字符串。">strrchr: 获取字符串中某个字符最后一次出现的位置，并返回该到字符串最后的整个字符串。</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var_dump(strrchr(<span class="string">'hello world'</span>, <span class="string">'l'</span>)); <span class="comment">//ld</span></span><br><span class="line"><span class="variable">$str</span> = <span class="string">'http://www.baidu.com/index.php'</span>;</span><br><span class="line"><span class="keyword">echo</span> substr(<span class="variable">$str</span>, strrpos(<span class="variable">$str</span>,<span class="string">'.'</span>));   <span class="comment">//.php</span></span><br><span class="line"><span class="keyword">echo</span> strrchr(<span class="variable">$str</span>, <span class="string">'.'</span>);                <span class="comment">//.php</span></span><br></pre></td></tr></table></figure>
-<h3 id="trim:去除一个字符串两边的（最外边）的空格（或者其他字符）">trim:去除一个字符串两边的（最外边）的空格（或者其他字符）</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">trim</span><span class="list">(<span class="quoted">'hello</span> world',<span class="quoted">'d</span>')</span>)</span><span class="comment">;   //hello worl</span></span><br><span class="line">var_dump<span class="list">(<span class="keyword">trim</span><span class="list">(<span class="quoted">'hello</span> world',<span class="quoted">'h</span>')</span>)</span><span class="comment">;   //ello world</span></span><br></pre></td></tr></table></figure>
-<h2 id="时间函数">时间函数</h2><p>PHP中时间通常用整型存储</p>
-<h3 id="time：得到当前时间的时间戳，整型">time：得到当前时间的时间戳，整型</h3><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">echo <span class="title">time</span><span class="params">()</span></span>; <span class="comment">//1431173888 1970年到当前多少秒</span></span><br></pre></td></tr></table></figure>
-<h3 id="date:_将指定的时间戳，按照指定的字符串格式进行输出，输出的格式化有固定的参数">date: 将指定的时间戳，按照指定的字符串格式进行输出，输出的格式化有固定的参数</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">date</span><span class="list">(<span class="quoted">'Y-m-d</span> H<span class="keyword">:i</span><span class="keyword">:s</span>')</span>)</span><span class="comment">; //"2015-05-09 20:23:46"</span></span><br><span class="line">var_dump<span class="list">(<span class="keyword">date</span><span class="list">(<span class="quoted">'Y</span>年m月d日')</span>)</span><span class="comment">; //"2015年05月09日"</span></span><br></pre></td></tr></table></figure>
-<h3 id="strtotime:_将一个字符串格式时间（美国可以识别的英文字符串）转化成时间戳">strtotime: 将一个字符串格式时间（美国可以识别的英文字符串）转化成时间戳</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strtotime</span><span class="list">('<span class="number">2015</span><span class="number">-05</span><span class="number">-09</span>')</span>)</span><span class="comment">; //int(1431100800)</span></span><br></pre></td></tr></table></figure>
-<h3 id="microtime:_微秒，返回一个微秒字符串，或者返回一个带两个值（秒，微秒）的数组">microtime: 微秒，返回一个微秒字符串，或者返回一个带两个值（秒，微秒）的数组</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">microtime</span><span class="list">()</span>)</span><span class="comment">; //string(21) "0.28718000 1431175080"</span></span><br><span class="line">var_dump<span class="list">(<span class="keyword">microtime</span><span class="list">(<span class="keyword">true</span>)</span>)</span><span class="comment">; //float(1431175080.2872)</span></span><br></pre></td></tr></table></figure>
-<h2 id="数学相关函数">数学相关函数</h2><p>abs：获取数值的绝对值<br>floor：向下取整<br>ceil：向上取整<br>round：四舍五入<br>rand：随机取得指定范围或者0到整数最大值之间的数<br>mt_rand: 随机取得指定范围或者0到整型最大值之间的数，比rand效率高<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">mt_rand</span><span class="list">(<span class="number">0</span>,PHP_INT_MAX)</span>)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/PHP/">PHP</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/PHP/">PHP</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/05/09/php-3-system-func/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/05/09/php-3-system-func/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -1275,7 +1353,7 @@
 		  
 		
 		  
-			<li><a href="/categories/PHP/" title="PHP">PHP<sup>12</sup></a></li>
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>13</sup></a></li>
 		  
 		
 		  
@@ -1300,7 +1378,11 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/PHP/" title="PHP">PHP<sup>12</sup></a></li>
+				<li><a href="/tags/PHP/" title="PHP">PHP<sup>13</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>3</sup></a></li>
 			
 		
 			

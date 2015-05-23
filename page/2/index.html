@@ -81,6 +81,85 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/05/09/php-3-system-func/" title="php学习笔记3-系统函数" itemprop="url">php学习笔记3-系统函数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wzg" target="_blank" itemprop="author">wzg</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-09T11:11:20.000Z" itemprop="datePublished"> 发表于 2015-05-09</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="字符串函数">字符串函数</h2><h3 id="strlen：获取字符串长度。">strlen：获取字符串长度。</h3><p>字符：一个完整的符号，英文字母，中文等。<br>字节：由8位组成<br>一个字符最小占用一个字节：ASCII码，英文字母通常占用一个字符。<br>中文gbk或者gb2312编码里，占用两个字节。<br>中文utf-8最少占用3个字节，有可能是4个。</p>
+<h3 id="substr：截取字符串">substr：截取字符串</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$str</span> = <span class="string">'Hello World'</span>;</span><br><span class="line"><span class="variable">$str1</span> = <span class="string">'中国'</span>;</span><br><span class="line"><span class="regexp">//</span>字符串的起始位置从<span class="number">0</span>开始。第一个字符位置是<span class="number">0</span>.</span><br><span class="line">var_dump(substr(<span class="variable">$str</span>, <span class="number">1</span>,<span class="number">3</span>));   <span class="regexp">//ell</span> </span><br><span class="line">var_dump(substr(<span class="variable">$str1</span>, <span class="number">3</span>));  <span class="regexp">//</span>国</span><br></pre></td></tr></table></figure>
+<h3 id="strtolower：将字符串变成小写">strtolower：将字符串变成小写</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strtolower</span><span class="list">(<span class="string">"HELLO"</span>)</span>)</span><span class="comment">; //hello</span></span><br></pre></td></tr></table></figure>
+<h3 id="strtoupper：将字符串变成大写">strtoupper：将字符串变成大写</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strtoupper</span><span class="list">(<span class="string">"Hello"</span>)</span>)</span><span class="comment">; //HELLO</span></span><br></pre></td></tr></table></figure>
+<h3 id="ucfirst：将字符串首字母大写">ucfirst：将字符串首字母大写</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">ucfirst</span><span class="list">(<span class="string">"hello"</span>)</span>)</span><span class="comment">;  //Hello</span></span><br></pre></td></tr></table></figure>
+<h3 id="strrev：_字符反转">strrev： 字符反转</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strrev</span><span class="list">(<span class="quoted">'hello</span>')</span>)</span> <span class="comment">; //olleh</span></span><br></pre></td></tr></table></figure>
+<h3 id="strpos:_获取字符串中某个字符首次出现的位置">strpos: 获取字符串中某个字符首次出现的位置</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strpos</span><span class="list">(<span class="quoted">'hello</span> world', <span class="quoted">'l</span>')</span>)</span><span class="comment">; //2</span></span><br></pre></td></tr></table></figure>
+<h3 id="strrpos:_获取字符串中某个字符最后一次出现的位置">strrpos: 获取字符串中某个字符最后一次出现的位置</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strrpos</span><span class="list">(<span class="quoted">'hello</span> world', <span class="quoted">'l</span>')</span>)</span><span class="comment">; //9</span></span><br></pre></td></tr></table></figure>
+<h3 id="strchr:_是strstr函数别名，查找某个字符在字符串中首次出现的位置，并返回该到字符串最后的整个字符串。">strchr: 是strstr函数别名，查找某个字符在字符串中首次出现的位置，并返回该到字符串最后的整个字符串。</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strstr</span><span class="list">(<span class="quoted">'hello</span> world', <span class="quoted">'l</span>')</span>)</span><span class="comment">; //llo world</span></span><br></pre></td></tr></table></figure>
+<h3 id="strrchr:_获取字符串中某个字符最后一次出现的位置，并返回该到字符串最后的整个字符串。">strrchr: 获取字符串中某个字符最后一次出现的位置，并返回该到字符串最后的整个字符串。</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var_dump(strrchr(<span class="string">'hello world'</span>, <span class="string">'l'</span>)); <span class="comment">//ld</span></span><br><span class="line"><span class="variable">$str</span> = <span class="string">'http://www.baidu.com/index.php'</span>;</span><br><span class="line"><span class="keyword">echo</span> substr(<span class="variable">$str</span>, strrpos(<span class="variable">$str</span>,<span class="string">'.'</span>));   <span class="comment">//.php</span></span><br><span class="line"><span class="keyword">echo</span> strrchr(<span class="variable">$str</span>, <span class="string">'.'</span>);                <span class="comment">//.php</span></span><br></pre></td></tr></table></figure>
+<h3 id="trim:去除一个字符串两边的（最外边）的空格（或者其他字符）">trim:去除一个字符串两边的（最外边）的空格（或者其他字符）</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">trim</span><span class="list">(<span class="quoted">'hello</span> world',<span class="quoted">'d</span>')</span>)</span><span class="comment">;   //hello worl</span></span><br><span class="line">var_dump<span class="list">(<span class="keyword">trim</span><span class="list">(<span class="quoted">'hello</span> world',<span class="quoted">'h</span>')</span>)</span><span class="comment">;   //ello world</span></span><br></pre></td></tr></table></figure>
+<h2 id="时间函数">时间函数</h2><p>PHP中时间通常用整型存储</p>
+<h3 id="time：得到当前时间的时间戳，整型">time：得到当前时间的时间戳，整型</h3><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">echo <span class="title">time</span><span class="params">()</span></span>; <span class="comment">//1431173888 1970年到当前多少秒</span></span><br></pre></td></tr></table></figure>
+<h3 id="date:_将指定的时间戳，按照指定的字符串格式进行输出，输出的格式化有固定的参数">date: 将指定的时间戳，按照指定的字符串格式进行输出，输出的格式化有固定的参数</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">date</span><span class="list">(<span class="quoted">'Y-m-d</span> H<span class="keyword">:i</span><span class="keyword">:s</span>')</span>)</span><span class="comment">; //"2015-05-09 20:23:46"</span></span><br><span class="line">var_dump<span class="list">(<span class="keyword">date</span><span class="list">(<span class="quoted">'Y</span>年m月d日')</span>)</span><span class="comment">; //"2015年05月09日"</span></span><br></pre></td></tr></table></figure>
+<h3 id="strtotime:_将一个字符串格式时间（美国可以识别的英文字符串）转化成时间戳">strtotime: 将一个字符串格式时间（美国可以识别的英文字符串）转化成时间戳</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">strtotime</span><span class="list">('<span class="number">2015</span><span class="number">-05</span><span class="number">-09</span>')</span>)</span><span class="comment">; //int(1431100800)</span></span><br></pre></td></tr></table></figure>
+<h3 id="microtime:_微秒，返回一个微秒字符串，或者返回一个带两个值（秒，微秒）的数组">microtime: 微秒，返回一个微秒字符串，或者返回一个带两个值（秒，微秒）的数组</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">microtime</span><span class="list">()</span>)</span><span class="comment">; //string(21) "0.28718000 1431175080"</span></span><br><span class="line">var_dump<span class="list">(<span class="keyword">microtime</span><span class="list">(<span class="keyword">true</span>)</span>)</span><span class="comment">; //float(1431175080.2872)</span></span><br></pre></td></tr></table></figure>
+<h2 id="数学相关函数">数学相关函数</h2><p>abs：获取数值的绝对值<br>floor：向下取整<br>ceil：向上取整<br>round：四舍五入<br>rand：随机取得指定范围或者0到整数最大值之间的数<br>mt_rand: 随机取得指定范围或者0到整型最大值之间的数，比rand效率高<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump<span class="list">(<span class="keyword">mt_rand</span><span class="list">(<span class="number">0</span>,PHP_INT_MAX)</span>)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/PHP/">PHP</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/05/09/php-3-system-func/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/05/09/php-3-system-func/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/05/07/php-2-basic-knowledge/" title="php学习笔记2-基础知识:标签、注释、变量、数据类型、预定义常量" itemprop="url">php学习笔记2-基础知识:标签、注释、变量、数据类型、预定义常量</a>
   </h1>
   <p class="article-author">By
@@ -654,7 +733,7 @@
 		  
 		
 		  
-			<li><a href="/categories/PHP/" title="PHP">PHP<sup>12</sup></a></li>
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>13</sup></a></li>
 		  
 		
 		  
@@ -679,7 +758,11 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/PHP/" title="PHP">PHP<sup>12</sup></a></li>
+				<li><a href="/tags/PHP/" title="PHP">PHP<sup>13</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>3</sup></a></li>
 			
 		
 			
