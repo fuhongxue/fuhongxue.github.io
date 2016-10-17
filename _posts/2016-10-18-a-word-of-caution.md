@@ -7,6 +7,8 @@ categories: 一日一句
 tags:  文字
 ---
 
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="http://music.163.com/outchain/player?type=2&id=1877038&auto=1&height=66"></iframe>
+
 # 最美版本
 > 不冗长，不拖泥带水，简练的把该说的都说了，最后一句点睛之笔。
 
