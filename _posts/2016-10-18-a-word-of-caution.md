@@ -7,6 +7,8 @@ categories: 一日一句
 tags:  文字
 ---
 
+![李绮红版郭襄](/assets/guoxiang2.jpg)
+
 # 属于郭襄的音乐
 The Floating Bridge of Heaven - ron korb
 
@@ -65,8 +67,9 @@ The Floating Bridge of Heaven - ron korb
 ```
 
 # 幕后图片
-![李绮红版郭襄](/assets/guoxiang1.jpg) ![李绮红版郭襄](/assets/guoxiang2.jpg)
-![李绮红版郭襄](/assets/guoxiang3.jpg) ![李绮红版郭襄](/assets/guoxiang4.jpg)
+![李绮红版郭襄](/assets/guoxiang1.jpg) 
+![李绮红版郭襄](/assets/guoxiang3.jpg) 
+![李绮红版郭襄](/assets/guoxiang4.jpg)
 
 
 
