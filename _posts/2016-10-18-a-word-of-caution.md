@@ -16,18 +16,17 @@ The Floating Bridge of Heaven - ron korb
 
 # 最美版本
 > 不冗长，不拖泥带水，简练的把该说的都说了，最后一句点睛之笔。
-
-```
+>>
 我走过山时，山不说话，  
 我路过海时，海不说话，  
 小毛驴滴滴答答，倚天剑伴我走天涯。  
 大家都说我因为爱着杨过大侠，才在峨眉山上出了家，  
 其实我只是爱上了峨眉山上的云和霞，  
 像极了十六岁那年的烟花。  
-```
+
 # 完整版本
 
-```
+>>
 我走过山的时候山不说话，我路过海的时候海不说话；
 我坐着的毛驴一步一步滴滴答答，我带着的倚天喑哑。
 大家说我因为爱着杨过大侠，找不到所以在峨嵋安家；
@@ -64,13 +63,17 @@ The Floating Bridge of Heaven - ron korb
 不是为杨过才在峨眉住下，我喜欢峨眉的雾像那年的烟花；
 我身上佩的倚天宝剑暗哑，昆仑何足道心头定未将我丢下；
 自少林飘然远去不再回头，他潇洒的身影为何却泪如雨下？
-```
+
 
 # 幕后图片
-![李绮红版郭襄](/assets/guoxiang1.jpg) 
+<img src="/assets/guoxiang1.jpg" width=300 />
+<img src="/assets/guoxiang3.jpg" width=300 />
+<img src="/assets/guoxiang4.jpg" width=300 />
+
+<!-- ![李绮红版郭襄](/assets/guoxiang1.jpg) 
 ![李绮红版郭襄](/assets/guoxiang3.jpg) 
 ![李绮红版郭襄](/assets/guoxiang4.jpg)
-
+ -->
 
 
 
