@@ -12,7 +12,7 @@ tags:  文字
 # 属于郭襄的音乐
 The Floating Bridge of Heaven - ron korb
 
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 allowtransparency="yes" src="/assets/Ron Korb - The Floating Bridge of Heaven.mp3"></iframe>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=40 allowtransparency="yes" src="/assets/Ron Korb - The Floating Bridge of Heaven.mp3"></iframe>
 
 
 # 最美版本
