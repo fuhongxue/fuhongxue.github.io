@@ -1,3 +1,4 @@
+markdown: rdiscount
 permalink: /:title/
 url: http://fuhongxue.github.io/
 name: 一根烧火棍
@@ -13,5 +14,3 @@ pygments: false
 safe: true
 paginate: 20
 about: "这里是一根烧火棍的博客，平时会在这分享自己的一些技术心得。欢迎观赏、建议、拍砖……"
-kramdown:
-  input: GFM
