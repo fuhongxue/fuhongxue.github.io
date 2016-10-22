@@ -10,7 +10,7 @@ beian: 浙ICP备12026616号
 cnzz: 119959
 weibo: 5115238991
 github: fuhongxue
-pygments: false
+pygments: true
 safe: true
 paginate: 20
 about: "这里是一根烧火棍的博客，平时会在这分享自己的一些技术心得。欢迎观赏、建议、拍砖……"
