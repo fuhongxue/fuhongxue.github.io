@@ -7,6 +7,9 @@ categories: 一日一句
 tags:  金庸
 ---
 
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 allowtransparency="yes" src="/assets/周华健 - 难念的经.mp3"></iframe>
+
+
 # 第一部《少年游》－主角段誉
 青衫磊落险峰行，玉壁月华明。马疾香幽，崖高人远，微步毂纹生。   
 谁家子弟谁家院，无计悔多情。虎啸龙吟，换巢鸾凤，剑气碧烟横。   
