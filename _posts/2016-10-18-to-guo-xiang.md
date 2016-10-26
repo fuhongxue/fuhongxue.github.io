@@ -4,7 +4,7 @@ layout: post
 title: 致郭襄
 thread: 164
 categories: 一日一句
-tags:  文字
+tags:  金庸
 ---
 
 ![李绮红版郭襄](/assets/guoxiang2.jpg)

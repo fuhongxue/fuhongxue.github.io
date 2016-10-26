@@ -4,7 +4,7 @@ layout: post
 title: 网络段子合集
 thread: 164
 categories: 一日一句
-tags:  文字
+tags:  网络段子
 ---
 
 # 我的孩子成为富二代
